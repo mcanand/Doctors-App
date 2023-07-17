@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Doctor_website',
+    'version': '16.0.0.1',
+    'author': 'ANAND MC',
+    'summary': 'Doctor Website',
+    'depends': ['doctors_app', 'portal', 'base', 'web', ],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/profile.xml',
+        'views/department_mobile.xml',
+        'views/all_doctors_mobile.xml',
+        'views/doctor_details_mobile.xml',
+        'views/department_doctor_mobile.xml',
+        'views/doctor_available_slots.xml',
+        'views/success_page.xml',
+        'views/error_page.xml',
+        'views/patient_view_prescrptions.xml',
+        'views/patient_prescription.xml',
+        'views/patient_view_appoinments.xml',
+
+        'views/website_login.xml',
+        # 'views/doctor_profile.xml',
+        'views/doctor_booking_details.xml',
+        # 'views/doctor_all_booking_details.xml',
+        # 'views/doctor_profile_edit.xml',
+        'views/signup_view.xml',
+        'views/doctor_enter_details.xml',
+        # 'views/doctor_add_prescription.xml',
+        # 'views/doctor_view_allprescriptions.xml',
+        # 'views/doctor_next_booking_date.xml',
+        # 'views/view_prescription_doctor.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'assets': {
+        'web.assets_frontend': [
+            # '/doctor_website/static/src/js/files_uploads.js',
+            # '/doctor_website/static/src/js/calender.js',
+        ],
+    },
+    'license': 'LGPL-3',
+}

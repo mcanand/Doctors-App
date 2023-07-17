@@ -1,0 +1,82 @@
+<odoo>
+    <template id="view_prescription" name="Prescription">
+        <t t-call="portal.frontend_layout">
+            <div class="container pt-5 pb-5">
+                <form action="/lab/attachment/save" method="POST">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <style>
+                        /* CSS for hiding the default file input */
+                        input[type="file"] {
+                        position: absolute;
+                        left: -9999px;
+                        }
+
+                        /* CSS for styling the attachment label and icon */
+                        .attachment-label {
+                        display: inline-block;
+                        padding-right: 10px;
+                        color: #30abd5;
+                        cursor: pointer;
+                        }
+
+                        .attachment-label i {
+                        margin-right: 5px;
+                        }
+
+                        .selected-file {
+                        margin-top: 5px;
+                        color: #777;
+                        }
+                    </style>
+                    <div class="col-md-9">
+                        <section class="content">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="card-title" style="color:#30abd5">Prescription</h5>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="lab_attachment" class="attachment-label">
+                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                    Lab Details
+                                                </label>
+                                                <input type="file" class="form-control-file" id="lab_attachment"
+                                                       name="lab_attachment"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Rest of the card body -->
+                                <input type="text" name="prescription_id" t-att-value="prescription.id" />
+
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-14 order-2 order-md-1">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="6" placeholder="Enter ..."
+                                                                  id="case" name="case" readonly="true">
+                                                            <t t-esc="prescription.prescription"/>
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" style="color:#30abd5">Save Attachment</button>
+                            </div>
+                        </section>
+
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="view_available_dates" model="ir.ui.view">
+            <field name="name">available.dates</field>
+            <field name="model">doctor.time.slots</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_available_dates" model="ir.actions.act_window">
+            <field name="name">Available Dates</field>
+            <field name="res_model">doctor.time.slots</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_available_dates"/>
+        </record>
+
+    </data>
+</odoo>

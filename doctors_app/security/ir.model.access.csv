@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_doctor_time_slots,doctor.time.slots,model_doctor_time_slots,,1,1,1,1
+access_doctor_patient_prescription,doctor.patient.prescription,model_doctor_patient_prescription,,1,1,1,1
+access_doctor_rating,doctor.rating,model_doctor_rating,,1,1,1,1
+access_lab_attachment,lab_attachment,model_lab_attachment,,1,1,1,1
+access_doctor_details,doctor.details,model_doctor_details,,1,1,1,1
+access_doctor_certificate,doctor.certificate,model_doctor_certificate,,1,1,1,1
+
+
+
+
+

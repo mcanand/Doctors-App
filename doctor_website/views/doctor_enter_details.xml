@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="doctor_enter_details" name="Signup Page" >
+        <t t-call="web.basic_layout">
+              <div class="page">
+
+            <div class="container">
+
+                <style>
+                    <!--                    .container {-->
+                    <!--                    max-width: 500px;-->
+                    <!--                    margin: 0 auto;-->
+                    <!--                    padding: 20px;-->
+                    <!--                    }-->
+
+                    h1 {
+                    text-align: center;
+                    color:#007bff;
+                    }
+
+                    label {
+                    display: block;
+                    font-weight: bold;
+                    font-size: 40px;
+                    width: 100%;
+                    height: 30px;
+                    font-weight:bold
+                    }
+
+                    input[type="text"],
+                    input[type="email"],
+                    input[type="number"],
+                    input[type="time"],
+                    select,
+                    textarea {
+                    width: 100%;
+                    height: 40px;
+                    font-size: 15px;
+                    padding: 10px;
+                    border: 1px solid #007bff;
+                    border-radius: 4px;
+                    box-sizing: border-box;
+                    }
+
+                    .field {
+                    margin-bottom: 20px;
+                    color: #30abd5;
+                    }
+
+                    .field label {
+                    font-size: 18px;
+                    }
+
+                    /* CSS for booking button */
+                    .btn-whimsical {
+                    display: inline-block;
+                    padding: 5px 10px;
+                    font-size: 20px;
+                    border: none;
+                    border-radius: 60px;
+                    background-color: #30abd5;
+                    color: #ffffff;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+                    transition: transform 0.3s, box-shadow 0.3s;
+                    width: 130px;
+                    }
+
+                    .btn-whimsical:hover {
+                    transform: rotate(-5deg) scale(1.1);
+                    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+                    }
+
+                    .btn-whimsical:active {
+                    transform: rotate(0) scale(1);
+                    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+                    }
+
+                    input[type="file"] {
+                    width: 100%;
+                    font-size: 40px;
+                    padding: 10px;
+                    border: 1px solid #007bff;
+                    border-radius: 4px;
+                    margin-left: 10px;
+                    }
+
+                    .center-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    }
+                    .wide-textarea {
+                    width: 285px;
+                    }
+
+
+
+                    body {
+                    font-family: 'Bebas Neue', cursive;
+                    width: 100vw;
+                    height: 100vh;
+                    }
+                    .et_pb_contact_form_label {
+                    display: block;
+                    color: black;
+                    font-weight: bold;
+                    letter-spacing: 1.2px;
+                    font-size: 18px;
+                    padding-bottom: 5px;
+                    }
+                    input[id="et_pb_contact_brand_file_request_0"] {
+                    display: none;
+                    }
+                    label[for="et_pb_contact_brand_file_request_0"] {
+                    background: #fff;
+                    height: 100px;
+                    background-repeat: no-repeat;
+                    background-position: top 18px center;
+                    background-size: 7%;
+                    color: transparent;
+                    margin: auto;
+                    width: 280px;
+                    top: 50%;
+                    left: 0;
+                    right: 0;
+                    transform: translateY(-50%);
+                    border: 1px solid #007bff;
+                    box-sizing: border-box;
+                    }
+                    label[for="et_pb_contact_brand_file_request_0"]:before {
+                    content: "Drag and Drop a file here";
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    <!--                    font-size: 14px;-->
+                    color: #007bff;
+                    font-weight: 400;
+                    left:0;
+                    right:0;
+                    margin-left: auto;
+                    margin-right: auto;
+                    text-align: center;
+                    }
+                    label[for="et_pb_contact_brand_file_request_0"]:after {
+                    display: block;
+                    content: 'Browse';
+                    background: #007bff;
+                    width: 86px;
+                    height: 23px;
+                    line-height: 27px;
+                    position: absolute;
+                    bottom: 19px;
+                    font-size: 14px;
+                    color: white;
+                    font-weight: 500;
+                    left:0;
+                    right:0;
+                    margin-left: auto;
+                    margin-right: auto;
+                    text-align: center;
+                    }
+                    label[for="et_pb_contact_brand_request_0"]:after {
+                    content: " (Provide link or Upload files if you already have guidelines)";
+                    font-size: 12px;
+                    letter-spacing: -0.31px;
+                    color: #007bff;
+                    font-weight: normal;
+                    }
+                    label[for="et_pb_contact_design_request_0"]:after {
+                    content: " (Provide link or Upload design files)";
+                    font-size: 12px;
+                    letter-spacing: -0.31px;
+                    color: #007bff;
+                    font-weight: normal;
+                    }
+                    label[for="et_pb_contact_brand_file_request_0"].changed,
+                    label[for="et_pb_contact_brand_file_request_0"]:hover {
+                    background-color: #e3f2fd;
+                    }
+                    label[for="et_pb_contact_brand_file_request_0"] {
+                    cursor: pointer;
+                    transition: 400ms ease;
+                    }
+                    .file_names {
+                    display: block;
+                    position: absolute;
+                    color: black;
+                    left: 0;
+                    bottom: -30px;
+                    font-size: 13px;
+                    font-weight: 300;
+                    }
+                    .file_names {
+                    text-align: center;
+                    }
+
+
+                    body {
+                    background-color: #efefef;
+                    }
+
+
+                    .profile_pic {
+                    width: 200px;
+                    max-height: 200px;
+                    display: inline-block;
+                    }
+
+                    .file-upload {
+                    display: none;
+                    }
+
+                    .circle {
+                    border-radius: 150% !important;
+                    overflow: hidden;
+                    width: 150px;
+                    height: 150px;
+                    border: 2px solid rgba(255, 255, 255, 0.2);
+                    position: absolute;
+                    top: 72px;
+                    position: relative;
+
+                    }
+
+                    img {
+                    max-width: 100%;
+                    height: auto;
+                    }
+
+                    .p-image {
+                    position: absolute;
+                    top: 167px;
+                    left: 90px;
+                    color: #666666;
+                    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+                    }
+
+                    .p-image:hover {
+                    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+                    }
+
+                    .upload-button {
+                    font-size: 1.2em;
+                    }
+
+                    .upload-button:hover {
+                    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+                    color: #999;
+                    }
+
+                </style>
+
+                <form action="/doctor/details/save" method="POST">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="container">
+                        <h1 style="font-size:35px;">Doctor Details</h1>
+
+                        <div class="field" style="margin-bottom: 30px;">
+                            <div class="small-12 medium-2 large-2 columns" style="margin-bottom: 90px;">
+                                <div class="circle">
+                                    <img class="profile_pic"
+                                         src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"/>
+                                </div>
+                                <div class="p-image">
+                                    <i class="fa fa-camera upload-button"></i>
+                                    <input class="file-upload" name="image" type="file" accept="image/*"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="field">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required="True"/>
+                        </div>
+                        <div class="field">
+                            <label for="gender">Gender:</label>
+                            <select class="o_input o_field_widget" name="gender" required="True">
+                                <option value="male" style="font-size: 12px;">Male</option>
+                                <option value="female" style="font-size: 12px;">Female</option>
+                                <option value="other" style="font-size: 12px;">Other</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="mobile">Mobile:</label>
+                            <input type="number" id="mobile" name="mobile" placeholder="Enter your mobile number"
+                                   required="True"/>
+                        </div>
+                        <div class="field">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required="True"/>
+                        </div>
+                        <div class="field">
+                            <label for="department">Department:</label>
+                            <select class="o_input o_field_widget" name="department_id">
+                                <option t-foreach="departments" t-as="department" t-att-value="department.id"
+                                        required="True" style="font-size: 12px;">
+                                    <t t-esc="department.name"/>
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="work_address">Work Address:</label>
+                            <textarea id="work_address" name="work_address" placeholder="Enter your work address"
+                                      class="wide-textarea" required="True" cols="10"></textarea>
+                        </div>
+                        <div class="field">
+                            <label for="experience">Experience In Years:</label>
+                            <input type="number" id="experience" name="experience" placeholder="Enter your experience"
+                                   required="True"/>
+                        </div>
+
+                        <div class="field">
+                            <label for="state">State:</label>
+                            <select class="o_input o_field_widget" name="state_id">
+                                <option t-foreach="states" t-as="state" t-att-value="state.id" required="True"
+                                        style="font-size: 12px;">
+                                    <t t-esc="state.name"/>
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="emergency_contact_phone">Emergency Contact Phone:</label>
+                            <input type="number" name="contact" placeholder="Enter your contact" required="True"/>
+                        </div>
+                        <div class="field">
+                            <label for="about">About:</label>
+                            <textarea name="about" placeholder="Enter about yourself"></textarea>
+                        </div>
+                        <div class="field">
+                            <label for="address">Private Address:</label>
+                            <input type="text" name="address" placeholder="Enter your address" class="wide-textarea"
+                                   required="True"/>
+                        </div>
+                        <div class="field">
+                            <label for="time_from">Time From:</label>
+                            <input type="time" name="time_from" placeholder="Enter time"
+                                   required="True"/>
+                        </div>
+                        <div class="field">
+                            <label for="time_to">Time To:</label>
+                            <input type="time" name="time_to" placeholder="Enter time"
+                                   required="True"/>
+                        </div>
+
+
+                        <div class="field select_details" style="margin-top: 80px;">
+                            <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label">
+                                Certificates
+                            </label>
+                            <input type="file" id="et_pb_contact_brand_file_request_0"
+                                   name="et_pb_contact_brand_file_request_0" class="file-upload" multiple="multiple"/>
+                        </div>
+
+
+                        <div class="center-container">
+                            <button class="btn-whimsical" type="submit">Submit</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+              </div>
+        </t>
+
+    </template>
+</odoo>

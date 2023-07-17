@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_doctor_details" name="Doctor Details" sequence="10"/>
+
+        <!-- Action -->
+        <record id="action_doctor_details" model="ir.actions.act_window">
+            <field name="name">Doctor Details</field>
+            <field name="res_model">doctor.details</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu for Doctor Details -->
+        <menuitem id="menu_doctor_details_list" name="Doctor List" parent="hr.menu_hr_root" sequence="1"
+                  action="action_doctor_details"/>
+
+
+        <record id="view_doctor_details_search" model="ir.ui.view">
+            <field name="name">doctor.details.search</field>
+            <field name="model">doctor.details</field>
+            <field name="arch" type="xml">
+                <search>
+                    <group expand="0" string="Filters">
+                        <filter string="Pending" name="filter_pending" domain="[('status', '=', '2')]"/>
+                        <filter string="Approved" name="filter_approved" domain="[('status', '=', '1')]"/>
+                        <filter string="Rejected" name="filter_rejected" domain="[('status', '=', '3')]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <!-- Tree View -->
+        <record id="view_doctor_details_tree" model="ir.ui.view">
+            <field name="name">doctor.details.tree</field>
+            <field name="model">doctor.details</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="email"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+
+        </record>
+
+
+        <!-- Form View -->
+        <record id="view_doctor_details_form" model="ir.ui.view">
+            <field name="name">doctor.details.form</field>
+            <field name="model">doctor.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="action_approve" string="Approve" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('status', 'in', ['1'])]}"/>
+                        <button name="action_rejected" string="Rejection" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('status', 'in', ['1', '3'])]}"/>
+                        <field name="status" position="attributes" invisible="1">
+                            <attribute name="attrs">{'invisible': [('status', 'in', ['1', '3'])]}</attribute>
+                        </field>
+                        <field name="stage" widget="statusbar" class="o_kanban_right" style="float: right;"
+                               clickable="False"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="profile_pic" widget="image" class="oe_avatar" options="{'zoom': true}"
+                                       style="max-height: 200px;"/>
+                                <field name="name"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                                <field name="department_id"/>
+                                <field name="experience"/>
+
+
+                            </group>
+                            <group>
+                                <field name="state_id"/>
+                                <field name="work_address"/>
+                                <field name="about"/>
+                                <field name="private_contact_address"/>
+                                 <field name="time_from"/>
+                                 <field name="time_to"/>
+                                <field name="certificates" widget="many2many_binary" filename_field="mimetype"/>
+                            </group>
+                        </group>
+                        <!-- Add other fields here -->
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

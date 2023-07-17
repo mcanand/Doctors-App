@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <!-- View for doctor.rating -->
+        <record id="view_doctor_rating_form" model="ir.ui.view">
+            <field name="name">doctor.rating.form</field>
+            <field name="model">doctor.rating</field>
+            <field name="arch" type="xml">
+                <form string="Doctor Rating">
+                    <sheet>
+                        <group>
+                            <field name="doctor_id" attrs="{'invisible': True}"/>
+                            <field name="patient_id" attrs="{'invisible': True}"/>
+                            <field name="rating" widget="rating_widget"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_doctor_rating" model="ir.actions.act_window">
+            <field name="name">Doctor Rating</field>
+            <field name="res_model">doctor.rating</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

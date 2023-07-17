@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="date"/>
+                    <field name="time_from"/>
+                    <field name="time_to"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='hr_settings']" position="after">
+                    <page string="Slots">
+                        <field name="slots_ids" nolabel="1">
+                            <tree string="Doctor Time Slots" editable="top">
+                                <field name="display_time_interval" readonly="1"/>
+                                <field name="date" readonly="1"/>
+                                <field name="booking_button" widget="boolean_button"/>
+                                <field name="partner_id"/>
+                                <field name="meeting_link" attrs="{'invisible': [('booking_button', '=', False)]}"/>
+                                <button name="view_prescription" string="prescription" type="object"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="open_booked_slots_doctor" string="Today's Booked Slots" type="object"
+                            class="oe_highlight"/>
+                </xpath>
+                      <xpath expr="//notebook/page[@name='public']/div[@id='o_work_employee_container']/div[@id='o_work_employee_main']" position="inside">
+                    <group string="About">
+                        <field name="about"/>
+                            <field name="work_experience" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_open_booked_slots_doctor" model="ir.actions.server">
+            <field name="name">Open Booked Slots Doctor</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">self.open_booked_slots_doctor()</field>
+        </record>
+    </data>
+</odoo>

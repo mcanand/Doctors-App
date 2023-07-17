@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="view_prescription_forms" model="ir.ui.view">
+            <field name="name">patient.prescriptions</field>
+            <field name="model">doctor.patient.prescription</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="doctor_id"/>
+                                <field name="partner_id"/>
+                                 <field name="date"/>
+                                <field name="case_details"/>
+                            </group>
+                            <group>
+                                <field name="prescription"/>
+                                <field name="lab_attachment" widget="many2many_binary"/>
+                                <field name="next_visit"/>
+                                 <button name="view_available_dates" string="Available Date" type="object"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

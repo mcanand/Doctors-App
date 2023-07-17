@@ -1,0 +1,206 @@
+<odoo>
+    <template id="view_department_doctor_list">
+        <t t-call="portal.frontend_layout">
+            <div class="container pt-5 pb-5">
+                <style>
+                    /* CSS for search */
+                    .input-box {
+                    position: relative;
+                    height: 36px;
+                    max-width: 600px;
+                    width: 90%;
+                    margin: 0 auto;
+                    border-radius: 18px;
+                    overflow: hidden;
+                    border: 2px solid #30abd5;
+                    }
+
+                    .input-box input {
+                    height: 100%;
+                    width: calc(100% - 40px);
+                    padding-left: 60px;
+                    border: none;
+                    border-radius: 18px;
+                    outline: none;
+                    }
+
+                    .input-box .search-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 6px;
+                    transform: translateY(-50%);
+                    color: #30abd5;
+                    }
+
+                    .input-box .search-icon i {
+                    font-size: 14px;
+                    }
+
+                    /* Media query for mobile devices */
+                    @media only screen and (max-width: 480px) {
+                    .input-box {
+                    width: 140%;
+                    }
+                    }
+
+                    /* CSS for department */
+                    .circle-icon-wrapper {
+                    margin-bottom: 10px;
+                    text-align: center;
+                    }
+
+                    .circle-icon {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    background-color: lightblue;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    }
+
+                    .circle-icon i {
+                    font-size: 40px;
+                    color: #333;
+                    }
+
+                    /* CSS for doctor details */
+
+                    @media only screen and (max-width: 480px) {
+                    .doctor-details {
+                    display: flex;
+                    align-items: flex-start;
+                    }
+
+                    .circle-icon {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    background-color: lightblue;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    margin-right: 10px; /* Add margin to separate image from text */
+                    }
+
+                    .circle-icon i {
+                    font-size: 40px;
+                    color: #333;
+                    }
+
+                    .doctor-info {
+                    flex-grow: 1; /* Allow the info div to grow and fill the remaining space */
+                    }
+
+                    .doc-name {
+                    margin-bottom: 5px; /* Add margin below the name */
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    }
+
+                    .doc-department {
+                    margin-bottom: 5px; /* Add margin below the department */
+                    }
+                    }
+
+
+                    /* CSS for booking button */
+                    .btn-whimsical {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    font-size: 13px;
+                    border: none;
+                    border-radius: 80px;
+                    background-color: #30abd5;
+                    color: #ffffff;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+                    transition: transform 0.3s, box-shadow 0.3s;
+                    width: 100px;
+                    }
+
+                    .btn-whimsical:hover {
+                    transform: rotate(-5deg) scale(1.1);
+                    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+                    }
+
+                    .btn-whimsical:active {
+                    transform: rotate(0) scale(1);
+                    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+                    }
+                </style>
+
+                <div class="row">
+                    <div class="col-md-6 d-flex align-items-center">
+                        <form t-att-action="'/my/dashboard/%s' %department_id" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="input-box">
+                                <span class="search-icon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" placeholder="Search Doctor Here..."/>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6 d-md-none">
+                        <div class="text">
+                            <span class="h4"><br/>Find,
+                                <br/>the Perfect Doctor
+                                <br/>for Your Needs...
+                            </span>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+
+                   <h6 class="mb-0">All Doctors</h6>
+                <div class="row mt-3">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="overflow-auto" style="max-height: 70vh;">
+                            <t t-if="doctors">
+
+                                <div class="row">
+                                    <t t-foreach="doctors" t-as="doct">
+                                        <div class="col-md-4 mb-3">
+                                            <div class="circle-icon-wrapper">
+
+                                                <div class="doctor-details">
+                                                    <div class="circle-icon">
+                                                        <img class="img-fluid" t-if="doct.image_1920"
+                                                             t-att-src="'data:image/png;base64,' + doct.image_1920.decode()"
+                                                             alt="Doctor Image"/>
+                                                        <i t-if="not doct.image_1920" class="fa fa-user"></i>
+                                                    </div>
+                                                    <div class="doctor-info">
+                                                        <p class="doc-name">
+                                                            <t t-esc="doct.name"/>
+                                                        </p>
+                                                        <p class="doc-department">
+                                                            <t t-esc="doct.department_id.name"/>
+                                                        </p>
+                                                        <a t-attf-class="btn-whimsical"
+                                                           t-att-href="'/doctor/details/%s' %doct.id">Book Now
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                            <t t-if="not doctors">
+                                <p>No doctors found.</p>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

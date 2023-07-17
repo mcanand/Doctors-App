@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']/button[1]" position="after">
+                    <button name="open_booked_slots" string="Booked Slots" type="object" class="oe_highlight"/>
+                </xpath>
+                 <xpath expr="//div[@name='button_box']/button[1]" position="after">
+                    <button name="view_prescription_details" string="Prescription Details" type="object" class="oe_highlight"/>
+                </xpath>
+                 <xpath expr="//field[@name='mobile'] " position="after">
+                     <group>
+
+                               <field name="categry_id"/>
+                           <field name="date_of_birth"/>
+
+                     </group>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="action_open_booked_slots" model="ir.actions.server">
+            <field name="name">Open Booked Slots</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">self.open_booked_slots()</field>
+        </record>
+    </data>
+</odoo>
+

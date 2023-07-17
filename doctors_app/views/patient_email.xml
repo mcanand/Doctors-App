@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="email_template_id_patient" model="mail.template">
+            <field name="name">Booking Reminder - Patient</field>
+            <field name="model_id" ref="doctors_app.model_res_partner"/>
+            <field name="subject">Booking Reminder: Upcoming Appointment</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif;">
+                    <p>Dear <t t-esc="object.name"/>,</p>
+                    <p>This is a reminder for your upcoming appointment:</p>
+                    <ul>
+                        <li>
+                            <b>Slot ID:</b> <t t-esc="object.id"/><br/>
+                            <b>Doctor:</b> <t t-esc="object.name"/><br/>
+                            <ul>
+                                <li t-foreach="object.doctor_time_slot_ids" t-as="time_slot">
+                                     <b>Date:</b> <t t-esc="time_slot.date"/><br/>
+                                    From <t t-esc="time_slot.display_time_interval"/>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Thank you!</p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

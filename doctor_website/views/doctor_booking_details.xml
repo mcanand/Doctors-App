@@ -1,0 +1,87 @@
+<odoo>
+    <template id="todays_booking_details">
+        <t t-call="portal.frontend_layout">
+            <div class="container pt-5 pb-5">
+                <style>
+                    /* CSS for booking button */
+                    .btn-whimsical {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    font-size: 13px;
+                    border: none;
+                    border-radius: 100px;
+                    background-color: #30abd5;
+                    color: #ffffff;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+                    transition: transform 0.3s, box-shadow 0.3s;
+                    width: 80px;
+                    text-align: center;
+                    }
+
+                    .btn-whimsical:hover {
+                    transform: rotate(-5deg) scale(1.1);
+                    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+                    }
+
+                    .btn-whimsical:active {
+                    transform: rotate(0) scale(1);
+                    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="mb-0">Today's Booking Details</h6>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+
+                                    <th>Time Slot</th>
+                                    <th>Prescription</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="bookings" t-as="booking">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="booking.get('patient_name')"/>
+                                        </td>
+
+                                        <td>
+                                            <t t-esc="booking.get('appoinment_time')"/>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <a t-attf-class="btn-whimsical"
+                                                   t-att-href="'add/prescription/%s' % int(booking.get('patient_id'))">
+                                                    Add
+                                                </a>
+                                            </div>
+                                            <div class="mt-2">
+                                                <a t-attf-class="btn-whimsical"
+                                                   t-att-href="'edit/prescription/%s' % int(booking.get('patient_id'))">
+                                                    View
+                                                </a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                                <t t-if="not bookings">
+                                    <tr>
+                                        <td colspan="4">No bookings found for today.</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+

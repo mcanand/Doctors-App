@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record id="view_prescription_form" model="ir.ui.view">
+            <field name="name">prescription.form</field>
+            <field name="model">doctor.patient.prescription</field>
+            <field name="arch" type="xml">
+                <form string="Prescription">
+                    <group>
+                    <group>
+                        <field name="doctor_id"/>
+                        <field name="date"/>
+                        <field name="case_details"/>
+                    </group>
+                    <group>
+                        <field name="prescription"/>
+                        <field name="next_visit"/>
+                    </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_prescription_tree" model="ir.ui.view">
+            <field name="name">prescription.tree</field>
+            <field name="model">doctor.patient.prescription</field>
+            <field name="arch" type="xml">
+                <tree string="Prescription">
+                    <field name="doctor_id"/>
+                    <field name="date"/>
+                    <field name="case_details"/>
+                    <field name="prescription"/>
+                    <field name="next_visit"/>
+                    <button name="rate_doctor" string="Rating" type="object"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_doctor_patient_prescription" model="ir.actions.act_window">
+            <field name="name">Doctor Patient Prescription</field>
+            <field name="res_model">doctor.patient.prescription</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_prescription_tree"/>
+        </record>
+    </data>
+</odoo>

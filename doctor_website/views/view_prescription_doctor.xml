@@ -1,0 +1,95 @@
+<odoo>
+    <template id="view_prescription_doctor" name="Prescription Doctor View">
+        <t t-call="portal.frontend_layout">
+            <div class="container pt-5 pb-5">
+                <style>
+                    /* CSS for hiding the default file input */
+                    input[type="file"] {
+                    position: absolute;
+                    left: -9999px;
+                    }
+
+                    /* CSS for styling the attachment label and icon */
+                    .attachment-label {
+                    display: inline-block;
+                    padding-right: 10px;
+                    color: #30abd5;
+                    cursor: pointer;
+                    }
+
+                    .attachment-label i {
+                    margin-right: 5px;
+                    }
+
+                    .selected-file {
+                    margin-top: 5px;
+                    color: #777;
+                    }
+                </style>
+                <div class="col-md-9">
+                    <section class="content">
+                         <div class="card card-info">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title" style="color:#30abd5">Case Details</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Rest of the card body -->
+
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-14 order-2 order-md-1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="6" placeholder="Enter ..."
+                                                              id="case" name="case" readonly="true">
+                                                        <t t-esc="prescription.case_details"/>
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title" style="color:#30abd5">Prescription</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Rest of the card body -->
+
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-14 order-2 order-md-1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="6" placeholder="Enter ..."
+                                                              id="case" name="case" readonly="true">
+                                                        <t t-esc="prescription.prescription"/>
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

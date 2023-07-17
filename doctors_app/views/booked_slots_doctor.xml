@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_booked_slots_form_doctors" model="ir.ui.view">
+            <field name="name">booked.slots.form</field>
+            <field name="model">doctor.time.slots</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <tree>
+                            <field name="partner_id"/>
+                            <field name="display_time_interval"/>
+                            <field name="date"/>
+                            <field name="booking_status"/>
+                        </tree>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_booked_slots_doctor" model="ir.actions.act_window">
+            <field name="name">Booked Slots</field>
+            <field name="res_model">doctor.time.slots</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_booked_slots_form_doctors"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

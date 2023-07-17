@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_id_doctors" model="mail.template">
+            <field name="name">Upcoming Appointments - Doctor</field>
+            <field name="model_id" ref="doctors_app.model_hr_employee"/>
+            <field name="subject">Upcoming Appointments</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Dear Dr.
+                        <t t-esc="object.name"/>
+
+                    </p>
+                    <p>Here are your upcoming appointments:</p>
+                    <ul>
+                        <t t-foreach="object.slots_ids" t-as="slot">
+                            <t t-if="slot.date == datetime.datetime.now().date() and slot.partner_id">
+                                <li>
+                                    <br/>
+                                    <t t-esc="slot.date"/>
+                                    <br/>
+                                    <b>Partner:</b>
+                                    <t t-esc="slot.partner_id.name"/>
+                                    <br/>
+                                    <b>Time Interval:</b>
+                                    <t t-esc="slot.display_time_interval"/>
+                                    <br/>
+                                </li>
+                            </t>
+                        </t>
+                    </ul>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
