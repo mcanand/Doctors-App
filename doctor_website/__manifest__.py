@@ -2,7 +2,7 @@
 {
     'name': 'Doctor_website',
     'version': '16.0.0.1',
-    'author': 'ANAND MC',
+    'author': 'ANAND',
     'summary': 'Doctor Website',
     'depends': ['doctors_app', 'portal', 'base', 'web', ],
     'data': [
