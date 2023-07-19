@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="homepage_inherit" inherit_id="website.homepage">
+        <xpath expr="//div[@id='wrap']" position="replace">
+<!-- use this methode to add content to nav bar-->
+            <t t-set="app_nav_in_content">
+                <div class="col-12 text-white">
+                    <h1 class="mt-2">How Are You Feeling Today ?</h1>
+                </div>
+            </t>
+<!-- ====================           ==============-->
+            <div class="container" id="wrap">
+                <div class="row mt-2">
+                    <div class="col-7 app_color">
+                        Departments
+                    </div>
+                    <div class="col-5 text-end app_color">
+                        see all
+                    </div>
+                </div>
+                <div class="row">
+                    <!--add departments slide-->
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
