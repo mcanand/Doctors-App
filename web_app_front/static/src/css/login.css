@@ -1,0 +1,66 @@
+
+                .form-control {
+                    border-radius: 20px;
+                    background-color: #F0F0F0;
+                }
+
+                .btn-primary {
+                    background-color: #25C88D;
+                    border-radius: 20px;
+                    width: 100%;
+                }
+
+                .d-flex {
+                    justify-content: space-between;
+                }
+
+                .d-flex a {
+                    color: #25C88D;
+                }
+                /* Label color */
+                label.col-form-label {
+                    color: #25C88D;
+                }
+                /* Style for the Google icon */
+
+                i.fa.fa-google {
+                    width: 40px;
+                    height: 40px;
+                    background-color: #25C88D;
+                    color: #FFFFFF;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin:auto;
+                }
+
+                /* Button styles including the center alignment */
+                .btn-custom {
+                    background-color: #25C88D;
+                    color: #FFFFFF;
+                    border-radius: 20px;
+                    padding: 10px 20px;
+                    margin-top: 10px;
+                    width: 80%;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+               /* Adjust the margin to add more space between the icon and the button text */
+               .btn-custom i.fa.fa-google {
+                    margin-left: 5px;
+                }
+                h6.dont-have-account {
+                    color: black;
+               }
+               h6.dont-have-account span {
+                 color: white;
+               }
+
+
+

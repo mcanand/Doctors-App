@@ -1,0 +1,40 @@
+<odoo>
+    <template id="auth_signup.login" inherit_id="web.login" name="Sign up - Reset Password">
+        <xpath expr="//div[@class='mb-3 field-login']" position="replace">
+             <!-- Your header content here -->
+              <t t-set="app_nav_in_content">
+                <div class="col-12 text-white">
+                    <h1 class="mt-4 text-left">Login ...</h1>
+                     <h6 class="mt-2 dont-have-account">Don't have an account ?<span class="mt-2" > <a t-attf-href="/loading/page"  class="text-white">Sign up</a></span> </h6>
+
+                </div>
+            </t>
+            <!-- =================================== -->
+            <div class="mb-3 field-login">
+                <label class="col-form-label col-lg-3">Username ...?</label>
+                <input type="text" class="form-control" name="login" placeholder="Username" t-attf-value=""/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@class='mb-3']" position="replace">
+            <div class="mb-3">
+                <label class="col-form-label col-lg-3">Password ...?</label>
+
+                <input type="password" class="form-control" name="password" placeholder="Password" t-attf-value=""/>
+
+            </div>
+        </xpath>
+
+        <xpath expr="//button[@type='submit']" position="replace">
+            <button type="button" class="btn btn-custom ">Login</button>
+              <i class="fa fa-google mt-2"></i>
+        </xpath>
+
+
+        <xpath expr="//button[@type='submit']" position="after">
+            <div class="justify-content-between mt-2 d-flex small">
+                <a t-if="signup_enabled" t-attf-href="/signup-page?{{ keep_query() }}">Don't have an account?</a>
+                <a t-if="reset_password_enabled" t-attf-href="/web/reset_password?{{ keep_query() }}">Reset Password</a>
+            </div>
+        </xpath>
+    </template>
+</odoo>
