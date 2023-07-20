@@ -15,12 +15,6 @@ class ResPartner(models.Model):
     doctor_id = fields.Many2one('hr.employee', string='Doctor')
     date_of_birth = fields.Date(string='Date of Birth')
 
-
-
-
-
-
-
     def open_booked_slots(self):
         view_id = self.env.ref('doctors_app.view_booked_slots_form').id
         action_id = self.env.ref('doctors_app.action_booked_slots').id

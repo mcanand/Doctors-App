@@ -46,16 +46,14 @@ class Doctor(models.Model):
             'type': 'ir.actions.act_window',
         }
 
-
     # Set boolean button true and assign meeting link while booking
     @api.onchange('partner_id')
     def on_partner_id_change(self):
         if self.partner_id:
             self.booking_button = True
-            self.meeting_link="/gggggg/nnnnnnnnn"
+            self.meeting_link = "/gggggg/nnnnnnnnn"
         else:
             self.booking_button = False
-
 
     # booking validation
     @api.constrains('doctor_id', 'date', 'partner_id')
@@ -71,4 +69,3 @@ class Doctor(models.Model):
                 existing_slots = self.search(domain)
                 if existing_slots:
                     raise ValidationError("The partner has already booked this doctor for the selected date.")
-

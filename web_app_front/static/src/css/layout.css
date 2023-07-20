@@ -4,7 +4,7 @@
     border-radius: 50px;
 }
 .app_navbar .back_link .back_icon{
-    font-size: 35px;
+    font-size: 45px;
     color: white;
 }
 .app_navbar .navbar_content{
@@ -15,23 +15,24 @@
 }
 .app_navbar{
     width: 100%;
-    padding: 5px;
+    padding: 15px;
 }
 .footer_nav{
-    height: 50px;
+    height: auto;
     width: 100%;
-    padding: 5px;
-        position: fixed;
+    padding: 15px;
+    position: fixed;
     bottom: 0px;
 }
 .footer_nav .content{
     background-color: #25C88D;
-    height: 40px;
+    height: auto;
     width: 100%;
     border-radius:10px;
+    padding:10px !important;
 }
 .footer_nav .content .icon{
-    font-size: 23px;
+    font-size: 35px;
     color: white;
 }
 .ml-0{

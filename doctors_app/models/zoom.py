@@ -7,14 +7,13 @@ class ZoomSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     zoom_api_key = fields.Char(string='Zoom API Key', config_parameter='zoom.api_key')
-    zoom_api_secret = fields.Char(string='Zoom API Secret',config_parameter='zoom.api_secret')
+    zoom_api_secret = fields.Char(string='Zoom API Secret', config_parameter='zoom.api_secret')
 
     @api.model
     def set_values(self):
         config = self.env['ir.config_parameter'].sudo()
         config.set_param('zoom.api_key', self.zoom_api_key)
         config.set_param('zoom.api_secret', self.zoom_api_secret)
-
 
     @api.model
     def get_values(self):

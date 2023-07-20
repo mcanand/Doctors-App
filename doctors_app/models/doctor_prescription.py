@@ -1,11 +1,12 @@
 from odoo import fields, models
 import datetime
 
+
 class DoctorPatientPrescription(models.Model):
     _name = 'doctor.patient.prescription'
     _description = 'Doctor Patient Prescription'
 
-    name= fields.Char(string='Name')
+    name = fields.Char(string='Name')
     department_id = fields.Many2one('hr.department', string='Department')
     case_details = fields.Text(string='Case Details')
     prescription = fields.Text(string='Prescription')
@@ -39,5 +40,3 @@ class DoctorPatientPrescription(models.Model):
 
         }
         return action
-
-

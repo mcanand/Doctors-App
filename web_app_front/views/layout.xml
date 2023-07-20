@@ -12,40 +12,45 @@
                                 <i class="fa fa-angle-left back_icon"/>
                             </a>
                         </div>
-                        <div class="col-6 text-right">
-                            <img class="app_img float-end" t-if="request.env.user.image_1920"
-                                 t-att-src="image_data_uri(request.env.user.image_1920)" alt="Avatar"/>
-                            <img class="app_img float-end" t-if="not request.env.user.image_1920"
-                                 src="/base/static/img/avatar_grey.png" alt="Avatar"/>
-                        </div>
+                        <t t-if="request.env.user.has_group('base.group_portal') or request.env.user.has_group('base.group_user')">
+                            <div class="col-6 text-right align-self-center">
+                                <img class="app_img float-end" t-if="request.env.user.image_1920"
+                                     t-att-src="image_data_uri(request.env.user.image_1920)" alt="Avatar"/>
+                                <img class="app_img float-end" t-if="not request.env.user.image_1920"
+                                     src="/base/static/img/avatar_grey.png" alt="Avatar"/>
+                            </div>
+                        </t>
                     </div>
                     <t t-out="app_nav_in_content"/>
                 </div>
             </t>
         </xpath>
         <xpath expr="//footer" position="replace">
-            <div class="footer_nav">
-                <div class="content p-2">
-                    <div class="row w-100 ml-0">
-                        <div class="col-3 mx-auto">
-                            <a href="/">
-                                <i class="fa fa-home icon"/>
-                            </a>
-                        </div>
-                        <div class="col-3 mx-auto">
-                            <i class="fa fa-calendar-check-o icon"/>
-                        </div>
-                        <div class="col-3 mx-auto">
-                            <i class="fa fa-file-text-o icon"/>
-                        </div>
-                        <div class="col-3 mx-auto">
-                            <a href="/my">
-                                <i class="fa fa-user icon"/>
-                            </a>
+            <t t-if="request.env.user.has_group('base.group_portal') or request.env.user.has_group('base.group_user')">
+
+                <div class="footer_nav">
+                    <div class="content p-2">
+                        <div class="row w-100 ml-0">
+                            <div class="col-3 text-center mx-auto">
+                                <a href="/">
+                                    <i class="fa fa-home icon"/>
+                                </a>
+                            </div>
+                            <div class="col-3 text-center mx-auto">
+                                <i class="fa fa-calendar-check-o icon"/>
+                            </div>
+                            <div class="col-3 text-center mx-auto">
+                                <i class="fa fa-file-text-o icon"/>
+                            </div>
+                            <div class="col-3 text-center mx-auto">
+                                <a href="/my">
+                                    <i class="fa fa-user icon"/>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </t>
         </xpath>
     </template>
 </odoo>

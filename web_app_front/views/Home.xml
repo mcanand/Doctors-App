@@ -4,8 +4,8 @@
         <xpath expr="//div[@id='wrap']" position="replace">
 <!-- use this methode to add content to nav bar-->
             <t t-set="app_nav_in_content">
-                <div class="col-12 text-white">
-                    <h1 class="mt-2">How Are You Feeling Today ?</h1>
+                <div class="col-12 text-white p-3">
+                    <h1 class="mt-2" style="font-size:45px;">How Are You Feeling Today ?</h1>
                 </div>
             </t>
 <!-- ====================           ==============-->

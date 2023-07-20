@@ -22,7 +22,7 @@
         'views/available_dates.xml',
         'views/hr_department.xml',
         'views/doctor_details.xml',
-
+    #
 
 
     ],

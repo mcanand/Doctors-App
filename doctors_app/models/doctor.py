@@ -1,8 +1,9 @@
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
-from datetime import date,datetime, timedelta
+from datetime import date, datetime, timedelta
 import requests
 import json
+
 
 class Doctor(models.Model):
     _inherit = 'hr.employee'
@@ -29,8 +30,6 @@ class Doctor(models.Model):
 
     cate_id = fields.Selection(CATEGORY_SELECTION, string='Category', required=True)
 
-
-
     @api.model_create_multi
     def create(self, vals_list):
         res = super(Doctor, self).create(vals_list)
@@ -49,7 +48,7 @@ class Doctor(models.Model):
                 slots = self.env['doctor.time.slots']
                 for from_time, to_time in intervals:
                     display_interval = f'From {from_time} to {to_time}'
-                    slots |= self.env['doctor.time.slots'].create({
+                    slots = self.env['doctor.time.slots'].create({
                         'doctor_id': record.id,
                         'partner_id': record.partner_id.id,
                         'date': current_date.strftime("%Y-%m-%d"),
@@ -59,7 +58,6 @@ class Doctor(models.Model):
                     })
                 current_date += timedelta(days=1)
         return res
-
 
     def _get_time_intervals(self, time_from, time_to):
         intervals = []
@@ -132,15 +130,14 @@ class Doctor(models.Model):
                 }
                 template.send_mail(doctor.id, email_values=email_values)
 
-
     def open_booked_slots_doctor(self):
         view_id = self.env.ref('doctors_app.view_booked_slots_form_doctors').id
         action_id = self.env.ref('doctors_app.action_booked_slots_doctor').id
         today = date.today()
         slot_data = self.env['doctor.time.slots'].search([
-         ('doctor_id', '=', self.id),
-         ('date', '=', today),
-         ('booking_button', '=', True)])
+            ('doctor_id', '=', self.id),
+            ('date', '=', today),
+            ('booking_button', '=', True)])
         context = dict(self.env.context)
         context.update({
             'default_doctor_id': self.id,
@@ -157,7 +154,6 @@ class Doctor(models.Model):
             'context': context,
             'action': action_id,
         }
-
 
     def create_zoom_meeting(self):
         api_key = "EKgsBRIxS6nkvGfMnnH1w"
@@ -193,6 +189,5 @@ class Doctor(models.Model):
             booking.meeting_link = join_url
             print(f"Meeting created! ID: {meeting_id}, Join URL: {join_url}")
         else:
-         print("Failed to create the meeting.")
-         print(f"Error: {data['message']}")
-
+            print("Failed to create the meeting.")
+            print(f"Error: {data['message']}")
