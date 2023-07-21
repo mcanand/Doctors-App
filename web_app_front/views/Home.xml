@@ -2,14 +2,15 @@
 <odoo>
     <template id="homepage_inherit" inherit_id="website.homepage">
         <xpath expr="//div[@id='wrap']" position="replace">
-<!-- use this methode to add content to nav bar-->
+
+            <!-- use this method to add content to the nav bar -->
             <t t-set="app_nav_in_content">
                 <div class="col-12 text-white p-3">
                     <h1 class="mt-2" style="font-size:45px;">How Are You Feeling Today ?</h1>
                 </div>
             </t>
-<!-- ====================           ==============-->
-            <div class="container" id="wrap">
+            <!-- ==================== ============== -->
+            <div class="container" style="maximum-width:1500px;" id="wrap">
                 <div class="row mt-2">
                     <div class="col-7 app_color">
                         Departments
@@ -19,7 +20,114 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!--add departments slide-->
+                    <div class="col-12 department-container">
+                        <!-- Example department buttons -->
+                        <button class="department-button">General Medicine</button>
+                        <button class="department-button">cold</button>
+                        <button class="department-button">Department 3</button>
+                        <button class="department-button">Department nmkilf</button>
+                        <!-- You can add more department buttons here -->
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-7 app_color">
+                        My Appointments
+                    </div>
+                    <div class="col-5 text-end app_color">
+                        see all
+                    </div>
+                </div>
+
+                <div class="col-12 appointment-container">
+
+                    <div class="appointments-box">
+                        <div class="appointment-details">
+                            <div class="doctor-info">
+                                <div class="small-box"></div>
+                                <div class="name">Alexander
+                                    Here
+                                </div>
+                            </div>
+                            <div class="doctor-info">
+                                <div class="departments">General Medicine</div>
+                                <div class="rating">Rating: 4.5</div>
+                            </div>
+                            <div class="time-icon">
+                                <i class="fa fa-clock-o"></i>
+                                Today 10:00 AM
+                            </div>
+                        </div>
+                    </div>
+                    <div class="appointments-box">
+                        <div class="appointment-details">
+                            <div class="doctor-info">
+                                <div class="small-box"></div>
+                                <div class="name">Alexander
+                                    Here
+                                </div>
+                            </div>
+                            <div class="doctor-info">
+                                <div class="departments">General Medicine</div>
+                                <div class="rating">Rating: 4.5</div>
+                            </div>
+                            <div class="time-icon">
+                                <i class="fa fa-clock-o"></i>
+                                Today 10:00 AM
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="appointments-box">
+                        <div class="appointment-details">
+                            <div class="doctor-info">
+                                <div class="small-box"></div>
+                                <div class="name">Alexander
+                                    Here
+                                </div>
+                            </div>
+                            <div class="doctor-info">
+                                <div class="departments">General Medicine</div>
+                                <div class="rating">Rating: 4.5</div>
+                            </div>
+                            <div class="time-icon">
+                                <i class="fa fa-clock-o"></i>
+                                Today 10:00 AM
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-2">
+                    <div class="col-7 app_color">
+                        Lets Find Your Doctor
+                    </div>
+                    <div class="col-5 text-end app_color">
+                        see all
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 department-container">
+                        <!-- Example department buttons -->
+                        <button class="department-button">General Medicine</button>
+                        <button class="department-button">cold</button>
+                        <button class="department-button">Department 3</button>
+                        <button class="department-button">Department nmkilf</button>
+                        <!-- You can add more department buttons here -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-24 doctor-container">
+                        <button class="doctor-box">
+                            <div class="doctor-information">
+                                <div class="image-box"></div>
+                                <div class="doctor-name">Alexander Here</div>
+                                <div class="department-name">Department</div>
+                            </div>
+
+                        </button>
+                    </div>
                 </div>
             </div>
         </xpath>

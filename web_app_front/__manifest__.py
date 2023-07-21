@@ -23,6 +23,7 @@
             '/web_app_front/static/src/css/login.css',
             '/web_app_front/static/src/css/signup.css',
             '/web_app_front/static/src/css/doctor_account_view.css',
+            '/web_app_front/static/src/css/home.css',
         ],
     },
     'license': 'LGPL-3',
