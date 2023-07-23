@@ -5,79 +5,22 @@
 
             <!-- use this method to add content to the nav bar -->
             <t t-set="app_nav_in_content">
-                <div class="col-12 text-white p-3">
-                    <h1 class="mt-2" style="font-size:45px;">How Are You Feeling Today ?</h1>
-                </div>
+                <span class="poppins300" style="font-size:13px;color:#666;">
+                    Welcome
+                </span>
+                <br/>
+                <span class="poppins600">
+                    <t t-esc="request.env.user.name"/>
+                </span>
             </t>
             <!-- ==================== ============== -->
             <div class="container" style="maximum-width:1500px;" id="wrap">
-                <div class="row mt-2">
-                    <div class="col-7 app_color">
-                        Departments
-                    </div>
-                    <div class="col-5 text-end app_color">
-                        see all
+                <div class="row mt-3">
+                    <div class="col-12 poppins500 app_color">
+                        Today's <br/>Appointments
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 department-container">
-                        <!-- Example department buttons -->
-                        <button class="department-button">General Medicine</button>
-                        <button class="department-button">cold</button>
-                        <button class="department-button">Department 3</button>
-                        <button class="department-button">Department nmkilf</button>
-                        <!-- You can add more department buttons here -->
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-7 app_color">
-                        My Appointments
-                    </div>
-                    <div class="col-5 text-end app_color">
-                        see all
-                    </div>
-                </div>
-
-                <div class="col-12 appointment-container">
-
-                    <div class="appointments-box">
-                        <div class="appointment-details">
-                            <div class="doctor-info">
-                                <div class="small-box"></div>
-                                <div class="name">Alexander
-                                    Here
-                                </div>
-                            </div>
-                            <div class="doctor-info">
-                                <div class="departments">General Medicine</div>
-                                <div class="rating">Rating: 4.5</div>
-                            </div>
-                            <div class="time-icon">
-                                <i class="fa fa-clock-o"></i>
-                                Today 10:00 AM
-                            </div>
-                        </div>
-                    </div>
-                    <div class="appointments-box">
-                        <div class="appointment-details">
-                            <div class="doctor-info">
-                                <div class="small-box"></div>
-                                <div class="name">Alexander
-                                    Here
-                                </div>
-                            </div>
-                            <div class="doctor-info">
-                                <div class="departments">General Medicine</div>
-                                <div class="rating">Rating: 4.5</div>
-                            </div>
-                            <div class="time-icon">
-                                <i class="fa fa-clock-o"></i>
-                                Today 10:00 AM
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="appointment-container mt-3">
                     <div class="appointments-box">
                         <div class="appointment-details">
                             <div class="doctor-info">
@@ -98,6 +41,12 @@
                     </div>
                 </div>
 
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all departments
+                        </a>
+                    </div>
+                </div>
 
                 <div class="row mt-2">
                     <div class="col-7 app_color">

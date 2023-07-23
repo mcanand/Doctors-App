@@ -4,8 +4,8 @@
         border-radius: 20px;
         padding: 10px 20px;
         font-size: 16px;
-        background-color: #25C88D;
-        color: #ffffff;
+        background-color: #ffffff;
+        color: #333;
         cursor: pointer;
         margin-right: 10px;
         display: flex;
@@ -15,7 +15,7 @@
 
 
     .department-button:hover {
-        background-color: #25C88D;
+        background-color: #ffffff;
     }
 
 
@@ -39,7 +39,7 @@
 
     .field-item {
         min-width: 120px;
-        background-color: #ffffff;
+        background-color: #333;
         padding: 5px 10px;
         margin-right: 10px;
         border-radius: 10px;
@@ -56,7 +56,7 @@
 
     .doctor-box {
         border-radius: 10px;
-        background-color:#25C88D;
+        background-color:#ffffff;
         padding: 10px;
         margin-bottom: 10px;
         width: 100%;
@@ -70,13 +70,13 @@
         border-radius: 20px;
         padding: 10px 20px;
         font-size: 16px;
-        background-color: #25C88D;
-        color: #ffffff;
+        background-color: white;
+        color: #333333;
         cursor: pointer;
         transition: background-color 0.3s ease;
         margin-right: 10px;
         height:140px;
-        width:650px;
+        width:5 50px;
         display: flex;
        align-items: center;
     }
@@ -145,21 +145,21 @@
 
 
 .departments {
-    color: white;
+    color: #333;
     margin-bottom: 5px;
     font-size: 12px;
 }
 
 
 .rating {
-    color: white;
+    color: #333;
         margin-left: auto;
         font-size: 12px;
 }
 
 
 .time-icon {
-    color: #ffffff;
+    color: #333;
     display: flex;
     align-items: center;
     font-size: 15px;

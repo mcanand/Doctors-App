@@ -4,48 +4,51 @@
               active="True">
         <xpath expr="//header" position="replace">
             <t t-call="website.navbar">
-                <t t-set="_navbar_classes" t-valuef="bg-transparent app_navbar"/>
+                <t t-set="_navbar_classes" t-valuef="bg-transparent app_navbar p-0"/>
                 <div class="navbar_content p-2">
                     <div class="row w-100 ml-0">
-                        <div class="col-6 text-left">
-                            <a href="javascript: window.history.back()" class="back_link">
-                                <i class="fa fa-angle-left back_icon"/>
-                            </a>
+                        <div class="col-8 text-left align-self-center">
+                            <t t-out="app_nav_in_content"/>
                         </div>
                         <t t-if="request.env.user.has_group('base.group_portal') or request.env.user.has_group('base.group_user')">
-                            <div class="col-6 text-right align-self-center">
-                                <img class="app_img float-end" t-if="request.env.user.image_1920"
-                                     t-att-src="image_data_uri(request.env.user.image_1920)" alt="Avatar"/>
-                                <img class="app_img float-end" t-if="not request.env.user.image_1920"
-                                     src="/base/static/img/avatar_grey.png" alt="Avatar"/>
+                            <div class="col-4 text-right align-self-center">
+                                <a href="/my">
+                                    <img class="app_img float-end" t-if="request.env.user.image_1920"
+                                         t-att-src="image_data_uri(request.env.user.image_1920)" alt="Avatar"/>
+                                    <img class="app_img float-end" t-if="not request.env.user.image_1920"
+                                         src="/base/static/img/avatar_grey.png" alt="Avatar"/>
+                                </a>
                             </div>
                         </t>
                     </div>
-                    <t t-out="app_nav_in_content"/>
                 </div>
             </t>
         </xpath>
         <xpath expr="//footer" position="replace">
             <t t-if="request.env.user.has_group('base.group_portal') or request.env.user.has_group('base.group_user')">
-
                 <div class="footer_nav">
-                    <div class="content p-2">
+                    <div class="content p-3">
                         <div class="row w-100 ml-0">
                             <div class="col-3 text-center mx-auto">
-                                <a href="/">
-                                    <i class="fa fa-home icon"/>
+                                <a class="home_redirect" href="/">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1.25em"
+                                         viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                        <path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
+                                    </svg>
                                 </a>
                             </div>
                             <div class="col-3 text-center mx-auto">
-                                <i class="fa fa-calendar-check-o icon"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1.25em"
+                                     viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                    <style>svg{fill:#77767b}</style>
+                                    <path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zM329 305c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-95 95-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L329 305z"/>
+                                </svg>
                             </div>
                             <div class="col-3 text-center mx-auto">
-                                <i class="fa fa-file-text-o icon"/>
-                            </div>
-                            <div class="col-3 text-center mx-auto">
-                                <a href="/my">
-                                    <i class="fa fa-user icon"/>
-                                </a>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1.25em"
+                                     viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                    <path d="M96 352V96c0-35.3 28.7-64 64-64H416c35.3 0 64 28.7 64 64V293.5c0 17-6.7 33.3-18.7 45.3l-58.5 58.5c-12 12-28.3 18.7-45.3 18.7H160c-35.3 0-64-28.7-64-64zM272 128c-8.8 0-16 7.2-16 16v48H208c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h48v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V256h48c8.8 0 16-7.2 16-16V208c0-8.8-7.2-16-16-16H320V144c0-8.8-7.2-16-16-16H272zm24 336c13.3 0 24 10.7 24 24s-10.7 24-24 24H136C60.9 512 0 451.1 0 376V152c0-13.3 10.7-24 24-24s24 10.7 24 24l0 224c0 48.6 39.4 88 88 88H296z"/>
+                                </svg>
                             </div>
                         </div>
                     </div>
