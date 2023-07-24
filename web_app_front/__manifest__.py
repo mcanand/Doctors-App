@@ -13,6 +13,8 @@
         'views/departments.xml',
         'views/loading_page.xml',
         'views/my_account.xml',
+        'views/all_doctors.xml',
+        'views/today_appointment.xml',
     ],
     'installable': True,
     'application': True,

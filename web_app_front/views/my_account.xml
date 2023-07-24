@@ -26,12 +26,14 @@
                         </div>
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <div class="app_card p-2">
-                                <p>Appointments</p>
+                                <p> Appointments</p>
                             </div>
                         </div>
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <div class="app_card p-2">
+                                 <a href="/today/appointment">
                                 <p>Today's</p>
+                                 </a>
                             </div>
                         </div>
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">

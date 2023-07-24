@@ -5,7 +5,9 @@
                 <!-- Your header content here -->
                   <!-- Your header content here -->
                 <t t-set="app_nav_in_content">
-                    <div class="col-12 text-white p-3">
+
+                </t>
+                  <div class="col-12 text-white p-3">
                         <h1 class="mt-4 text-left" style="font-size:45px;">
                             <b>Sign Up ...</b>
                         </h1>
@@ -15,7 +17,6 @@
                             </span>
                         </p>
                     </div>
-                </t>
 
                 <!-- =================================== -->
                 <form class="oe_signup_form" role="form" method="post" t-if="not message">

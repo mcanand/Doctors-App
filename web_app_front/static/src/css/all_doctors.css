@@ -1,0 +1,11 @@
+.doctor_image{
+    border-radius:100px;
+    width:70px;
+    height:70px;
+}
+.app_card{
+    background:white;
+    height:100%;
+    box-shadow: 0px 6px 6px -9px;
+    border-radius:10px;
+}

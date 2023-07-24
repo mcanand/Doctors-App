@@ -1,6 +1,35 @@
 from odoo import http
 from odoo.http import content_disposition, Controller, request, route
 from odoo.addons.portal.controllers.portal import CustomerPortal
+from odoo.addons.web.controllers.home import Home as WebHome
+import datetime
+
+
+class MyHomepage(WebHome):
+    @http.route()
+    def view_appointments(self, **kwargs):
+        user_partner_id = request.env.user.partner_id
+        today = datetime.now().date()
+        bookings = request.env['doctor.time.slots'].sudo().search([
+            ('partner_ids', 'in', user_partner_id.ids),
+            ('booking_button', '=', True),
+            ('date', '=', today),
+        ])
+
+        booking_details = []
+
+        for booking in bookings:
+            booking_dict = {
+                'doctor_name': booking.doctor_id.name,
+                'from_time': booking.from_time,
+                'date': booking.date,
+                'meeting_link': booking.meeting_link,
+            }
+            print(booking_dict)
+            booking_details.append(booking_dict)
+
+        return http.request.render('web_app_front.homepage_inherit', {'appointments': booking_details})
+
 
 class AppController(http.Controller):
     @http.route('/departments', type='http', auth='public', website=True)
@@ -11,7 +40,46 @@ class AppController(http.Controller):
         return request.render('web_app_front.department', values)
 
 
+    @http.route(['/get/doctors/<int:department_id>'], type='http', auth="public", website=True)
+    def get_doctors(self,department_id, **kw):
+        print("ggggggg")
+        department = request.env['hr.department'].sudo().browse(department_id)
+        doctors = department.member_ids
+        values = {
+            'doctors': doctors,
+        }
+        print(values)
+        return http.request.render('web_app_front.department_doctors', values)
+
+    @http.route('/today/appointment', type='http', auth='user', website=True)
+    def view_appointments(self, **kwargs):
+        user_partner_id = request.env.user.partner_id
+        bookings = request.env['doctor.time.slots'].sudo().search([
+            ('partner_ids', 'in', user_partner_id.ids),
+            ('booking_button', '=', True)
+        ])
+
+        booking_details = []
+
+        for booking in bookings:
+            booking_dict = {
+                'doctor_name': booking.doctor_id.name,
+                'appoinment_time': booking.display_time_interval,
+                'date': booking.date,
+                'meeting_link': booking.meeting_link,
+            }
+
+            booking_details.append(booking_dict)
+
+        return http.request.render('web_app_front.today_appointment', {'appointments': booking_details})
+
+
+
+
+
+
 class CustomerPortalInherit(CustomerPortal):
+
     @route(['/my/account'], type='http', auth='user', website=True)
     def account(self, redirect=None, **post):
         values = self._prepare_portal_layout_values()
@@ -85,3 +153,7 @@ def get_error(e, path=''):
         e = e.get(k)
 
     return e if isinstance(e, str) else None
+
+
+
+

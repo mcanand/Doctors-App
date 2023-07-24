@@ -1,69 +1,27 @@
 <odoo>
     <template id="signup_page_template">
         <t t-call="website.layout">
-            <t t-set="app_nav_in_content">
-                <div class="col-12 text-white p-3">
-                    <span class="text-white">R-
-                        <span>me</span>
-                        <br/>Counseling
-                    </span>
+             <div class="col-12 d-flex justify-content-left p-3" style="margin-top:100px;">
+                    <span class="text-white">R-<span>me</span><br/>Counseling</span>
                 </div>
-                <div class="col-12">
-                    <div class="rectangle align-items-start ">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="rectangle align-items-start">
                         <i class="fa fa-user-md"></i>
-                        <span class="text-left">I am a<br/>Doctor ...
-                        </span> <!-- Use text-left class here -->
+                          <a t-attf-href="/web/signup?user_type=patient" class="signup-link">
+                                <span class="text-left">I am a<br/>Doctor...</span>
+                            </a>
                     </div>
-                    <div class="rectangle position-relative">
+
                         <div class="rectangle align-items-start">
                             <i class="fa fa-user"></i>
-                            <a t-attf-href="/web/signup?user_type=patient" class="signup-link" style="color:#25C88D ;">
-                                <span class="text-left">I am a<br/>Patient ...
-                                </span>
+                            <a t-attf-href="/web/signup?user_type=patient" class="signup-link">
+                                <span class="text-left">I am a<br/>Patient...</span>
                             </a>
-                        </div>
+
                     </div>
                 </div>
-            </t>
+
 
         </t>
-
-
-        <style>
-            /* New CSS for rectangles and icons */
-            .rectangle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background-image: linear-gradient(to bottom right, #FFFF 49.5%, transparent 50%);
-            background-color: white; /* White background */
-            color: #25C88D; /* Green font color */
-            font-size: 40px;
-            font-weight: bold;
-            padding: 20px;
-            width: 340px;
-            height: 380px;
-            margin-left: 10px;
-            margin-right: 10px;
-            border-radius: 80px; /* Add border-radius for curved corners */
-            margin-left: 30px;
-            margin-right: 10px;
-            }
-
-            .rectangle i {
-            font-size: 48px;
-            margin-bottom: 15px;
-            }
-            .text-white{
-            margin-bottom: 120px;
-            font-size: 90px;
-            margin-left: 100px;
-            font-weight:bold;
-            }
-
-
-        </style>
-
     </template>
 </odoo>

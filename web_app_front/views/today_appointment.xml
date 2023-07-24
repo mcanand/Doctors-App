@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="today_appointment">
+        <t t-call="website.layout">
+            <!-- Your header content here -->
+            <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                </a>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    My Shedules
+                </span>
+            </t>
+            <!-- =================================== -->
+            <div class="container">
+                <div class="row mt-2">
+
+                    <div class="time-icon">
+                        <i class="fa fa-clock-o"></i>
+                        10:00 AM
+                    </div>
+                    <div class="col-24 user-container">
+                        <button class="user-box">
+                            <div class="user-information">
+
+                                <p class="name-doc align-text-start" style="color:black">Alexander</p>
+                                <p class="age align-text-start">Allergy 27 years old</p>
+                                <p class="appointment-time">8am to 8.30am</p>
+                                <p class="user-image-box"></p>
+
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
