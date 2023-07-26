@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="doctors_view">
+        <t t-call="website.layout">
+            <t t-set="app_nav_in_content">
+                <span class="poppins300" style="font-size:13px;color:#666;">
+                    Doctors
+                </span>
+            </t>
+            <!--view-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <input type="text" name="search" placehlder="search..."
+                               class="form-control"/>
+                    </div>
+                    <div class="col-6 mt-2">
+                        <button type="button" class="filter_doctor btn app_card w-100">Filter</button>
+                    </div>
+                    <div class="col-6 mt-2">
+                        <button type="button" class="sort_doctor btn app_card w-100">Sort</button>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <div class="filters_list">
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                            <span class="filter_pill">Department <i class="fa fa-times"/></span>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <div class="doctors_list">
+                            <div class="app_card">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

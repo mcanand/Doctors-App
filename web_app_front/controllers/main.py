@@ -39,23 +39,28 @@ class AppController(http.Controller):
         values['departments'] = departments
         return request.render('web_app_front.department', values)
 
+    @http.route('/doctors', type='http', auth='public', website=True)
+    def doctors_render(self):
+        doctors = request.env['hr.employee'].search([])
+        values = {'doctors': doctors}
+        return request.render('web_app_front.doctors_view', values)
 
-    @http.route(['/get/doctors/<int:department_id>'], type='http', auth="public", website=True)
-    def get_doctors(self,department_id, **kw):
-        print("ggggggg")
-        department = request.env['hr.department'].sudo().browse(department_id)
-        doctors = department.member_ids
-        values = {
-            'doctors': doctors,
-        }
-        print(values)
-        return http.request.render('web_app_front.department_doctors', values)
+    # @http.route(['/get/doctors/<int:department_id>'], type='http', auth="public", website=True)
+    # def get_doctors(self,department_id, **kw):
+    #     print("ggggggg")
+    #     department = request.env['hr.department'].sudo().browse(department_id)
+    #     doctors = department.member_ids
+    #     values = {
+    #         'doctors': doctors,
+    #     }
+    #     print(values)
+    #     return http.request.render('web_app_front.department_doctors', values)
 
     @http.route('/today/appointment', type='http', auth='user', website=True)
     def view_appointments(self, **kwargs):
         user_partner_id = request.env.user.partner_id
         bookings = request.env['doctor.time.slots'].sudo().search([
-            ('partner_ids', 'in', user_partner_id.ids),
+            ('partner_id', 'in', user_partner_id.ids),
             ('booking_button', '=', True)
         ])
 
@@ -72,10 +77,6 @@ class AppController(http.Controller):
             booking_details.append(booking_dict)
 
         return http.request.render('web_app_front.today_appointment', {'appointments': booking_details})
-
-
-
-
 
 
 class CustomerPortalInherit(CustomerPortal):
@@ -142,6 +143,7 @@ class CustomerPortalInherit(CustomerPortal):
 
         return request.render('portal.portal_my_security', values)
 
+
 def get_error(e, path=''):
     """ Recursively dereferences `path` (a period-separated sequence of dict
     keys) in `e` (an error dict or value), returns the final resolution IIF it's
@@ -153,7 +155,3 @@ def get_error(e, path=''):
         e = e.get(k)
 
     return e if isinstance(e, str) else None
-
-
-
-
