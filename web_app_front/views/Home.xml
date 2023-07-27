@@ -15,25 +15,26 @@
             </t>
             <!-- ==================== ============== -->
             <!--            <t t-set="app" t-value="requset.env[]"-->
-            <t t-set="appointments">
-                <t t-set="user_partner_id" t-value="request.env.user.partner_id"/>
-                <t t-set="today" t-value="datetime.datetime.now().strftime('%Y-%m-%d')"/>
-                <t t-set="bookings" t-value="request.env['doctor.time.slots'].sudo().search([
-                    ('partner_ids', 'in', user_partner_id.ids),
-                    ('booking_button', '=', True),
-                    ('date', '=', today),
-                ])"/>
-                <t t-set="booking_details" t-value="[]"/>
-                <t t-foreach="bookings" t-as="booking">
-                    <t t-set="booking_dict" t-value="{
-                        'doctor_name': booking.doctor_id.name,
-                        'from_time': booking.from_time,
-                        'date': booking.date,
-                        'meeting_link': booking.meeting_link,
-                    }"/>
-                    <t t-set="booking_details" t-value="booking_details + [booking_dict]"/>
-                </t>
+            <t t-set="user_partner_id" t-value="request.env.user.partner_id"/>
+
+            <t t-set="bookings" t-value="request.env['doctor.time.slots'].sudo().search([
+    ('partner_ids', 'in', user_partner_id.ids),
+    ('booking_button', '=', True),
+    ('date','=',datetime.datetime.now().strftime('%Y-%m-%d'))
+
+])"/>
+            <t t-set="booking_details" t-value="[]"/>
+            <t t-foreach="bookings" t-as="booking">
+                <t t-set="booking_dict" t-value="{
+        'doctor_name': booking.doctor_id.name,
+        'from_time': booking.from_time,
+        'dep_name' :booking.doctor_id.department_id.name,
+        'doctor_image':booking.doctor_id.image_1920,
+
+    }"/>
+                <t t-set="booking_details" t-value="booking_details + [booking_dict]"/>
             </t>
+
             <div class="container" style="maximum-width:1500px;" id="wrap">
                 <div class="row mt-3">
                     <div class="col-9 poppins500 app_color">
@@ -43,28 +44,43 @@
                         see all
                     </div>
                 </div>
-                <t t-esc="appointments"></t>
-<!--                <div class="appointment-container mt-3">-->
-<!--                    <div class="appointments-box">-->
-<!--                        <t t-foreach="appointments" t-as="appointment">-->
-<!--                            <div class="appointment-details">-->
-<!--                                <div class="doctor-info">-->
-<!--                                    <div class="small-box"></div>-->
-<!--                                    <div class="name">  <t t-esc="appointment['doctor_name']"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="doctor-info">-->
-<!--                                    <div class="departments">General Medicine</div>-->
-<!--                                    <div class="rating">Rating: 4.5</div>-->
-<!--                                </div>-->
-<!--                                <div class="time-icon">-->
-<!--                                    <i class="fa fa-clock-o"></i>-->
-<!--                                    Today 10:00 AM-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </t>-->
-<!--                    </div>-->
-<!--                </div>-->
+
+                <div class="appointment-container mt-3">
+                    <t t-foreach="booking_details" t-as="appointment">
+                        <div class="appointments-box">
+
+                            <div class="appointment-details">
+                                <div class="doctor-info">
+                                    <div class="small-box">
+                                        <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                    </div>
+                                    <div class="name">
+                                        <t t-esc="appointment.get('doctor_name')"/>
+                                    </div>
+                                </div>
+                                <div class="doctor-info">
+                                    <div class="departments">
+                                        <t t-esc="appointment.get('dep_name')"/>
+                                    </div>
+                                    <div class="rating">Rating: 4.5</div>
+                                </div>
+                                <div class="time-icon">
+                                    <i class="fa fa-clock-o"></i>
+                                    Today
+                                    <t t-esc="appointment.get('from_time')"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                    <t t-if="not booking_details">
+                        <div class="col-9 poppins500 app_color">
+                            No Appointments Today
+                        </div>
+                    </t>
+
+                </div>
+
 
                 <div class="row mt-3">
                     <div class="col-12">
@@ -73,14 +89,14 @@
                     </div>
                 </div>
 
-                <div class="row mt-2">
-                    <div class="col-7 app_color">
-                        Lets Find Your Doctor
-                    </div>
-                    <div class="col-5 text-end app_color">
-                        see all
-                    </div>
-                </div>
+                <!--                <div class="row mt-2">-->
+                <!--                    <div class="col-7 app_color">-->
+                <!--                        Lets Find Your Doctor-->
+                <!--                    </div>-->
+                <!--                    <div class="col-5 text-end app_color">-->
+                <!--                        see all-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <div class="row">
                     <div class="col-12 department-container">
                         <!-- Example department buttons -->

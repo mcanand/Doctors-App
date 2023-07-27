@@ -15,6 +15,8 @@
         'views/my_account.xml',
         'views/all_doctors.xml',
         'views/today_appointment.xml',
+        'views/all_appointments.xml',
+        'views/booking_details.xml',
         'views/prescription_list.xml',
         'views/prescription.xml',
     ],

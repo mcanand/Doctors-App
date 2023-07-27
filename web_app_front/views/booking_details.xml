@@ -1,0 +1,48 @@
+<odoo>
+    <template id="booking_details">
+        <t t-call="website.layout">
+            <!-- Your header content here -->
+            <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                </a>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    Details
+                </span>
+            </t>
+            <!-- =================================== -->
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-24 booking-container">
+                        <div class="booking-information">
+                            <div class="booking-time">
+                                <span class="booking-label">Doctor Name:</span>
+                                <span class="value"><t t-esc="booking.doctor_id.name" /></span>
+                            </div>
+                            <div class="booking-time">
+                                <span class="booking-label">Department:</span>
+                                <span class="value"><t t-esc="booking.doctor_id.department_id.name" /></span>
+                            </div>
+                            <div class="booking-time">
+                                <span class="booking-label">Time:</span>
+                                <span class="value"><t t-esc="booking.from_time"  /></span>
+                            </div>
+                            <div class="booking-link">
+                                <span class="booking-label">Meeting Link:</span>
+                                <span class="value"><t t-esc="booking.meeting_link" /></span>
+                            </div>
+                            <div class="booking-link">
+                                <span class="booking-label">Date:</span>
+                                <span class="value"><t t-esc="booking.date" /></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                        <button class="join-button">Join</button>
+
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

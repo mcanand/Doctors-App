@@ -67,6 +67,9 @@
 
     .appointments-box {
         border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         border-radius: 20px;
         padding: 10px 20px;
         font-size: 16px;
@@ -76,7 +79,7 @@
         transition: background-color 0.3s ease;
         margin-right: 10px;
         height:140px;
-        width:5 50px;
+        width:550px;
         display: flex;
        align-items: center;
     }
@@ -84,7 +87,7 @@
 
     .appointment-container {
         display: flex;
-        overflow-x: auto;
+
         padding-bottom: 10px;
 
     }
@@ -94,25 +97,28 @@
         display: none;
     }
 
-.appointment-container {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 10px;
-}
+
 
 
 .appointments-box {
     display: flex;
+
     flex-direction: column;
-    margin-right: 10px;
+    margin-top: 10px;
 }
 
 .small-box {
-   width: 70px;
+   width: 60px;
     height: 40px;
     background-color: white;
     margin-right: 10px;
     border-radius: 10px;
+}
+
+.small-box img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
 }
 
 
@@ -136,8 +142,8 @@
 
 
 .name {
-    white-space: normal;
-    word-wrap: break-word;
+    white-space: nowrap;
+   text-align:center;
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
@@ -146,14 +152,17 @@
 
 .departments {
     color: #333;
-    margin-bottom: 5px;
+    margin-top: 10px;
     font-size: 12px;
+    white-space: nowrap;
 }
 
 
 .rating {
     color: #333;
-        margin-left: auto;
+        margin-left: 10px;
+            white-space: nowrap;
+            margin-top: 10px;
         font-size: 12px;
 }
 

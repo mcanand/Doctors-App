@@ -3,6 +3,14 @@
         <t t-call="website.layout">
             <!-- Your header content here -->
             <!-- ... -->
+              <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                </a>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    Today's Appoinments
+                </span>
+            </t>
 
             <div class="container">
                 <div class="row mt-3">
@@ -19,16 +27,19 @@
                                             <t t-esc="appointment.get('doctor_name')" />
                                         </span>
 
-                                        <span class="appointment-time">
+                                        <span class="appointment-time"> From
                                             <t t-esc="appointment.get('appointment_time')" />
                                         </span>
+<!--                                          <span class="appointment-time"> to-->
+<!--                                        <t t-esc="appointment.get('appointment_end')" />-->
+<!--                                        </span>-->
                                     </div>
-                                    <div class="age">
-                                        <!-- You can add the age here if available -->
+                                    <div class="name-doc">
+                                       <span class="age">27 Years old Now</span>
                                     </div>
                                 </div>
                                 <div class="user-image-box">
-<!--                                      <img t-att-src="image_data_uri(appointment.doctor_image)" alt="Doctor Image" />-->
+                                      <img  t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
 
                                 </div>
                             </div>

@@ -1,0 +1,10 @@
+
+.form-control:disabled, .form-control.o_wysiwyg_loader, .form-control[readonly] {
+    background-color: white;
+    opacity: 1;
+}
+  .custom-card-body {
+                    background-color:   #f8f8fa !important; ;
+                    padding: 15px;
+                }
+

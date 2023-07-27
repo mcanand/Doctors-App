@@ -2,36 +2,7 @@ from odoo import http
 from odoo.http import content_disposition, Controller, request, route
 from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.web.controllers.home import Home
-from datetime import datetime
-
-
-# class MyHomepage(Home):
-#     @http.route('/', type='http', auth="none")
-#     def index(self, **kw):
-#         res= super(MyHomepage, self).index()
-#         return res
-#         user_partner_id = request.env.user.partner_id
-#         today = datetime.now().date()
-#         bookings = request.env['doctor.time.slots'].sudo().search([
-#             ('partner_ids', 'in', user_partner_id.ids),
-#             ('booking_button', '=', True),
-#             ('date', '=', today),
-#         ])
-#
-#         booking_details = []
-#
-#         for booking in bookings:
-#             booking_dict = {
-#                 'doctor_name': booking.doctor_id.name,
-#                 'from_time': booking.from_time,
-#                 'date': booking.date,
-#                 'meeting_link': booking.meeting_link,
-#             }
-#             print(booking_dict)
-#             booking_details.append(booking_dict)
-#
-#         return http.request.render('web_app_front.homepage_inherit', {'appointments': booking_details})
-
+from datetime import datetime,date
 
 class AppController(http.Controller):
     @http.route('/departments', type='http', auth='public', website=True)
@@ -52,12 +23,13 @@ class AppController(http.Controller):
         print(values)
         return http.request.render('web_app_front.department_doctors', values)
 
-    @http.route('/today/appointment', type='http', auth='user', website=True)
-    def view_appointments(self, **kwargs):
+    @http.route('/today/appointment', type='http', auth='public', website=True)
+    def view_appointments(self):
         user_partner_id = request.env.user.partner_id
         bookings = request.env['doctor.time.slots'].sudo().search([
             ('partner_ids', 'in', user_partner_id.ids),
-            ('booking_button', '=', True)
+            ('booking_button', '=', True),
+            ('date' ,'=', datetime.now().strftime('%Y-%m-%d')),
         ])
 
         booking_details = []
@@ -67,15 +39,14 @@ class AppController(http.Controller):
             booking_dict = {
                 'doctor_name': booking.doctor_id.name,
                 'appointment_time': booking.from_time,
-                'date': booking.date,
-                'meeting_link': booking.meeting_link,
+                'appointment_end': booking.to_time,
                 'doctor_image' : doctor_image_url,
             }
 
             booking_details.append(booking_dict)
-            print(booking_details)
+        return request.render('web_app_front.today_appointment', {'appointments': booking_details})
 
-        return http.request.render('web_app_front.today_appointment', {'appointments': booking_details})
+
 
 
     @http.route('/prescription', type='http', auth='public', website=True)
@@ -91,7 +62,6 @@ class AppController(http.Controller):
 
     @http.route(['/d/<int:id>'], type='http', auth='public', website=True)
     def get_prescription(self,id,**kw):
-        user_partner_id = request.env.user.partner_id
         values = {}
         latest_prescription = request.env['doctor.patient.prescription'].sudo().search([
             ('id', '=', id),
@@ -99,6 +69,65 @@ class AppController(http.Controller):
         values['prescription'] = latest_prescription
         print(values)
         return request.render('web_app_front.view_prescription',values)
+
+    @route('/all/appointment', type='http', auth='public', website=True)
+    def all_appointments(self, **kwargs):
+        user_partner_id = request.env.user.partner_id
+        today = date.today().strftime('%Y-%m-%d')
+
+        bookings = request.env['doctor.time.slots'].sudo().search([
+            ('partner_ids', 'in', user_partner_id.ids),
+            ('booking_button', '=', True),
+            ('date', '<', today),
+        ])
+
+        previous_bookings = request.env['doctor.time.slots'].sudo().search([
+            ('partner_ids', 'in', user_partner_id.ids),
+            ('booking_button', '=', True),
+            ('date', '<', today),
+        ])
+
+        booking_details = []
+        previous_booking_details = []  # Initialize the list here
+
+        for booking in bookings:
+            doctor_image_url = booking.doctor_id.image_1920 or ''
+            booking_dict = {
+                'doctor_name': booking.doctor_id.name,
+                'appointment_time': booking.from_time,
+                'appointment_end': booking.to_time,
+                'doctor_image': doctor_image_url,
+                'id': booking.id,
+            }
+
+            booking_details.append(booking_dict)
+            print(booking_details)
+
+        for previous_booking in previous_bookings:
+            doctor_image_url = previous_booking.doctor_id.image_1920 or ''
+            previous_booking_dict = {
+                'doctor_name': previous_booking.doctor_id.name,
+                'appointment_time': previous_booking.from_time,
+                'appointment_end': previous_booking.to_time,
+                'doctor_image': doctor_image_url,
+            }
+
+            previous_booking_details.append(previous_booking_dict)
+
+        return http.request.render('web_app_front.all_appointment', {
+            'appointments': booking_details,
+            'previous_appointments': previous_booking_details,
+        })
+
+    @http.route(['/bookings/<int:id>'], type='http', auth='public', website=True)
+    def get_bookings(self, id, **kw):
+        values = {}
+        latest_prescription = request.env['doctor.time.slots'].sudo().search([
+            ('id', '=', id),
+        ])
+        values['booking'] = latest_prescription
+        print(values)
+        return request.render('web_app_front.booking_details', values)
 
 
 

@@ -1,0 +1,101 @@
+<odoo>
+    <template id="all_appointment">
+        <t t-call="website.layout">
+            <!-- Your header content here -->
+            <!-- ... -->
+              <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                </a>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    All Appoinments
+                </span>
+            </t>
+
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="today-heading">
+                            <h6>Upcoming Appointments</h6>
+                        </div>
+                    </div>
+                    <t t-foreach="appointments" t-as="appointment">
+                        <div class="time-icon">
+                            <i class="fa fa-clock-o"></i>
+                            <t t-esc="appointment.get('appointment_time')" />
+                        </div>
+                        <div class="col-24 user-container">
+                            <div class="user-box">
+
+                                <div class="user-information">
+                                    <a t-att-href="'/bookings/%s' %appointment.get('id')">
+                                    <div class="appointment-time">
+                                        <span class="name-doc">
+                                            <t t-esc="appointment.get('doctor_name')" />
+                                        </span>
+
+                                        <span class="appointment-time"> From
+                                            <t t-esc="appointment.get('appointment_time')" />
+                                        </span>
+<!--                                          <span class="appointment-time"> to-->
+<!--                                        <t t-esc="appointment.get('appointment_end')" />-->
+<!--                                        </span>-->
+                                    </div>
+                                    <div class="name-doc">
+                                       <span class="age">27 Years old Now</span>
+                                    </div>
+                                     </a>
+                                </div>
+                                <div class="user-image-box">
+                                      <img  t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </t>
+                    <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="today-heading">
+                            <h6>Previous Appointments</h6>
+                        </div>
+                    </div>
+                </div>
+                      <t t-foreach="previous_appointments" t-as="pappointment">
+                        <div class="time-icon">
+                            <i class="fa fa-clock-o"></i>
+                            <t t-esc="pappointment.get('appointment_time')" />
+                        </div>
+                        <div class="col-24 user-container">
+                            <div class="user-box">
+                                <div class="user-information">
+                                    <div class="appointment-time">
+                                        <span class="name-doc">
+                                            <t t-esc="pappointment.get('doctor_name')" />
+                                        </span>
+
+                                        <span class="appointment-time"> From
+                                            <t t-esc="pappointment.get('appointment_time')" />
+                                        </span>
+<!--                                          <span class="appointment-time"> to-->
+<!--                                        <t t-esc="appointment.get('appointment_end')" />-->
+<!--                                        </span>-->
+                                    </div>
+                                    <div class="name-doc">
+                                       <span class="age">27 Years old Now</span>
+                                    </div>
+                                </div>
+                                <div class="user-image-box">
+                                      <img  t-attf-src="data:image/png;base64,{{pappointment.get('doctor_image')}}"/>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+            </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+
