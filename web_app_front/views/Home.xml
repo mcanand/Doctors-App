@@ -14,35 +14,57 @@
                 </span>
             </t>
             <!-- ==================== ============== -->
+            <!--            <t t-set="app" t-value="requset.env[]"-->
+            <t t-set="appointments">
+                <t t-set="user_partner_id" t-value="request.env.user.partner_id"/>
+                <t t-set="today" t-value="datetime.datetime.now().strftime('%Y-%m-%d')"/>
+                <t t-set="bookings" t-value="request.env['doctor.time.slots'].sudo().search([
+                    ('partner_ids', 'in', user_partner_id.ids),
+                    ('booking_button', '=', True),
+                    ('date', '=', today),
+                ])"/>
+                <t t-set="booking_details" t-value="[]"/>
+                <t t-foreach="bookings" t-as="booking">
+                    <t t-set="booking_dict" t-value="{
+                        'doctor_name': booking.doctor_id.name,
+                        'from_time': booking.from_time,
+                        'date': booking.date,
+                        'meeting_link': booking.meeting_link,
+                    }"/>
+                    <t t-set="booking_details" t-value="booking_details + [booking_dict]"/>
+                </t>
+            </t>
             <div class="container" style="maximum-width:1500px;" id="wrap">
-                  <div class="row mt-3">
-        <div class="col-9 poppins500 app_color">
-            Today's <br/>Appointments
-        </div>
-        <div class="col-3 text-end app_color">
-            see all
-        </div>
-    </div>
-                <div class="appointment-container mt-3">
-                    <div class="appointments-box">
-                        <div class="appointment-details">
-                            <div class="doctor-info">
-                                <div class="small-box"></div>
-                                <div class="name">Alexander
-                                    Here
-                                </div>
-                            </div>
-                            <div class="doctor-info">
-                                <div class="departments">General Medicine</div>
-                                <div class="rating">Rating: 4.5</div>
-                            </div>
-                            <div class="time-icon">
-                                <i class="fa fa-clock-o"></i>
-                                Today 10:00 AM
-                            </div>
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-9 poppins500 app_color">
+                        Today's<br/>Appointments
+                    </div>
+                    <div class="col-3 text-end app_color">
+                        see all
                     </div>
                 </div>
+                <t t-esc="appointments"></t>
+<!--                <div class="appointment-container mt-3">-->
+<!--                    <div class="appointments-box">-->
+<!--                        <t t-foreach="appointments" t-as="appointment">-->
+<!--                            <div class="appointment-details">-->
+<!--                                <div class="doctor-info">-->
+<!--                                    <div class="small-box"></div>-->
+<!--                                    <div class="name">  <t t-esc="appointment['doctor_name']"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="doctor-info">-->
+<!--                                    <div class="departments">General Medicine</div>-->
+<!--                                    <div class="rating">Rating: 4.5</div>-->
+<!--                                </div>-->
+<!--                                <div class="time-icon">-->
+<!--                                    <i class="fa fa-clock-o"></i>-->
+<!--                                    Today 10:00 AM-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </t>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="row mt-3">
                     <div class="col-12">

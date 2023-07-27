@@ -1,0 +1,14 @@
+   .us-image-box {
+        /* Set the maximum width and height for the image box */
+        max-width: 150px; /* Adjust this value to your desired size */
+        max-height: 150px; /* Adjust this value to your desired size */
+        overflow: hidden; /* Hide any overflowing parts of the image */
+    }
+
+    .us-image {
+        /* Set the image width and height to 100% to make it fill the box */
+        width: 50%;
+        height: 50%;
+        /* Preserve the aspect ratio of the image */
+        object-fit: cover;
+    }

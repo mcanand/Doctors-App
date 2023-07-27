@@ -15,6 +15,8 @@
         'views/my_account.xml',
         'views/all_doctors.xml',
         'views/today_appointment.xml',
+        'views/prescription_list.xml',
+        'views/prescription.xml',
     ],
     'installable': True,
     'application': True,
