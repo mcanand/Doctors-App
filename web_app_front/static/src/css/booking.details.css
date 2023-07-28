@@ -17,6 +17,13 @@
     font-size: 16px;
     margin-bottom: 10px;
 }
+.booking-question {
+    font-size: 16px;
+    margin-bottom: 10px;
+     word-wrap: break-word;
+     display: flex;
+
+}
 
 .booking-label {
     font-weight: bold;

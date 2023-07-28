@@ -24,11 +24,7 @@
                                      t-options='{"widget": "contact", "fields": ["email", "phone", "address", "name"]}'/>
                             </div>
                         </div>
-                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
-                            <div class="app_card p-2">
-                                <p> Appointments</p>
-                            </div>
-                        </div>
+                         <t t-if="user_id.partner_id.categry_id == 'patient'">
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <div class="app_card p-2">
                                  <a href="/today/appointment">
@@ -36,6 +32,36 @@
                                  </a>
                             </div>
                         </div>
+                        </t>
+                         <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
+                            <div class="app_card p-2">
+                                 <a href="/today/appointment/doctor">
+                                <p>Today's</p>
+                                 </a>
+                            </div>
+                        </div>
+                        </t>
+                        <t t-if="user_id.partner_id.categry_id == 'patient'">
+                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
+                            <div class="app_card p-2">
+                                   <a href="/all/appointment">
+                                <p> Appointments</p>
+                                   </a>
+                            </div>
+                        </div>
+                        </t>
+
+                         <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
+                            <div class="app_card p-2">
+                                 <a href="/all/appointment/doctor">
+                                <p>Appointments</p>
+                                 </a>
+                            </div>
+                        </div>
+                        </t>
+                           <t t-if="user_id.partner_id.categry_id == 'patient'">
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <div class="app_card p-2">
                                   <a href="/prescription">
@@ -43,6 +69,16 @@
                                   </a>
                             </div>
                         </div>
+                           </t>
+                           <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
+                            <div class="app_card p-2">
+                                   <a href="/booking/time/edit">
+                                <p> Edit Slot</p>
+                                   </a>
+                            </div>
+                        </div>
+                         </t>
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <a href="/my/security">
                                 <div class="app_card p-2">

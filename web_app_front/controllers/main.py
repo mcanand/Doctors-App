@@ -41,6 +41,7 @@ class AppController(http.Controller):
                 'appointment_time': booking.from_time,
                 'appointment_end': booking.to_time,
                 'doctor_image' : doctor_image_url,
+                'department' : booking.doctor_id.department_id.name,
             }
 
             booking_details.append(booking_dict)
@@ -78,7 +79,7 @@ class AppController(http.Controller):
         bookings = request.env['doctor.time.slots'].sudo().search([
             ('partner_ids', 'in', user_partner_id.ids),
             ('booking_button', '=', True),
-            ('date', '<', today),
+            ('date', '>=', today),
         ])
 
         previous_bookings = request.env['doctor.time.slots'].sudo().search([
@@ -98,6 +99,7 @@ class AppController(http.Controller):
                 'appointment_end': booking.to_time,
                 'doctor_image': doctor_image_url,
                 'id': booking.id,
+                'department': booking.doctor_id.department_id.name,
             }
 
             booking_details.append(booking_dict)
@@ -110,6 +112,7 @@ class AppController(http.Controller):
                 'appointment_time': previous_booking.from_time,
                 'appointment_end': previous_booking.to_time,
                 'doctor_image': doctor_image_url,
+                'department': previous_booking.doctor_id.department_id.name,
             }
 
             previous_booking_details.append(previous_booking_dict)
@@ -129,6 +132,97 @@ class AppController(http.Controller):
         print(values)
         return request.render('web_app_front.booking_details', values)
 
+    @http.route('/booking/time/edit', type='http', auth='user', website=True)
+    def edit_booking_time(self, **kw):
+        return http.request.render('web_app_front.edit_booking_time_template')
+
+    @http.route('/booking/time/update', type='http', auth='public', website=True, method=['POST'])
+    def update_booking_time(self, **kw):
+        partner_id = request.env.user.partner_id
+        partner = request.env.user.partner_id
+        employee = request.env['hr.employee'].sudo().search([('partner_ids', '=', partner.id)], limit=1)
+        date = kw.get('date')
+        from_time = kw.get('from_time')
+        to_time = kw.get('to_time')
+
+        employee.write({
+            'date': date,
+            'time_from': from_time,
+            'time_to': to_time,
+        })
+
+        return request.redirect('/my')
+
+    @http.route('/today/appointment/doctor', type='http', auth='public', website=True)
+    def view_appointments_doctor(self):
+        doctor_id = request.env.user.employee_ids
+        bookings = request.env['doctor.time.slots'].sudo().search([
+            ('doctor_id', '=', doctor_id.id),
+            ('booking_button', '=', True),
+            ('date', '=', datetime.now().strftime('%Y-%m-%d')),
+        ])
+
+        booking_details = []
+
+        for booking in bookings:
+            booking_dict = {
+                'patient_name': booking.partner_ids.name,
+                'appointment_time': booking.from_time,
+                'appointment_end': booking.to_time,
+                'id': booking.id,
+            }
+            booking_details.append(booking_dict)
+
+        return request.render('web_app_front.today_appointment_doctor', {'appointments': booking_details})
+
+    @route('/all/appointment/doctor', type='http', auth='public', website=True)
+    def all_appointments(self, **kwargs):
+        doctor_id = request.env.user.employee_ids
+        today = date.today().strftime('%Y-%m-%d')
+
+        bookings = request.env['doctor.time.slots'].sudo().search([
+            ('doctor_id', '=', doctor_id.id),
+            ('booking_button', '=', True),
+            ('date', '>=', today),
+        ])
+
+        previous_bookings = request.env['doctor.time.slots'].sudo().search([
+            ('doctor_id', '=', doctor_id.id),
+            ('booking_button', '=', True),
+            ('date', '<', today),
+        ])
+
+        booking_details = []
+        previous_booking_details = []
+
+        for booking in bookings:
+            booking_dict = {
+                'patient_name': booking.partner_ids.name,
+                'appointment_time': booking.from_time,
+                'appointment_end': booking.to_time,
+                'id': booking.id,
+                'date' : booking.date,
+
+            }
+
+            booking_details.append(booking_dict)
+            print(booking_details)
+
+        for previous_booking in previous_bookings:
+          previous_booking_dict = {
+                'patient_name': previous_booking.doctor_id.name,
+                'appointment_time': previous_booking.from_time,
+                'appointment_end': previous_booking.to_time,
+                'date' : previous_booking.date,
+
+            }
+
+          previous_booking_details.append(previous_booking_dict)
+
+        return http.request.render('web_app_front.all_appointment_doctor', {
+            'appointments': booking_details,
+            'previous_appointments': previous_booking_details,
+        })
 
 
 class CustomerPortalInherit(CustomerPortal):

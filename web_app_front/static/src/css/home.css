@@ -79,7 +79,7 @@
         transition: background-color 0.3s ease;
         margin-right: 10px;
         height:140px;
-        width:550px;
+        width:250px;
         display: flex;
        align-items: center;
     }
@@ -156,8 +156,6 @@
     font-size: 12px;
     white-space: nowrap;
 }
-
-
 .rating {
     color: #333;
         margin-left: 10px;
@@ -165,6 +163,9 @@
             margin-top: 10px;
         font-size: 12px;
 }
+
+
+
 
 
 .time-icon {
@@ -192,20 +193,31 @@
     margin-right: 10px;
     border-radius: 10px;
 }
+.image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
 /* Styling for the doctor's name */
 .doctor-information .doctor-name {
     font-size: 16px;
     font-weight: bold;
     margin-left: 10px;
-    color:white;
+    color:black;
+}
+.doctor-information .doctor-rating {
+    font-size: 16px;
+
+    margin-left: 10px;
+    color:black;
 }
 
 /* Styling for the department name */
 .doctor-information .department-name {
     color: #007bff;
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 10px;
-    color:white;
+    color:black;
 }
 
 

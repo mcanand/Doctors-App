@@ -1,5 +1,5 @@
 <odoo>
-    <template id="today_appointment">
+    <template id="today_appointment_doctor">
         <t t-call="website.layout">
             <!-- Your header content here -->
             <!-- ... -->
@@ -18,14 +18,14 @@
                     <t t-foreach="appointments" t-as="appointment">
                         <div class="time-icon">
                             <i class="fa fa-clock-o"></i> From
-                            <t t-esc="appointment.get('appointment_time')" />  to  c
+                            <t t-esc="appointment.get('appointment_time')" />  to   <t t-esc="appointment.get('appointment_end')" />
                         </div>
                         <div class="col-24 user-container">
                             <div class="user-box">
                                 <div class="user-information">
                                     <div class="appointment-time">
                                         <span class="name-doc">
-                                            <t t-esc="appointment.get('doctor_name')" />
+                                            <t t-esc="appointment.get('patient_name')" />
                                         </span>
 
                                         <span class="appointment-time"> Start at
@@ -35,14 +35,14 @@
 <!--                                        <t t-esc="appointment.get('appointment_end')" />-->
 <!--                                        </span>-->
                                     </div>
-                                    <div class="name-doc">
-                                       <span class="age"> <t t-esc="appointment.get('department')"/></span>
-                                    </div>
+<!--                                    <div class="name-doc">-->
+<!--                                       <span class="age"> <t t-esc="appointment.get('department')"/></span>-->
+<!--                                    </div>-->
                                 </div>
-                                <div class="user-image-box">
-                                      <img  t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+<!--                                <div class="user-image-box">-->
+<!--                                      <img  t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>-->
 
-                                </div>
+<!--                                </div>-->
                             </div>
                         </div>
                     </t>

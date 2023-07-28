@@ -88,35 +88,48 @@
                         </a>
                     </div>
                 </div>
-
-                <!--                <div class="row mt-2">-->
-                <!--                    <div class="col-7 app_color">-->
-                <!--                        Lets Find Your Doctor-->
-                <!--                    </div>-->
-                <!--                    <div class="col-5 text-end app_color">-->
-                <!--                        see all-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                <br/>
                 <div class="row">
-                    <div class="col-12 department-container">
-                        <!-- Example department buttons -->
-                        <button class="department-button">General Medicine</button>
-                        <button class="department-button">cold</button>
-                        <button class="department-button">Department 3</button>
-                        <button class="department-button">Department nmkilf</button>
-                        <!-- You can add more department buttons here -->
+
+                    <div class="col-9 poppins500 app_color">
+                        Top-Rated<br/>Doctors
                     </div>
                 </div>
+
+
+                <t t-set="doctor_ratings"
+                   t-value="env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
+
                 <div class="row">
                     <div class="col-24 doctor-container">
-                        <button class="doctor-box">
-                            <div class="doctor-information">
-                                <div class="image-box"></div>
-                                <div class="doctor-name">Alexander Here</div>
-                                <div class="department-name">Department</div>
-                            </div>
+                        <t t-foreach="doctor_ratings" t-as="rating">
 
-                        </button>
+                            <button class="doctor-box">
+                                <div class="doctor-information">
+                                    <div class="image-box">
+                                        <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"
+                                             alt="Doctor Image"/>
+                                    </div>
+                                    <div class="doctor-name">
+                                        <t t-esc="rating.doctor_id.name"/><br/>
+                                        <div class="department-name">
+                                        <t t-esc="rating.doctor_id.department_id.name"/>
+                                    </div>
+                                    </div>
+
+                                    <div class="doctor-rating"><span>Rating :</span>
+                                        <t t-esc="rating.rating"/>
+                                    </div>
+                                </div>
+                            </button>
+                        </t>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all doctors
+                        </a>
                     </div>
                 </div>
             </div>

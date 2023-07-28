@@ -14,6 +14,7 @@
             <!-- =================================== -->
             <div class="container">
                 <div class="row mt-3">
+                    <t t-if="prescriptions">
                     <t t-foreach="prescriptions" t-as="presc">
                      <div class="col-24 user-container">
                             <div class="user-box">
@@ -43,6 +44,12 @@
 
                         </div>
                     </t>
+                    </t>
+                       <t t-else="">
+                        <div class="col-24 no-appointments-container">
+                            <p class="no-appointments-text">No Prescriptions yet.</p>
+                        </div>
+                       </t>
                 </div>
             </div>
         </t>
