@@ -176,7 +176,7 @@ class AppController(http.Controller):
         return request.render('web_app_front.today_appointment_doctor', {'appointments': booking_details})
 
     @route('/all/appointment/doctor', type='http', auth='public', website=True)
-    def all_appointments(self, **kwargs):
+    def all_appointments_doctor(self, **kwargs):
         doctor_id = request.env.user.employee_ids
         today = date.today().strftime('%Y-%m-%d')
 
@@ -223,6 +223,26 @@ class AppController(http.Controller):
             'appointments': booking_details,
             'previous_appointments': previous_booking_details,
         })
+
+    @http.route(['/doctor/information/pick'], type='json', auth='public', methods=['POST'])
+    def get_doctor_details(self,doctor_id, **post):
+        doctor_model = request.env['hr.employee'].sudo().browse(int(doctor_id))
+        if doctor_model:
+
+            doctor_details = {
+                'doctor_name': doctor_model.name,
+                'department_name': doctor_model.department_id.name,
+
+            }
+            return {
+                'success': True,
+                'data': doctor_details,
+            }
+        else:
+            return {
+                'success': False,
+                'data': {},
+            }
 
 
 class CustomerPortalInherit(CustomerPortal):

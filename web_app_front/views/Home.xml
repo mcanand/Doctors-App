@@ -30,12 +30,32 @@
         'from_time': booking.from_time,
         'dep_name' :booking.doctor_id.department_id.name,
         'doctor_image':booking.doctor_id.image_1920,
+         }"/>
+               <t t-set="booking_details" t-value="booking_details + [booking_dict]"/>
+            </t>
+
+            <t t-set="user_doctor_id" t-value="request.env.user.employee_ids"/>
+            <t t-set="bookings_doctor" t-value="request.env['doctor.time.slots'].sudo().search([
+    ('doctor_id', '=', user_doctor_id.id),
+    ('booking_button', '=', True),
+    ('date','=',datetime.datetime.now().strftime('%Y-%m-%d'))
+
+])"/>
+            <t t-set="booking_details_doctor" t-value="[]"/>
+            <t t-foreach="bookings_doctor" t-as="dbooking">
+                <t t-set="booking_dict_doctor" t-value="{
+        'patient_name': dbooking.partner_ids.name,
+        'appointment_time': dbooking.from_time,
+        'appointment_end': dbooking.to_time,
+        'patient_image':dbooking.partner_ids.image_1920,
 
     }"/>
-                <t t-set="booking_details" t-value="booking_details + [booking_dict]"/>
+
+                <t t-set="booking_details_doctor" t-value="booking_details_doctor + [booking_dict_doctor]"/>
             </t>
 
             <div class="container" style="maximum-width:1500px;" id="wrap">
+
                 <div class="row mt-3">
                     <div class="col-9 poppins500 app_color">
                         Today's<br/>Appointments
@@ -44,7 +64,7 @@
                         see all
                     </div>
                 </div>
-
+                 <t t-if="user_id.partner_id.categry_id == 'patient'">
                 <div class="appointment-container mt-3">
                     <t t-foreach="booking_details" t-as="appointment">
                         <div class="appointments-box">
@@ -81,7 +101,6 @@
 
                 </div>
 
-
                 <div class="row mt-3">
                     <div class="col-12">
                         <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all departments
@@ -89,6 +108,7 @@
                     </div>
                 </div>
                 <br/>
+
                 <div class="row">
 
                     <div class="col-9 poppins500 app_color">
@@ -98,14 +118,16 @@
 
 
                 <t t-set="doctor_ratings"
-                   t-value="env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
+                   t-value="request.env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
 
                 <div class="row">
+                    <t t-if="doctor_ratings">
                     <div class="col-24 doctor-container">
                         <t t-foreach="doctor_ratings" t-as="rating">
+                            <t t-if="rating.rating > 0">
 
-                            <button class="doctor-box">
-                                <div class="doctor-information">
+                            <div class="doctor-box">
+                                <div class="doctor-information" id="doctor_id" t-att-value="rating.doctor_id">
                                     <div class="image-box">
                                         <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"
                                              alt="Doctor Image"/>
@@ -115,16 +137,32 @@
                                         <div class="department-name">
                                         <t t-esc="rating.doctor_id.department_id.name"/>
                                     </div>
-                                    </div>
+                                    </div><br/>
 
                                     <div class="doctor-rating"><span>Rating :</span>
                                         <t t-esc="rating.rating"/>
-                                    </div>
+
+                                   </div>
                                 </div>
-                            </button>
+                            </div>
+                        </t>
                         </t>
                     </div>
+                    </t>
+                    <t t-else="">
+                        <div class="col-24">
+                        No  Doctors found.
+                    </div>
+                    </t>
                 </div>
+                     <!-- The modal box -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">×
+</span>
+        <p></p>
+    </div>
+</div>
 
                 <div class="row mt-3">
                     <div class="col-12">
@@ -132,6 +170,41 @@
                         </a>
                     </div>
                 </div>
+
+                </t>
+                 <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                <div class="appointment-container mt-3">
+                    <t t-foreach="booking_details_doctor" t-as="dappointment">
+                        <div class="appointments-box">
+
+                            <div class="appointment-details">
+                                <div class="doctor-info">
+                                    <div class="small-box">
+                                        <img t-attf-src="data:image/png;base64,{{dappointment.get('patient_image')}}"/>
+                                    </div>
+                                    <div class="name">
+                                        <t t-esc="dappointment.get('patient_name')"/>
+                                    </div>
+
+                                </div>
+                                <div class="time-icon">
+                                    <i class="fa fa-clock-o"></i>
+                                    <span>From</span>
+                                        <t t-esc="dappointment.get('appointment_time')"/><span> to</span>  <t t-esc="dappointment.get('appointment_end')"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                    <t t-if="not booking_details_doctor">
+                        <div class="col-9 poppins500 app_color">
+                            No Appointments Today
+                        </div>
+                    </t>
+
+                </div>
+                </t>
+
             </div>
         </xpath>
     </template>
