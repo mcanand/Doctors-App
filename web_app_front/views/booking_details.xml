@@ -28,9 +28,15 @@
                                 </span>
                             </div>
                             <div class="booking-time">
-                                <span class="booking-label">Time:</span>
+                                <span class="booking-label"> From:</span>
                                 <span class="value">
                                     <t t-esc="booking.from_time"/>
+                                </span>
+                            </div>
+                             <div class="booking-time">
+                                <span class="booking-label"> To:</span>
+                                <span class="value">
+                                    <t t-esc="booking.to_time"/>
                                 </span>
                             </div>
                             <div class="booking-link">

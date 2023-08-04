@@ -8,7 +8,7 @@
                 <form>
                     <sheet>
                         <tree>
-                            <field name="partner_id"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
                             <field name="display_time_interval"/>
                             <field name="date"/>
                             <field name="booking_status"/>

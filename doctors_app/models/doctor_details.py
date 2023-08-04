@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError,ValidationError
 
 
 class Doctor(models.Model):
@@ -17,9 +17,9 @@ class Doctor(models.Model):
     about = fields.Text(string='About')
     employee_id = fields.Many2one('hr.employee', string='Employee')
     user_id = fields.Many2one('res.users', string='User')
-    partner_id = fields.Many2one('res.partner', string='Partner')
+    partner_ids = fields.Many2many('res.partner', string='Partner')
     private_contact_address = fields.Text(string='Private Contact Address')
-    state_id = fields.Many2one('res.country.state', string='State', domain="[('country_id.code', '=', 'IN')]")
+    state_id = fields.Many2one('res.country.state', string='State' , domain="[('country_id.code', '=', 'IN')]")
     emergency_contact_name = fields.Char(string='Emergency Contact Name')
     emergency_contact_phone = fields.Char(string='Emergency Contact Phone')
     # Education
@@ -45,6 +45,7 @@ class Doctor(models.Model):
     time_from = fields.Char(string='From')
     time_to = fields.Char(string='To')
 
+
     @api.depends('status')
     def _compute_stage(self):
         for record in self:
@@ -55,10 +56,14 @@ class Doctor(models.Model):
             else:
                 record.stage = ''
 
+
+
+
     def action_approve(self):
         self.status = '1'
         self.create_user()
         return
+
 
     def action_rejected(self):
         self.status = '3'
@@ -67,11 +72,11 @@ class Doctor(models.Model):
     def create_user(self):
         Users = self.env['res.users']
         for doctor in self:
-            user_vals = {
-                'name': doctor.name,
-                'login': doctor.email,
-                'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
-            }
+         user_vals = {
+            'name': doctor.name,
+            'login': doctor.email,
+            'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
+         }
         try:
             user = Users.create(user_vals)
         except ValidationError:

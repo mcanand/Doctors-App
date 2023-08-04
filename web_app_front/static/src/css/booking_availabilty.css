@@ -1,0 +1,27 @@
+.booking-time {
+    margin-left: 10px;
+}
+.booking-doc, .booking-time, .book {
+    font-size: 16px;
+    display: inline-block;
+    color: black;
+    margin-left: 5px;
+}
+
+/* Styling for the "Book Now" button */
+.book_button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  height:35px;
+  border-radius: 25px; /* Adjust the value to control the amount of curvature */
+  transition: background-color 0.3s ease;
+  line-height: 14px;
+}
+
+.book_button:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}

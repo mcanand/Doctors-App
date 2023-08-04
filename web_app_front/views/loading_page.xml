@@ -7,7 +7,7 @@
                 <div class="col-12 d-flex justify-content-center">
                     <div class="rectangle align-items-start">
                         <i class="fa fa-user-md"></i>
-                          <a t-attf-href="/web/signup?user_type=patient" class="signup-link">
+                          <a t-attf-href="/enter/details" class="signup-link">
                                 <span class="text-left">I am a<br/>Doctor...</span>
                             </a>
                     </div>

@@ -15,7 +15,7 @@
                  <xpath expr="//field[@name='mobile'] " position="after">
                      <group>
 
-                               <field name="categry_id"/>
+                          <field name="categry_id"/>
                            <field name="date_of_birth"/>
 
                      </group>

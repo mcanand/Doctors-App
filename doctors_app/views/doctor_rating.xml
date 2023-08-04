@@ -9,7 +9,7 @@
                     <sheet>
                         <group>
                             <field name="doctor_id" attrs="{'invisible': True}"/>
-                            <field name="patient_id" attrs="{'invisible': True}"/>
+                            <field name="patient_ids" attrs="{'invisible': True}"/>
                             <field name="rating" widget="rating_widget"/>
                         </group>
                     </sheet>

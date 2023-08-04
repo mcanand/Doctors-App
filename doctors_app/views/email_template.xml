@@ -23,7 +23,8 @@
                                     <t t-esc="slot.partner_id.name"/>
                                     <br/>
                                     <b>Time Interval:</b>
-                                    <t t-esc="slot.display_time_interval"/>
+                                    <t t-esc="slot.from_time"/>
+                                    <t t-esc="slot.to_time"/>
                                     <br/>
                                 </li>
                             </t>

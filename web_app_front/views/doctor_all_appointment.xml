@@ -9,7 +9,10 @@
                 </a>
                 <span class="poppins300 ml-2" style="color:#333;">
                     All Appoinments
-                </span>
+                </span><br/><br/>
+                 <span class="poppins300 ml-2" style="color:#333;">
+                        <t t-esc="doctor_name"/>
+                    </span>
             </t>
 
             <div class="container">
@@ -32,7 +35,8 @@
                             <div class="user-box">
 
                                 <div class="user-information">
-                                    <a t-att-href="'/bookings/%s' %appointment.get('id')">
+                                    <a t-att-href="'/prescription/add/%s' %appointment.get('patient_id')">
+
                                         <div class="appointment-time">
                                             <span class="name-doc">
                                                 <t t-esc="appointment.get('patient_name')"/>
@@ -97,7 +101,7 @@
                                     </div>
                                      <div class="name-doc">
                                             <span class="age">
-                                                <t t-esc="appointment.get('date')"/>
+                                                <t t-esc="pappointment.get('date')"/>
                                             </span>
                                         </div>
 

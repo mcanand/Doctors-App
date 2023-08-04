@@ -1,0 +1,158 @@
+<odoo>
+    <template id="add_prescription">
+        <t t-call="website.layout">
+            <!-- Your header content here -->
+            <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                </a>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    Prescriptions
+                </span>
+
+            </t>
+            <!-- =================================== -->
+            <form action="/prescription/save" method="POST">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="hidden" name="patient_id" t-att-value="patient_id"/>
+                <div class="container">
+                    <div class="row mt-3">
+                        <t t-if="partner_count > 1">
+                            <div class="col-md-6">
+                                <div class="booking-time">
+                                    <span class="booking-label">Name:</span>
+                                    <span class="value">
+                                        Group Meeting
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="booking-time">
+                                            <span class="booking-label">Age:</span>
+                                            <span class="value">
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="booking-time">
+                                            <span class="booking-label">Date:</span>
+                                            <span class="value">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="col-md-6">
+                                <div class="booking-time">
+                                    <span class="booking-label">Name:</span>
+                                    <span class="value">
+                                        <t t-esc="patient_details.name"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="booking-time">
+                                            <span class="booking-label">Age:</span>
+                                            <span class="value">
+                                                <t t-esc="patient_details.age"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="booking-time">
+                                            <span class="booking-label">Date:</span>
+                                            <span class="value">
+                                                <t t-esc="current_date"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+
+
+                        <div class="col-12">
+                            <div class="custom-card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-14 order-2 order-md-1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="case">Case Details:</label>
+                                                    <textarea class="form-control" rows="6" id="case" name="case">
+                                                        <!-- <t t-esc="prescription.case_details"/> -->
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12"> <!-- This will stack the case details and prescription vertically -->
+                            <div class="custom-card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-14 order-2 order-md-1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="pres">Prescription:</label>
+                                                    <textarea class="form-control" rows="6" id="pres" name="pres">
+                                                        <!-- <t t-esc="prescription.prescription"/> -->
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="booking_container">
+                            <div class="form-group">
+                                <label for="next_sitting_date">Next Sitting Date:</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="next_sitting_date"
+                                           name="next_sitting_date"/>
+                                    <div class="input-group-append ">
+                                        <button type="button" class="btn btn-outline-secondary booking"
+                                                id="add_date_btn">+
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group hidden" id="second_date_field">
+
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="next_sitting_date"/>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary booking"
+                                                id="add_date_btn">+
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button class="book_button">Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+</odoo>

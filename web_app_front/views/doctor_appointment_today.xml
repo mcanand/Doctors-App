@@ -15,7 +15,9 @@
             <div class="container">
                 <div class="row mt-3">
                      <t t-if="appointments">
+
                     <t t-foreach="appointments" t-as="appointment">
+                         <a t-att-href="'/prescription/add/%s' %appointment.get('patient_id')">
                         <div class="time-icon">
                             <i class="fa fa-clock-o"></i> From
                             <t t-esc="appointment.get('appointment_time')" />  to   <t t-esc="appointment.get('appointment_end')" />
@@ -45,8 +47,11 @@
 <!--                                </div>-->
                             </div>
                         </div>
+                         </a>
                     </t>
+
                      </t>
+
                      <t t-else="">
                         <div class="col-24 no-appointments-container">
                             <p class="no-appointments-text">No appointments today.</p>

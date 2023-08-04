@@ -14,10 +14,11 @@
                     <page string="Slots">
                         <field name="slots_ids" nolabel="1">
                             <tree string="Doctor Time Slots" editable="top">
-                                <field name="display_time_interval" readonly="1"/>
-                                <field name="date" readonly="1"/>
+                                <field name="from_time" />
+                                   <field name="to_time" />
+                                <field name="date"/>
                                 <field name="booking_button" widget="boolean_button"/>
-                                <field name="partner_id"/>
+                                <field name="partner_ids"   widget="many2many_tags"/>
                                 <field name="meeting_link" attrs="{'invisible': [('booking_button', '=', False)]}"/>
                                 <button name="view_prescription" string="prescription" type="object"/>
                             </tree>
@@ -33,6 +34,7 @@
                     <group string="About">
                         <field name="about"/>
                             <field name="work_experience" />
+                        <field name="one_hour_fee"/>
                     </group>
                 </xpath>
             </field>

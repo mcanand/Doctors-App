@@ -1,6 +1,5 @@
 from odoo import fields, models
 
-
 class Certificates(models.Model):
     _name = 'doctor.certificate'
     _description = 'Doctor Certificates'

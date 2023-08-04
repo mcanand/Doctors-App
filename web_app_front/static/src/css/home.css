@@ -256,3 +256,97 @@
   text-decoration: none;
   cursor: pointer;
 }
+#doctorImage img {
+  max-width: 80%;
+  max-height: 100px; /* Adjust the height as needed */
+  display: block;
+
+}
+
+/* Styling for the "Schedule a Meeting" button in the modal */
+#myButton {
+   display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  height:35px;
+  border-radius: 25px; /* Adjust the value to control the amount of curvature */
+  transition: background-color 0.3s ease;
+  line-height: 14px;
+  margin: 0 auto;
+}
+.myButton:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}
+
+
+ .meeting-box {
+        border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: white;
+        color: #333333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-right: 10px;
+        height:180px;
+        width:250px;
+        display: flex;
+       align-items: center;
+    }
+
+
+    .meeting-container {
+        display: flex;
+
+        padding-bottom: 10px;
+
+    }
+
+
+    .meeting-container::-webkit-scrollbar {
+        display: none;
+    }
+
+
+
+
+.meeting-box {
+    display: flex;
+
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.meeting-details {
+    display: flex;
+    flex-direction: column;
+    font-size:10px;
+}
+.join_button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  height:35px;
+  border-radius: 25px; /* Adjust the value to control the amount of curvature */
+  transition: background-color 0.3s ease;
+  line-height: 14px;
+}
+
+.join_button:hover {
+  background-color: #0056b3; /* Change the background color on hover */
+}
+.time-join-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,82 @@
+<odoo>
+    <template id="booking_availability">
+        <t t-call="website.layout">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+            <!-- Your header content here -->
+            <!-- ... -->
+            <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                </a>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    Available Slots
+                </span><br/>
+                <br/>
+                <span class="poppins300 ml-2" style="color:#333; font-weight:bold;">
+                    <b> <t t-esc="doctor"/></b>
+                </span><br/>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    <t t-esc="department"/>
+                </span><br/>
+                <span class="poppins300 ml-2" style="color:#333;">
+                    Fee Per Hour:<t t-esc="one_hour_fee"/>
+                </span>
+
+            </t>
+
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="today-heading">
+                            <h6>Upcoming Available Slots</h6>
+                        </div>
+                    </div>
+                    <t t-if="available_slots">
+                        <t t-foreach="available_slots" t-as="slot">
+                            <div class="time-icon">
+                                <i class="far fa-calendar"></i>
+                                <div class="name-doc">
+                                    <t t-esc="slot.get('date')"/>
+                                </div>
+
+                            </div>
+                            <div class="col-24 user-container">
+                                <div class="user-box" t-att-data-id="slot.get('slot_id')">
+
+                                    <div class="user-information">
+                                        <a t-att-href="">
+                                            <div class="booking-time">
+                                                <span class="booking-time">Time from
+                                                    <t t-esc="slot.get('from_time')"/>
+                                                </span>
+
+                                                <span class="booking-time">to
+                                                    <t t-esc="slot.get('to_time')"/>
+                                                </span>
+                                                <span class="booking-time book_now" t-attf-data-id="slot.get('slot_id')">
+
+                                                    <a class="book_button" id="myButtons" >Book Now</a>
+                                                </span>
+
+                                            </div>
+                                        </a>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <div class="col-24 no-appointments-container">
+                            <p class="no-appointments-text">Full Booked.</p>
+                        </div>
+                    </t>
+
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+

@@ -2,7 +2,9 @@ from odoo import http
 from odoo.http import content_disposition, Controller, request, route
 from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.web.controllers.home import Home
-from datetime import datetime,date
+from datetime import datetime, date
+import ast
+
 
 class AppController(http.Controller):
     @http.route('/departments', type='http', auth='public', website=True)
@@ -29,7 +31,7 @@ class AppController(http.Controller):
         bookings = request.env['doctor.time.slots'].sudo().search([
             ('partner_ids', 'in', user_partner_id.ids),
             ('booking_button', '=', True),
-            ('date' ,'=', datetime.now().strftime('%Y-%m-%d')),
+            ('date', '=', datetime.now().strftime('%Y-%m-%d')),
         ])
 
         booking_details = []
@@ -40,15 +42,12 @@ class AppController(http.Controller):
                 'doctor_name': booking.doctor_id.name,
                 'appointment_time': booking.from_time,
                 'appointment_end': booking.to_time,
-                'doctor_image' : doctor_image_url,
-                'department' : booking.doctor_id.department_id.name,
+                'doctor_image': doctor_image_url,
+                'department': booking.doctor_id.department_id.name,
             }
 
             booking_details.append(booking_dict)
         return request.render('web_app_front.today_appointment', {'appointments': booking_details})
-
-
-
 
     @http.route('/prescription', type='http', auth='public', website=True)
     def prescription_user(self):
@@ -62,14 +61,14 @@ class AppController(http.Controller):
         return request.render('web_app_front.prescription_list', values)
 
     @http.route(['/d/<int:id>'], type='http', auth='public', website=True)
-    def get_prescription(self,id,**kw):
+    def get_prescription(self, id, **kw):
         values = {}
         latest_prescription = request.env['doctor.patient.prescription'].sudo().search([
             ('id', '=', id),
         ])
         values['prescription'] = latest_prescription
         print(values)
-        return request.render('web_app_front.view_prescription',values)
+        return request.render('web_app_front.view_prescription', values)
 
     @route('/all/appointment', type='http', auth='public', website=True)
     def all_appointments(self, **kwargs):
@@ -132,9 +131,14 @@ class AppController(http.Controller):
         print(values)
         return request.render('web_app_front.booking_details', values)
 
+
+
+
     @http.route('/booking/time/edit', type='http', auth='user', website=True)
     def edit_booking_time(self, **kw):
+        print('hhhh')
         return http.request.render('web_app_front.edit_booking_time_template')
+
 
     @http.route('/booking/time/update', type='http', auth='public', website=True, method=['POST'])
     def update_booking_time(self, **kw):
@@ -160,13 +164,18 @@ class AppController(http.Controller):
             ('doctor_id', '=', doctor_id.id),
             ('booking_button', '=', True),
             ('date', '=', datetime.now().strftime('%Y-%m-%d')),
+            ('prescription_status', '=', False)
         ])
 
         booking_details = []
 
         for booking in bookings:
+            patient_names = [partner.name for partner in booking.partner_ids]
+            patient_name = ', '.join(patient_names)
+            partner_ids = [partner.id for partner in booking.partner_ids]
             booking_dict = {
-                'patient_name': booking.partner_ids.name,
+                'patient_name': patient_name,
+                'patient_id': partner_ids,
                 'appointment_time': booking.from_time,
                 'appointment_end': booking.to_time,
                 'id': booking.id,
@@ -179,7 +188,6 @@ class AppController(http.Controller):
     def all_appointments_doctor(self, **kwargs):
         doctor_id = request.env.user.employee_ids
         today = date.today().strftime('%Y-%m-%d')
-
         bookings = request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', doctor_id.id),
             ('booking_button', '=', True),
@@ -191,58 +199,171 @@ class AppController(http.Controller):
             ('booking_button', '=', True),
             ('date', '<', today),
         ])
-
+        doctor_name=doctor_id.name
         booking_details = []
         previous_booking_details = []
 
         for booking in bookings:
+            patient_names = [partner.name for partner in booking.partner_ids]
+            patient_name = ', '.join(patient_names)
+            partner_ids = [partner.id for partner in booking.partner_ids]
             booking_dict = {
-                'patient_name': booking.partner_ids.name,
+
+                'patient_name': patient_name,
                 'appointment_time': booking.from_time,
                 'appointment_end': booking.to_time,
                 'id': booking.id,
-                'date' : booking.date,
+                'date': booking.date,
+                'patient_id': partner_ids,
 
             }
 
             booking_details.append(booking_dict)
             print(booking_details)
-
         for previous_booking in previous_bookings:
-          previous_booking_dict = {
-                'patient_name': previous_booking.doctor_id.name,
+            patient_names = [partner.name for partner in previous_booking.partner_ids]
+            patient_name = ', '.join(patient_names)
+            partner_ids = [partner.id for partner in previous_booking.partner_ids]
+            previous_booking_dict = {
+                'patient_name': patient_name,
                 'appointment_time': previous_booking.from_time,
                 'appointment_end': previous_booking.to_time,
-                'date' : previous_booking.date,
+                'date': previous_booking.date,
+                'patient_id': partner_ids,
 
             }
 
-          previous_booking_details.append(previous_booking_dict)
-
+            previous_booking_details.append(previous_booking_dict)
+            print(previous_booking_details)
         return http.request.render('web_app_front.all_appointment_doctor', {
             'appointments': booking_details,
-            'previous_appointments': previous_booking_details,
+            'previous_appointments': previous_booking_details,'doctor_name':doctor_name,
         })
 
     @http.route(['/doctor/information/pick'], type='json', auth='public', methods=['POST'])
-    def get_doctor_details(self,doctor_id, **post):
+    def get_doctor_details(self, doctor_id, **post):
+        print(doctor_id)
         doctor_model = request.env['hr.employee'].sudo().browse(int(doctor_id))
         if doctor_model:
-
             doctor_details = {
                 'doctor_name': doctor_model.name,
                 'department_name': doctor_model.department_id.name,
+                'image': doctor_model.image_1920,
+                'experience': doctor_model.work_experience,
+                'about': doctor_model.about,
+                'doctor_id': doctor_model.id,
 
             }
+            rating_model = request.env['doctor.rating']
+            rating_record = rating_model.sudo().search([('doctor_id', '=', doctor_model.id)], limit=1)
+            if rating_record:
+                doctor_details['rating'] = rating_record.rating
+
             return {
-                'success': True,
                 'data': doctor_details,
             }
         else:
             return {
-                'success': False,
-                'data': {},
+                'error': ('Doctor not found.'),
             }
+
+
+
+    @http.route(['/booking/availability/<int:id>'], type='http', auth='public', website=True)
+    def booking_availability(self, id, **kw):
+        today = date.today()
+        available_slots = request.env['doctor.time.slots'].sudo().search([
+            ('doctor_id', '=', id),
+            ('booking_button', '!=', True),
+            ('date', '>', today.strftime('%Y-%m-%d'))
+        ])
+
+        booking_details = []
+        one_hour_fee= available_slots.doctor_id.one_hour_fee
+        doctor=available_slots.doctor_id.name
+        department = available_slots.doctor_id.department_id.name
+
+        for slot in available_slots:
+            doctor_details = {
+                'doctor_name': slot.doctor_id.name,
+                'date': slot.date,
+                'from_time': slot.from_time,
+                'to_time': slot.to_time,
+                'slot_id': slot.id,
+
+            }
+            booking_details.append(doctor_details)
+
+        return http.request.render('web_app_front.booking_availability', {'available_slots': booking_details,'department':department,'doctor':doctor,'one_hour_fee':one_hour_fee})
+
+
+
+    @http.route(['/prescription/add/<string:id>'], type='http', auth='user', website=True)
+    def add_prescription(self,id, **kw):
+        print(id)
+        val = ast.literal_eval(id)
+        partner_count = len(val)
+        if partner_count == 1 :
+         patient_details = request.env['res.partner'].sudo().browse(val)
+        else:
+            patient_details =None
+        current_date=date.today()
+        return http.request.render('web_app_front.add_prescription',{'patient_details' :patient_details,'partner_count': partner_count,'patient_id':id,'current_date' :current_date})
+
+    @http.route('/prescription/save', type='http', auth='user', website=True, csrf=True)
+    def save_prescription(self, **kw):
+        patient_ids_str = kw.get('patient_id')
+        patient_ids_list = [int(id) for id in patient_ids_str.strip('[]').split(',') if id.strip().isdigit()]
+
+        if patient_ids_list:
+            doctor_id = request.env.user.employee_ids.ids[0]
+            case_details = kw.get('case')
+            prescription = kw.get('pres')
+
+            print(doctor_id)
+            print(case_details)
+            print(prescription)
+            print(patient_ids_list)
+
+            # Save prescriptions for each patient
+            prescription_det = request.env['doctor.patient.prescription'].sudo()
+            time_slots = request.env['doctor.time.slots']
+
+            for patient_id in patient_ids_list:
+                prescription_det.create({
+                    'partner_ids': [(4, patient_id)],
+                    'case_details': case_details,
+                    'prescription': prescription,
+                    'doctor_id': doctor_id,
+                    'date': date.today(),
+                })
+                slot = time_slots.search([('partner_ids', 'in', patient_id)], limit=1)
+                if slot:
+                    slot.write({'prescription_status': True})
+
+        return request.redirect('/today/appointment/doctor')
+
+
+
+
+    @http.route(['/book/now'], type='json', auth='public', website=True, methods=['POST'])
+    def book_now(self, slot_id, **kw):
+        Slot = request.env['doctor.time.slots'].sudo()
+        slot = Slot.browse(int(slot_id))
+        print(slot)
+        if not slot.partner_ids:
+            patient_id = request.env.user.partner_id.id
+            print(patient_id)
+            slot.write({
+                'partner_ids': [(4, patient_id, 0)],
+            })
+            slot.on_partner_id_change()
+
+        return True
+
+    @http.route(['/enter/details'], type='http', auth='public', website=True)
+    def enter_details(self, **kw):
+        return http.request.render('web_app_front.enter_details',)
 
 
 class CustomerPortalInherit(CustomerPortal):

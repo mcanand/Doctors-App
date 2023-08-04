@@ -1,7 +1,6 @@
 from odoo import fields, models
 import datetime
 
-
 class DoctorPatientPrescription(models.Model):
     _name = 'doctor.patient.prescription'
     _description = 'Doctor Patient Prescription'
@@ -11,17 +10,19 @@ class DoctorPatientPrescription(models.Model):
     case_details = fields.Text(string='Case Details')
     prescription = fields.Text(string='Prescription')
     slot_id = fields.Many2one('doctor.time.slots', string='Time Slot', ondelete='cascade')
-    partner_id = fields.Many2one('res.partner', string='Patient')
+    partner_ids = fields.Many2many('res.partner', string='Patient')
     doctor_id = fields.Many2one('hr.employee', string='Doctor', store=True)
     next_visit = fields.Date(string='Next Visit')
     date = fields.Date(string='Date')
     lab_attachment = fields.Many2many('lab.attachment', string='Lab Attachment')
 
+
     def rate_doctor(self):
+        selected_partner = self.partner_ids[0]
         action = self.env.ref('doctors_app.action_doctor_rating').read()[0]
         action['context'] = {
             'default_doctor_id': self.doctor_id.id,
-            'default_patient_id': self.partner_id.id,
+            'default_patient_ids': [(6, 0, [selected_partner.id])],
         }
         return action
 
@@ -40,3 +41,5 @@ class DoctorPatientPrescription(models.Model):
 
         }
         return action
+
+

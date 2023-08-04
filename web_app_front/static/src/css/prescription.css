@@ -8,3 +8,11 @@
                     padding: 15px;
                 }
 
+                  .form-group {
+        margin-bottom: 20px; /* Adjust the value as needed */
+    }
+    .hidden {
+    display: none;
+}
+
+
