@@ -61,6 +61,15 @@
                             </div>
                         </div>
                         </t>
+                            <t t-if="user_id.partner_id.categry_id == 'patient'">
+                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
+                            <div class="app_card p-2">
+                                  <a href="/group/sessions">
+                                <p>Group Sessions</p>
+                                  </a>
+                            </div>
+                        </div>
+                           </t>
                            <t t-if="user_id.partner_id.categry_id == 'patient'">
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <div class="app_card p-2">
@@ -70,6 +79,7 @@
                             </div>
                         </div>
                            </t>
+
                            <t t-if="user_id.partner_id.categry_id == 'doctor'">
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <div class="app_card p-2">

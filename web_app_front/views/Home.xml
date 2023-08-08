@@ -213,6 +213,17 @@
 
                     <div class="row mt-3">
                         <div class="col-12">
+                            <a href="/group/sessions" class="btn shadow-none app_card w-100 poppins400">View all
+                                Group Sessions
+                            </a>
+                        </div>
+                    </div>
+                </t>
+                <br/>
+                <t t-if="user_id.partner_id.categry_id == 'patient'">
+
+                    <div class="row mt-3">
+                        <div class="col-12">
                             <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all
                                 departments
                             </a>

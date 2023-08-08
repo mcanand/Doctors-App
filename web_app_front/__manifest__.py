@@ -25,6 +25,7 @@
          'views/booking_availability.xml',
         'views/add_prescription.xml',
         'views/apply_doctor_detals.xml',
+        'views/group_sessions.xml',
     ],
     'installable': True,
     'application': True,
@@ -35,7 +36,7 @@
             "https://fonts.gstatic.com",
             "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap",
             '/web_app_front/static/src/js/doctor_info.js',
-            # '/web_app_front/static/src/js/book_now.js',
+
         ],
     },
     'license': 'LGPL-3',

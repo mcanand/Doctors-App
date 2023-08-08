@@ -1,9 +1,9 @@
 from odoo import http
 from odoo.http import content_disposition, Controller, request, route
 from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.addons.web.controllers.home import Home
 from datetime import datetime, date
 import ast
+import base64
 
 
 class AppController(http.Controller):
@@ -363,7 +363,75 @@ class AppController(http.Controller):
 
     @http.route(['/enter/details'], type='http', auth='public', website=True)
     def enter_details(self, **kw):
-        return http.request.render('web_app_front.enter_details',)
+        departments = request.env['hr.department'].sudo().search([])
+        countries = http.request.env['res.country'].sudo().search(
+            [('code', '=', 'IN')])  # Get country with code 'IN' for India
+        india_states = http.request.env['res.country.state'].sudo().search([('country_id', 'in', countries.ids)])
+        return http.request.render('web_app_front.enter_details',{'departments': departments, 'states': india_states})
+
+    @http.route('/doctor/details/save', type='http', auth='user', website=True)
+    def add_doctor(self,  **kw):
+        profile_pic = kw.get('image')
+        if profile_pic:
+            profile_pic_bytes = profile_pic.encode('utf-8')
+            # profile_pic_base64 = base64.b64encode(profile_pic).decode('utf-8')
+
+        doctor_vals = {
+            'department_id': kw.get('department_id'),
+            'name': kw.get('name'),
+            'gender': kw.get('gender'),
+            'mobile': kw.get('mobile'),
+            'email': kw.get('email'),
+            'experience': kw.get('experience'),
+            # 'profile_pic': profile_pic_bytes,
+            'state_id': kw.get('state_id'),
+            'time_from': kw.get('time_from'),
+            'time_to': kw.get('time_to'),
+            'work_address': kw.get('work_address'),
+            'about': kw.get('about'),
+            'private_contact_address': kw.get('address'),
+            'emergency_contact_phone': kw.get('contact'),
+            # Set other fields accordingly
+        }
+        doctor = request.env['doctor.details'].sudo().create(doctor_vals)
+        return request.redirect('/web/login')
+
+    @http.route(['/group/sessions'], type='http', auth='public', website=True)
+    def group_details(self, **kw):
+        today = datetime.now().date()
+
+        # Retrieve doctor.time.slots records with non-empty group_meeting from today onwards
+        slots = http.request.env['doctor.time.slots'].sudo().search([
+            ('group_meeting', '!=', False),
+            ('date', '>=', today),
+        ])
+        booking_details=[]
+        for slot in slots:
+            doctor_details = {
+                'doctor_name': slot.doctor_id.name,
+                'department_name': slot.doctor_id.department_id.name,
+                'date': slot.date,
+                'doctor_image':slot.doctor_id.image_1920,
+                'from_time': slot.from_time,
+                'to_time': slot.to_time,
+                'slot_id': slot.id,
+
+            }
+            booking_details.append(doctor_details)
+        return http.request.render('web_app_front.group_details', {'appointments' : booking_details})
+
+
+
+    @http.route(['/join/group/meetings/<int:id>'], type='http', auth='user', website=True)
+    def join_group_meeting(self, id, **kw):
+        group_slot = request.env['doctor.time.slots'].sudo().browse(id)
+        partner_id = request.env.user.partner_id.id
+        group_slot.write({'partner_ids': [(4, partner_id)]})
+        return request.redirect('/group/sessions')
+
+
+
+
 
 
 class CustomerPortalInherit(CustomerPortal):

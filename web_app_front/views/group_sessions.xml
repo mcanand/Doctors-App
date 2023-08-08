@@ -1,5 +1,5 @@
 <odoo>
-    <template id="today_appointment">
+    <template id="group_details">
         <t t-call="website.layout">
             <!-- Your header content here -->
             <!-- ... -->
@@ -8,7 +8,7 @@
                     <i style="font-size:16px;" class="fa fa-angle-left"/>
                 </a>
                 <span class="poppins300 ml-2" style="color:#333;">
-                    Today's Appoinments
+                    Group Sessions
                 </span>
             </t>
 
@@ -17,8 +17,8 @@
                      <t t-if="appointments">
                     <t t-foreach="appointments" t-as="appointment">
                         <div class="time-icon">
-                            <i class="fa fa-clock-o"></i> From
-                            <t t-esc="appointment.get('appointment_time')" />  to  <t t-esc="appointment.get('appointment_end')" />
+                            <i class="fa fa-clock-o"></i> On
+                            <t t-esc="appointment.get('date')" />
                         </div>
                         <div class="col-24 user-container">
                             <div class="user-box">
@@ -28,17 +28,24 @@
                                             <t t-esc="appointment.get('doctor_name')" />
                                         </span>
 
-                                        <span class="appointment-time"> Start at
-                                            <t t-esc="appointment.get('appointment_time')" />
+                                        <span class="appointment-time">
+                                            <t t-esc="appointment.get('department_name')"/>
+<!--                                            <t t-esc="appointment.get('from_time')" />-->
                                         </span>
 <!--                                          <span class="appointment-time"> to-->
-<!--                                        <t t-esc="appointment.get('appointment_end')" />-->
+<!--                                        <t t-esc="appointment.get('to_time')" />-->
 <!--                                        </span>-->
                                     </div>
                                     <div class="name-doc">
-                                       <span class="age"> <t t-esc="appointment.get('department')"/></span>
+                                       <span class="age"> From <t t-esc="appointment.get('from_time')" /> to <t t-esc="appointment.get('to_time')" /> </span>
+                                    </div>
+                                    <div class="name-doc">
+                                       <span class="age">
+                                           <a class="join_button" t-att-href="'/join/group/meetings%s' %appointment.get('slot_id')">Join Now</a>
+                                       </span>
                                     </div>
                                 </div>
+
                                 <div class="user-image-box">
                                       <img  t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
 
@@ -49,7 +56,7 @@
                      </t>
                      <t t-else="">
                         <div class="col-24 no-appointments-container">
-                            <p class="no-appointments-text">No appointments today.</p>
+                            <p class="no-appointments-text">No group sessions.</p>
                         </div>
                     </t>
                 </div>
