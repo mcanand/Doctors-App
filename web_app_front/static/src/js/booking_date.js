@@ -14,32 +14,32 @@ odoo.define('web_app_front.booking', function (require) {
         },
 
         start: function () {
-            alert('Widget initialized.');
+
             this.hideSecondDateField(); // Hide the second date field initially
         },
 
         _onClickDoctorBox: function (ev) {
             var $button = $(ev.currentTarget);
-            var firstDateValue = $("#next_sitting_date").val();
+            var firstDateValue = $("#next_sitting").val();
             if (firstDateValue !== "") {
                 var firstDate = new Date(firstDateValue);
                 var nextDate = new Date(firstDate.getTime() + 86400000);
                 var nextDateString = nextDate.toISOString().split('T')[0];
-                $("#next_sitting_date").val(nextDateString);
+                $("#next_sitting").val(nextDateString);
                 this.showSecondDateField(); // Show the second date field on first click
-                alert('Plus button clicked.');
+
             }
         },
 
         _onClickPlusButton: function (ev) {
             var $button = $(ev.currentTarget);
-            var firstDateValue = $("#next_sitting_date").val();
+            var firstDateValue = $("#next_sitting").val();
             if (firstDateValue !== "") {
                 var firstDate = new Date(firstDateValue);
                 var nextDate = new Date(firstDate.getTime() + 86400000);
                 var nextDateString = nextDate.toISOString().split('T')[0];
                 this._addNewDateInput(nextDateString);
-                alert('Plus button clicked.');
+
             }
         },
 
@@ -52,6 +52,14 @@ odoo.define('web_app_front.booking', function (require) {
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-outline-secondary booking" id="add_date_btn">+</button>
                                     </div>
+                                </div>
+                            </div>
+                              <div class="form-group" id="time">
+                                <div class="input-group">
+                                    <label for="from_time">From</label>
+                                    <input type="time" class="form-control" name="from_time"/>
+                                    <label for="to_time">To</label>
+                                    <input type="time" class="form-control" name="to_time"/>
                                 </div>
                             </div>`;
             $dateInputsContainer.append(newInput);

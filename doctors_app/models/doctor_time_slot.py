@@ -21,8 +21,16 @@ class Doctor(models.Model):
     multiple_partners = fields.Boolean(string="Multiple Partners", compute="_compute_multiple_partners")
     from_time = fields.Char(string='Start Time', compute='_compute_from_time', store=True)
     to_time = fields.Char(string='End Time', compute='_compute_to_time', store=True)
-    prescription_status = fields.Boolean(string='Completed', default=False)
+    group_meeting = fields.Char(string='Session Name', store=True)
+    prescription_status = fields.Boolean(string='Prescription Completed', compute='_compute_prescription_status',
+                                         store=True)
 
+
+    @api.depends('patient_prescription_ids.prescription_status')
+    def _compute_prescription_status(self):
+        for slot in self:
+            slot.prescription_status = any(
+                prescription.prescription_status for prescription in slot.patient_prescription_ids)
 
 
     @api.depends('partner_ids')
@@ -100,33 +108,29 @@ class Doctor(models.Model):
 
 
     # booking validation
-    @api.constrains('doctor_id', 'date', 'partner_ids')
+    @api.constrains('doctor_id', 'date', 'from_time', 'to_time', 'partner_ids')
     def _check_unique_booking(self):
         for slot in self:
-            if slot.date and slot.partner_ids:
-                domain = [
-                    ('id', '!=', slot.id),
-                    ('doctor_id', '=', slot.doctor_id.id),
-                    ('date', '=', slot.date),
-                    ('partner_ids', 'in', slot.partner_ids.ids),
-                    # Check if any of the selected partners exist in the list
-                ]
-                existing_slots = self.search(domain)
-                if existing_slots:
-                    raise ValidationError(
-                        "One or more of the selected partners have already booked this doctor for the selected date.")
+            if slot.date and slot.from_time and slot.to_time and slot.partner_ids:
+                partner_ids = slot.partner_ids.ids
+                if len(partner_ids) != len(set(partner_ids)):
+                    raise ValidationError("Same partner cannot be added multiple times to the same time slot.")
 
-    # @api.constrains('doctor_id', 'date', 'partner_id')
+    # @api.constrains('doctor_id', 'date', 'partner_ids')
     # def _check_unique_booking(self):
     #     for slot in self:
-    #         if slot.date and slot.partner_id:
+    #         if slot.date and slot.partner_ids:
     #             domain = [
     #                 ('id', '!=', slot.id),
     #                 ('doctor_id', '=', slot.doctor_id.id),
     #                 ('date', '=', slot.date),
-    #                 ('partner_ids', '=', slot.partner_ids.id),
+    #                 ('partner_ids', 'in', slot.partner_ids.ids),
+    #                 # Check if any of the selected partners exist in the list
     #             ]
     #             existing_slots = self.search(domain)
     #             if existing_slots:
-    #                 raise ValidationError("The partner has already booked this doctor for the selected date.")
+    #                 raise ValidationError(
+    #                     "One or more of the selected partners have already booked this doctor for the selected date.")
+
+
 

@@ -2,6 +2,7 @@ from odoo import http
 from odoo.http import content_disposition, Controller, request, route
 from odoo.addons.portal.controllers.portal import CustomerPortal
 from datetime import datetime, date
+
 import ast
 import base64
 
@@ -312,34 +313,92 @@ class AppController(http.Controller):
 
     @http.route('/prescription/save', type='http', auth='user', website=True, csrf=True)
     def save_prescription(self, **kw):
+        # Extract data from request parameters
         patient_ids_str = kw.get('patient_id')
         patient_ids_list = [int(id) for id in patient_ids_str.strip('[]').split(',') if id.strip().isdigit()]
+        doctor_id = request.env.user.employee_ids.ids[0]
+        case_details = kw.get('case')
+        prescription = kw.get('pres')
+        next_sitting = kw.get('next_sitting')
+        from_time = kw.get('froms')
+        to_time = kw.get('to')
+        next_sitting_date = kw.get('next_sitting_date')
+        from_time_det = kw.get('from_time')
+        to_time_det = kw.get('to_time')
+        froms = format(from_time).replace('.', ':')
+        to = format(to_time).replace('.', ':')
+        from_time = format(from_time_det).replace('.', ':')
+        to_time = format(to_time_det).replace('.', ':')
+        print(next_sitting)
 
-        if patient_ids_list:
-            doctor_id = request.env.user.employee_ids.ids[0]
-            case_details = kw.get('case')
-            prescription = kw.get('pres')
 
-            print(doctor_id)
-            print(case_details)
-            print(prescription)
-            print(patient_ids_list)
+        # Get model instances
+        prescription_det = request.env['doctor.patient.prescription'].sudo()
+        time_slots = request.env['doctor.time.slots'].sudo()
 
-            # Save prescriptions for each patient
-            prescription_det = request.env['doctor.patient.prescription'].sudo()
-            time_slots = request.env['doctor.time.slots']
-
-            for patient_id in patient_ids_list:
-                prescription_det.create({
-                    'partner_ids': [(4, patient_id)],
-                    'case_details': case_details,
-                    'prescription': prescription,
-                    'doctor_id': doctor_id,
-                    'date': date.today(),
-                })
-                slot = time_slots.search([('partner_ids', 'in', patient_id)], limit=1)
-                if slot:
-                    slot.write({'prescription_status': True})
+        # Loop through patient IDs
+        for patient_id in patient_ids_list:
+            # Create prescription entry
+            prescription_det.create({
+                'partner_ids': [(4, patient_id)],
+                'case_details': case_details,
+                'prescription': prescription,
+                'doctor_id': doctor_id,
+                'date': date.today(),
+                'prescription_status': True,
+            })
+        if next_sitting:
+                # Update existing slot or create new slot
+            existing_slot = time_slots.search([
+                    ('doctor_id', '=', doctor_id),
+                    ('date', '=', next_sitting),
+                    ('from_time', '=', froms),
+                    ('to_time', '=', to),
+            ], limit=1)
+            print(existing_slot.booking_button)
+            if existing_slot:
+                    if existing_slot.booking_button:
+                        return "This time slot is already booked. Please choose another time."
+                    else:
+                        existing_slot.write({
+                            'booking_button': True,
+                            'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+                        })
+            else:
+                    new_slot = time_slots.create({
+                        'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+                        'doctor_id': doctor_id,
+                        'date': next_sitting,
+                        'from_time': froms,
+                        'to_time': to,
+                        'booking_button': True,
+                    })
+        if next_sitting_date:
+                    # Update existing slot or create new slot
+                existing_slot_detail = time_slots.search([
+                        ('doctor_id', '=', doctor_id),
+                        ('date', '=', next_sitting_date),
+                        ('from_time', '=', from_time),
+                        ('to_time', '=', to_time),
+                ])
+                print(existing_slot_detail.booking_button)
+                if existing_slot_detail:
+                        if existing_slot_detail.booking_button:
+                            return "This time slot is already booked. Please choose another time."
+                        else:
+                            existing_slot_detail.write({
+                                'booking_button': True,
+                                'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+                            })
+                else:
+                        new_slots = time_slots.create({
+                            'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+                            'doctor_id': doctor_id,
+                            'date': next_sitting_date,
+                            'from_time': from_time,
+                            'to_time': to_time,
+                            'booking_button': True,
+                        })
 
         return request.redirect('/today/appointment/doctor')
 
@@ -396,7 +455,7 @@ class AppController(http.Controller):
         doctor = request.env['doctor.details'].sudo().create(doctor_vals)
         return request.redirect('/web/login')
 
-    @http.route(['/group/sessions'], type='http', auth='public', website=True)
+    @http.route('/group/sessions', type='http', auth='public', website=True)
     def group_details(self, **kw):
         today = datetime.now().date()
 
@@ -422,11 +481,13 @@ class AppController(http.Controller):
 
 
 
-    @http.route(['/join/group/meetings/<int:id>'], type='http', auth='user', website=True)
-    def join_group_meeting(self, id, **kw):
-        group_slot = request.env['doctor.time.slots'].sudo().browse(id)
+    @http.route(['/join/group/meetings/<int:slot_id>'], type='http', auth='public', website=True)
+    def join_group_meeting(self, slot_id, **kw):
+        group_slot = request.env['doctor.time.slots'].sudo().browse(slot_id)
         partner_id = request.env.user.partner_id.id
         group_slot.write({'partner_ids': [(4, partner_id)]})
+        print('kkkk')
+
         return request.redirect('/group/sessions')
 
 

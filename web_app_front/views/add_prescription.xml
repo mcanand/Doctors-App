@@ -120,8 +120,8 @@
                             <div class="form-group">
                                 <label for="next_sitting_date">Next Sitting Date:</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="next_sitting_date"
-                                           name="next_sitting_date"/>
+                                    <input type="date" class="form-control" id="next_sitting"
+                                           name="next_sitting"/>
                                     <div class="input-group-append ">
                                         <button type="button" class="btn btn-outline-secondary booking"
                                                 id="add_date_btn">+
@@ -129,17 +129,36 @@
                                     </div>
                                 </div>
                             </div>
+                             <div class="form-group" id="time">
 
+                                <div class="form-group">
+                                    <label for="froms" >From</label>
+                                    <input type="time" class="form-control" name="froms"/>
+                                      <label for="to">To</label>
+                                    <input type="time" class="form-control" name="to"/>
+
+                                </div>
+                            </div>
 
                             <div class="form-group hidden" id="second_date_field">
 
                                 <div class="input-group">
                                     <input type="date" class="form-control" name="next_sitting_date"/>
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-secondary booking"
-                                                id="add_date_btn">+
-                                        </button>
+<!--                                        <button type="button" class="btn btn-outline-secondary booking"-->
+<!--                                                id="add_date_btn">+-->
+<!--                                        </button>-->
                                     </div>
+                                </div><br/>
+
+                                  <div class="form-group" id="time">
+
+                                <div class="form-group">
+                                    <label for="from_time">From</label>
+                                    <input type="time" class="form-control" name="from_time"/>
+                                      <label for="to_time">To</label>
+                                    <input type="time" class="form-control" name="to_time"/>
+                                       </div>
                                 </div>
                             </div>
                         </div>

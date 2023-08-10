@@ -17,6 +17,7 @@
                                 <field name="prescription"/>
                                 <field name="lab_attachment" widget="many2many_binary"/>
                                 <field name="next_visit"/>
+                                <field name="prescription_status"/>
                                  <button name="view_available_dates" string="Available Date" type="object"/>
                             </group>
                         </group>

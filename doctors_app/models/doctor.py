@@ -35,29 +35,58 @@ class Doctor(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         res = super(Doctor, self).create(vals_list)
+
         for record_vals, record in zip(vals_list, res):
-            if record_vals.get('time_from') and record_vals.get('time_to'):
+            if record_vals.get('time_from') is not None and record_vals.get('time_to') is not None:
                 if record_vals['time_from'] > record_vals['time_to']:
-                    raise ValidationError().new("Invalid time interval: time_from should be less than time_to")
+                    raise ValidationError("Invalid time interval: time_from should be less than time_to")
 
-            intervals = record._get_time_intervals(record_vals.get('time_from'), record_vals.get('time_to'))
-            current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
-            end_date = current_date + timedelta(days=15)
+                intervals = record._get_time_intervals(record_vals.get('time_from'), record_vals.get('time_to'))
+                current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+                end_date = current_date + timedelta(days=15)
 
-            while current_date <= end_date:
-                slots = self.env['doctor.time.slots']
-                for from_time, to_time in intervals:
-                    display_interval = f'From {from_time} to {to_time}'
-                    slots |= self.env['doctor.time.slots'].create({
-                        'doctor_id': record.id,
-                        'partner_ids': [(6, 0, record.partner_ids.ids)],
-                        'date': current_date.strftime("%Y-%m-%d"),
-                        'from_time': from_time,
-                        'to_time': to_time,
-                        'display_time_interval': display_interval,
-                    })
-                current_date += timedelta(days=1)
+                while current_date <= end_date:
+                    # Check if the current day is a weekend (Saturday or Sunday)
+                    if current_date.weekday() not in (5, 6):  # 5 = Saturday, 6 = Sunday
+                        slots = self.env['doctor.time.slots']
+                        for from_time, to_time in intervals:
+                            display_interval = f'From {from_time} to {to_time}'
+                            slots |= self.env['doctor.time.slots'].create({
+                                'doctor_id': record.id,
+                                'partner_ids': [(6, 0, record.partner_ids.ids)],
+                                'date': current_date.strftime("%Y-%m-%d"),
+                                'from_time': from_time,
+                                'to_time': to_time,
+                                'display_time_interval': display_interval,
+                            })
+                    current_date += timedelta(days=1)
         return res
+
+    # def create(self, vals_list):
+    #     res = super(Doctor, self).create(vals_list)
+    #     for record_vals, record in zip(vals_list, res):
+    #         if record_vals.get('time_from') and record_vals.get('time_to'):
+    #             if record_vals['time_from'] > record_vals['time_to']:
+    #                 raise ValidationError().new("Invalid time interval: time_from should be less than time_to")
+    #
+    #         intervals = record._get_time_intervals(record_vals.get('time_from'), record_vals.get('time_to'))
+    #         current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+    #         end_date = current_date + timedelta(days=15)
+    #
+    #         while current_date <= end_date:
+    #             slots = self.env['doctor.time.slots']
+    #             for from_time, to_time in intervals:
+    #                 display_interval = f'From {from_time} to {to_time}'
+    #                 slots |= self.env['doctor.time.slots'].create({
+    #                     'doctor_id': record.id,
+    #                     'partner_ids': [(6, 0, record.partner_ids.ids)],
+    #                     'date': current_date.strftime("%Y-%m-%d"),
+    #                     'from_time': from_time,
+    #                     'to_time': to_time,
+    #                     'display_time_interval': display_interval,
+    #                 })
+    #             current_date += timedelta(days=1)
+    #     return res
 
     def _get_time_intervals(self, time_from, time_to):
         intervals = []
@@ -100,20 +129,34 @@ class Doctor(models.Model):
 
                     # Generate new slots
                     current_date = start_date
+
                     while current_date <= end_date:
-                        intervals = doctor._get_time_intervals(doctor.time_from, doctor.time_to)
-                        for from_time, to_time in intervals:
-                            display_interval = f'From {from_time} to {to_time}'
-                            self.env['doctor.time.slots'].create({
-                                'doctor_id': doctor.id,
-                                'partner_ids': [(6, 0, doctor.partner_ids.ids)],
-                                # 'partner_ids': doctor.partner_ids.id,
-                                'date': current_date.strftime("%Y-%m-%d"),
-                                'from_time': from_time,
-                                'to_time': to_time,
-                                'display_time_interval': display_interval,
-                            })
+                        if current_date.weekday() not in (5, 6):  # 5 = Saturday, 6 = Sunday
+                            intervals = doctor._get_time_intervals(doctor.time_from, doctor.time_to)
+                            for from_time, to_time in intervals:
+                                display_interval = f'From {from_time} to {to_time}'
+                                self.env['doctor.time.slots'].create({
+                                    'doctor_id': doctor.id,
+                                    'partner_ids': [(6, 0, doctor.partner_ids.ids)],
+                                    'date': current_date.strftime("%Y-%m-%d"),
+                                    'from_time': from_time,
+                                    'to_time': to_time,
+                                    'display_time_interval': display_interval,
+                                })
                         current_date += timedelta(days=1)
+                    #     intervals = doctor._get_time_intervals(doctor.time_from, doctor.time_to)
+                    #     for from_time, to_time in intervals:
+                    #         display_interval = f'From {from_time} to {to_time}'
+                    #         self.env['doctor.time.slots'].create({
+                    #             'doctor_id': doctor.id,
+                    #             'partner_ids': [(6, 0, doctor.partner_ids.ids)],
+                    #             # 'partner_ids': doctor.partner_ids.id,
+                    #             'date': current_date.strftime("%Y-%m-%d"),
+                    #             'from_time': from_time,
+                    #             'to_time': to_time,
+                    #             'display_time_interval': display_interval,
+                    #         })
+                    #     current_date += timedelta(days=1)
 
         if 'display_time_interval' in vals:
             for doctor in self:
@@ -123,6 +166,7 @@ class Doctor(models.Model):
                 doctor.time_to = float(to_time_str.split(':')[0]) + float(to_time_str.split(':')[1]) / 60
 
         return res
+
 
     @api.model
     def cron_demo_method(self):

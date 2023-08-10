@@ -30,6 +30,7 @@
                     <field name="case_details"/>
                     <field name="prescription"/>
                     <field name="next_visit"/>
+                    <field name="prescription_status"/>
                     <button name="rate_doctor" string="Rating" type="object"/>
                 </tree>
             </field>

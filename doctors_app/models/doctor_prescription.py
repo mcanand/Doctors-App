@@ -15,6 +15,7 @@ class DoctorPatientPrescription(models.Model):
     next_visit = fields.Date(string='Next Visit')
     date = fields.Date(string='Date')
     lab_attachment = fields.Many2many('lab.attachment', string='Lab Attachment')
+    prescription_status = fields.Boolean(string='Completed', default=False)
 
 
     def rate_doctor(self):

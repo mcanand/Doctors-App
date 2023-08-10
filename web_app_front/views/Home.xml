@@ -91,6 +91,7 @@
                          'appointment_time': meeting.from_time,
                          'appointment_end': meeting.to_time,
                          'doctor_image': meeting.doctor_id.image_1920,
+                         'slot_id':meeting.id,
                     }"/>
                 </t>
                 <t t-set="meetings" t-value="meetings + [group_doctor]"/>
@@ -192,7 +193,7 @@
 
                                             </div>
                                             <div class="departments">
-                                                <a class="join_button">Join Now</a>
+                                                <a class="join_button" t-att-href="'/join/group/meetings/%s' %(m.get('slot_id'))">Join Now</a>
                                             </div>
                                         </div>
                                     </div>
