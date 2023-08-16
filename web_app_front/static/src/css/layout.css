@@ -1,5 +1,5 @@
 body{
-    background-color: #f6f6ef !important;
+    background-color: white !important;
 }
 main{
     padding-bottom:44px;
@@ -8,6 +8,7 @@ main{
 .poppins300{
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
+    color:#007ab4;
 }
 .f15{
     font-size:15px !important;
@@ -18,18 +19,22 @@ main{
 .poppins400{
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
+    color:#007ab4;
 }
 .poppins500{
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
+    color:#007ab4;
 }
 .poppins600{
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+    color:#007ab4;
 }
 .poppins700{
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
+    color:#007ab4;
 }
 .app_navbar .app_img{
     width: 40px;
@@ -69,4 +74,9 @@ main{
   'wght' 400,
   'GRAD' 0,
   'opsz' 40
+}
+h6, .h6 {
+    font-size: 1rem;
+    color:#007ab4;
+    font-weight: bold;
 }

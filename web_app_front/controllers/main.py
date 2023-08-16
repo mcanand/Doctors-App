@@ -169,6 +169,7 @@ class AppController(http.Controller):
         ])
 
         booking_details = []
+        group_patient_bookings = []
 
         for booking in bookings:
             patient_names = [partner.name for partner in booking.partner_ids]
@@ -176,14 +177,18 @@ class AppController(http.Controller):
             partner_ids = [partner.id for partner in booking.partner_ids]
             booking_dict = {
                 'patient_name': patient_name,
+                'group_meeting':booking.group_meeting,
                 'patient_id': partner_ids,
                 'appointment_time': booking.from_time,
                 'appointment_end': booking.to_time,
                 'id': booking.id,
             }
-            booking_details.append(booking_dict)
+            if len(partner_ids) > 1:
+                group_patient_bookings.append(booking_dict)
+            else:
+                booking_details.append(booking_dict)
 
-        return request.render('web_app_front.today_appointment_doctor', {'appointments': booking_details})
+        return request.render('web_app_front.today_appointment_doctor', {'appointments': booking_details,'group_patient_appointments': group_patient_bookings})
 
     @route('/all/appointment/doctor', type='http', auth='public', website=True)
     def all_appointments_doctor(self, **kwargs):
@@ -211,6 +216,7 @@ class AppController(http.Controller):
             booking_dict = {
 
                 'patient_name': patient_name,
+                'group_meeting':booking.group_meeting,
                 'appointment_time': booking.from_time,
                 'appointment_end': booking.to_time,
                 'id': booking.id,
@@ -311,6 +317,99 @@ class AppController(http.Controller):
         current_date=date.today()
         return http.request.render('web_app_front.add_prescription',{'patient_details' :patient_details,'partner_count': partner_count,'patient_id':id,'current_date' :current_date})
 
+    # @http.route('/prescription/save', type='http', auth='user', website=True, csrf=True)
+    # def save_prescription(self, **kw):
+    #     # Extract data from request parameters
+    #     patient_ids_str = kw.get('patient_id')
+    #     patient_ids_list = [int(id) for id in patient_ids_str.strip('[]').split(',') if id.strip().isdigit()]
+    #     doctor_id = request.env.user.employee_ids.ids[0]
+    #     case_details = kw.get('case')
+    #     prescription = kw.get('pres')
+    #     next_sitting = kw.get('next_sitting')
+    #     from_time = kw.get('froms')
+    #     to_time = kw.get('to')
+    #     next_sitting_date = kw.get('next_sitting_date')
+    #     from_time_det = kw.get('from_time')
+    #     to_time_det = kw.get('to_time')
+    #     froms = format(from_time).replace('.', ':')
+    #     to = format(to_time).replace('.', ':')
+    #     from_time = format(from_time_det).replace('.', ':')
+    #     to_time = format(to_time_det).replace('.', ':')
+    #     print(from_time)
+    #
+    #
+    #     # Get model instances
+    #     prescription_det = request.env['doctor.patient.prescription'].sudo()
+    #     time_slots = request.env['doctor.time.slots'].sudo()
+    #
+    #     # Loop through patient IDs
+    #     for patient_id in patient_ids_list:
+    #         # Create prescription entry
+    #         prescription_det.create({
+    #             'partner_ids': [(4, patient_id)],
+    #             'case_details': case_details,
+    #             'prescription': prescription,
+    #             'doctor_id': doctor_id,
+    #             'date': date.today(),
+    #             'prescription_status': True,
+    #         })
+    #     if next_sitting:
+    #             # Update existing slot or create new slot
+    #         existing_slot = time_slots.search([
+    #                 ('doctor_id', '=', doctor_id),
+    #                 ('date', '=', next_sitting),
+    #                 ('from_time', '=', froms),
+    #                 ('to_time', '=', to),
+    #         ], limit=1)
+    #         print(existing_slot.booking_button)
+    #         if existing_slot:
+    #                 if existing_slot.booking_button:
+    #                     return "This time slot is already booked. Please choose another time."
+    #                 else:
+    #                     existing_slot.write({
+    #                         'booking_button': True,
+    #                         'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+    #                     })
+    #         else:
+    #                 new_slot = time_slots.create({
+    #                     'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+    #                     'doctor_id': doctor_id,
+    #                     'date': next_sitting,
+    #                     'from_time': froms,
+    #                     'to_time': to,
+    #                     'booking_button': True,
+    #                 })
+    #     if next_sitting_date:
+    #                 # Update existing slot or create new slot
+    #             existing_slot_detail = time_slots.search([
+    #                     ('doctor_id', '=', doctor_id),
+    #                     ('date', '=', next_sitting_date),
+    #                     ('from_time', '=', from_time),
+    #                     ('to_time', '=', to_time),
+    #             ])
+    #             print(existing_slot_detail.booking_button)
+    #             if existing_slot_detail:
+    #                     if existing_slot_detail.booking_button:
+    #                         return "This time slot is already booked. Please choose another time."
+    #                     else:
+    #                         existing_slot_detail.write({
+    #                             'booking_button': True,
+    #                             'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+    #                         })
+    #             else:
+    #                     new_slots = time_slots.create({
+    #                         'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
+    #                         'doctor_id': doctor_id,
+    #                         'date': next_sitting_date,
+    #                         'from_time': from_time,
+    #                         'to_time': to_time,
+    #                         'booking_button': True,
+    #                     })
+    #
+    #     return request.redirect('/today/appointment/doctor')
+    #
+    #
+
     @http.route('/prescription/save', type='http', auth='user', website=True, csrf=True)
     def save_prescription(self, **kw):
         # Extract data from request parameters
@@ -329,8 +428,6 @@ class AppController(http.Controller):
         to = format(to_time).replace('.', ':')
         from_time = format(from_time_det).replace('.', ':')
         to_time = format(to_time_det).replace('.', ':')
-        print(next_sitting)
-
 
         # Get model instances
         prescription_det = request.env['doctor.patient.prescription'].sudo()
@@ -344,63 +441,67 @@ class AppController(http.Controller):
                 'case_details': case_details,
                 'prescription': prescription,
                 'doctor_id': doctor_id,
-                'date': date.today(),
+                'date': datetime.today().date(),
                 'prescription_status': True,
             })
+            related_slots = time_slots.search([('partner_ids', 'in', [patient_id])])
+            related_slots.write({'prescription_status': True})
+
+        # Check and create/update slots for next sitting
         if next_sitting:
-                # Update existing slot or create new slot
-            existing_slot = time_slots.search([
-                    ('doctor_id', '=', doctor_id),
-                    ('date', '=', next_sitting),
-                    ('from_time', '=', froms),
-                    ('to_time', '=', to),
-            ], limit=1)
-            print(existing_slot.booking_button)
-            if existing_slot:
-                    if existing_slot.booking_button:
-                        return "This time slot is already booked. Please choose another time."
-                    else:
-                        existing_slot.write({
-                            'booking_button': True,
-                            'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
-                        })
-            else:
-                    new_slot = time_slots.create({
-                        'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
-                        'doctor_id': doctor_id,
-                        'date': next_sitting,
-                        'from_time': froms,
-                        'to_time': to,
-                        'booking_button': True,
-                    })
+            result = self._create_or_update_slot(time_slots, doctor_id, next_sitting, froms, to, patient_ids_list)
+            if isinstance(result, str):
+                return result
+
+        # Check and create/update slots for next sitting date
         if next_sitting_date:
-                    # Update existing slot or create new slot
-                existing_slot_detail = time_slots.search([
-                        ('doctor_id', '=', doctor_id),
-                        ('date', '=', next_sitting_date),
-                        ('from_time', '=', from_time),
-                        ('to_time', '=', to_time),
-                ])
-                print(existing_slot_detail.booking_button)
-                if existing_slot_detail:
-                        if existing_slot_detail.booking_button:
-                            return "This time slot is already booked. Please choose another time."
-                        else:
-                            existing_slot_detail.write({
-                                'booking_button': True,
-                                'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
-                            })
-                else:
-                        new_slots = time_slots.create({
-                            'partner_ids':  [(4, partner_id) for partner_id in patient_ids_list],
-                            'doctor_id': doctor_id,
-                            'date': next_sitting_date,
-                            'from_time': from_time,
-                            'to_time': to_time,
-                            'booking_button': True,
-                        })
+            result = self._create_or_update_slot(time_slots, doctor_id, next_sitting_date, from_time, to_time,
+                                                 patient_ids_list)
+            if isinstance(result, str):
+                return result
 
         return request.redirect('/today/appointment/doctor')
+
+    def _create_or_update_slot(self, time_slots, doctor_id, date, from_time, to_time, patient_ids_list):
+        overlapping_slots = time_slots.search([
+            ('doctor_id', '=', doctor_id),
+            ('date', '=', date),
+            '|', '|',
+            ('from_time', '<', from_time),
+            ('to_time', '>', from_time),
+            ('from_time', '<', to_time),
+            ('to_time', '>', to_time),
+        ])
+
+        if overlapping_slots:
+            return "There is an booking. Please choose another time."
+
+        existing_slot = time_slots.search([
+            ('doctor_id', '=', doctor_id),
+            ('date', '=', date),
+            ('from_time', '=', from_time),
+            ('to_time', '=', to_time),
+        ], limit=1)
+
+        if existing_slot:
+            if existing_slot.booking_button:
+                return "This time slot is already booked. Please choose another time."
+            else:
+                existing_slot.write({
+                    'booking_button': True,
+                    'partner_ids': [(4, partner_id) for partner_id in patient_ids_list],
+                })
+        else:
+            new_slot = time_slots.create({
+                'partner_ids': [(4, partner_id) for partner_id in patient_ids_list],
+                'doctor_id': doctor_id,
+                'date': date,
+                'from_time': from_time,
+                'to_time': to_time,
+                'booking_button': True,
+            })
+
+        return None
 
 
 
@@ -489,6 +590,115 @@ class AppController(http.Controller):
         print('kkkk')
 
         return request.redirect('/group/sessions')
+
+
+    @http.route('/create/meeting', type='http', auth='public', website=True)
+    def create_meeting_date(self, **kw):
+        return http.request.render('web_app_front.create_meeting')
+
+
+    @http.route('/create/new/meeting', type='http', auth='public', website=True)
+    def create_booking_time(self, **kw):
+        employee =request.env.user.employee_ids
+        date = kw.get('date')
+        from_time = kw.get('from_time')
+        to_time = kw.get('to_time')
+        name = kw.get('name')
+        existing_slot = request.env['doctor.time.slots'].search([
+            ('doctor_id', '=', employee.id),
+            ('date', '=', date),
+            ('from_time', '=', from_time),
+            ('to_time', '=', to_time),
+        ], limit=1)
+
+        if existing_slot:
+            if not existing_slot.partner_ids:
+                # Slot exists but has no partners, update the slot name
+                existing_slot.write({
+                    'group_meeting': name,
+                })
+                return None
+
+            if existing_slot.booking_button:
+                return "This time slot is already booked. Please choose another time."
+
+            # Check for overlapping slots
+        overlapping_slots = request.env['doctor.time.slots'].search([
+                ('doctor_id', '=', employee.id),
+                ('date', '=', date),
+                '|', '|',
+                ('from_time', '<', from_time),
+                ('to_time', '>', from_time),
+                ('from_time', '<', to_time),
+                ('to_time', '>', to_time),
+            ])
+
+        if overlapping_slots:
+                return "There is a booking. Please choose another time."
+
+
+        else:
+            #Create a new slot
+            new_slot = request.env['doctor.time.slots'].create({
+
+                'doctor_id': employee.id,
+                'date': date,
+                'from_time': from_time,
+                'to_time': to_time,
+                'group_meeting': name,
+
+            })
+
+        return request.redirect('/my')
+
+
+    @http.route('/add/extra/slot', type='http', auth='public', website=True)
+    def create_meeting(self, **kw):
+        return http.request.render('web_app_front.add_extra_slot')
+
+    @http.route('/create/extra/slot', type='http', auth='public', website=True)
+    def create_extra_time(self, **kw):
+        employee = request.env.user.employee_ids
+        date = kw.get('date')
+        from_time = kw.get('from_time')
+        to_time = kw.get('to_time')
+        existing_slot = request.env['doctor.time.slots'].search([
+            ('doctor_id', '=', employee.id),
+            ('date', '=', date),
+            ('from_time', '=', from_time),
+            ('to_time', '=', to_time),
+        ], limit=1)
+
+        if existing_slot:
+                return "This time slot is already created. Please choose another time."
+
+        overlapping_slots = request.env['doctor.time.slots'].search([
+            ('doctor_id', '=', employee.id),
+            ('date', '=', date),
+            '|', '|',
+            ('from_time', '<', from_time),
+            ('to_time', '>', from_time),
+            ('from_time', '<', to_time),
+            ('to_time', '>', to_time),
+        ])
+
+        if overlapping_slots:
+            return "There is a slot. Please choose another time."
+
+
+        else:
+            # Create a new slot
+            new_slot = request.env['doctor.time.slots'].create({
+
+                'doctor_id': employee.id,
+                'date': date,
+                'from_time': from_time,
+                'to_time': to_time,
+
+            })
+
+        return request.redirect('/my')
+
 
 
 

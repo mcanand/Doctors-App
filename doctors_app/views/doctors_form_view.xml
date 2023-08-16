@@ -14,15 +14,15 @@
                     <page string="Slots">
                         <field name="slots_ids" nolabel="1">
                             <tree string="Doctor Time Slots" editable="top">
-                                <field name="from_time" />
-                                   <field name="to_time" />
+                                <field name="from_time"/>
+                                <field name="to_time"/>
                                 <field name="date"/>
-                                 <field name="group_meeting"/>
+                                <field name="group_meeting"/>
                                 <field name="booking_button" widget="boolean_button"/>
-                                <field name="partner_ids"   widget="many2many_tags"/>
-                                 <field name="multiple_partners"/>
+                                <field name="partner_ids" widget="many2many_tags"/>
+                                <field name="multiple_partners"/>
                                 <field name="meeting_link" attrs="{'invisible': [('booking_button', '=', False)]}"/>
-                                 <field name="prescription_status"/>
+                                <field name="prescription_status"/>
                                 <button name="view_prescription" string="prescription" type="object"/>
                             </tree>
                         </field>
@@ -33,10 +33,11 @@
                     <button name="open_booked_slots_doctor" string="Today's Booked Slots" type="object"
                             class="oe_highlight"/>
                 </xpath>
-                      <xpath expr="//notebook/page[@name='public']/div[@id='o_work_employee_container']/div[@id='o_work_employee_main']" position="inside">
+                <xpath expr="//notebook/page[@name='public']/div[@id='o_work_employee_container']/div[@id='o_work_employee_main']"
+                       position="inside">
                     <group string="About">
                         <field name="about"/>
-                            <field name="work_experience" />
+                        <field name="work_experience"/>
                         <field name="one_hour_fee"/>
                     </group>
                 </xpath>

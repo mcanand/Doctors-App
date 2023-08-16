@@ -56,7 +56,7 @@
 
     .doctor-box {
         border-radius: 10px;
-        background-color:#ffffff;
+        background-color:#efefef;
         padding: 10px;
         margin-bottom: 10px;
         width: 100%;
@@ -73,7 +73,7 @@
         border-radius: 20px;
         padding: 10px 20px;
         font-size: 16px;
-        background-color: white;
+        background-color: #efefef;
         color: #333333;
         cursor: pointer;
         transition: background-color 0.3s ease;
@@ -110,7 +110,7 @@
 .small-box {
    width: 60px;
     height: 40px;
-    background-color: white;
+    background-color: #efefef;
     margin-right: 10px;
     border-radius: 10px;
 }
@@ -147,17 +147,18 @@
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
+    color:#007ab4;
 }
 
 
 .departments {
-    color: #333;
+    color: #007ab4;
     margin-top: 10px;
     font-size: 12px;
     white-space: nowrap;
 }
 .rating {
-    color: #333;
+    color: #007ab4;
         margin-left: 50px;
             white-space: nowrap;
             margin-top: 10px;
@@ -169,7 +170,7 @@
 
 
 .time-icon {
-    color: #333;
+    color: #007ab4;
     display: flex;
     align-items: center;
     font-size: 15px;
@@ -189,7 +190,7 @@
 .image-box {
    width: 60px;
     height: 50px;
-    background-color: white;
+    background-color: #efefef;
     margin-right: 10px;
     border-radius: 10px;
 }
@@ -198,24 +199,37 @@
     max-height: 100%;
     display: block;
 }
+
+.image-box1 {
+   width: 60px;
+    height: 50px;
+    background-color: white;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+.image-box1 img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
 /* Styling for the doctor's name */
 .doctor-information .doctor-name {
     font-size: 16px;
     font-weight: bold;
-    color:black;
+    color:#007ab4;
 }
 .doctor-information .doctor-rating {
     font-size: 16px;
 
     margin-left: 10px;
-    color:black;
+    color:#007ab4;
 }
 
 /* Styling for the department name */
 .doctor-information .department-name {
     color: #007bff;
     font-size: 12px;
-    color:black;
+    color:#007ab4;
 }
 
 
@@ -238,6 +252,7 @@
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
+  color:#007ab4;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
 }
@@ -267,7 +282,7 @@
 #myButton {
    display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #007ab4;
   color: #fff;
   text-align: center;
   text-decoration: none;
@@ -278,7 +293,7 @@
   margin: 0 auto;
 }
 .myButton:hover {
-  background-color: #0056b3; /* Change the background color on hover */
+  background-color: #007ab4; /* Change the background color on hover */
 }
 
 
@@ -290,7 +305,7 @@
         border-radius: 20px;
         padding: 10px 20px;
         font-size: 16px;
-        background-color: white;
+        background-color: #efefef;
         color: #333333;
         cursor: pointer;
         transition: background-color 0.3s ease;
@@ -332,10 +347,11 @@
 .join_button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #007ab4;
   color: #fff;
   text-align: center;
   text-decoration: none;
+  border:#007ab4;
   height:35px;
   border-radius: 25px; /* Adjust the value to control the amount of curvature */
   transition: background-color 0.3s ease;
@@ -343,10 +359,21 @@
 }
 
 .join_button:hover {
-  background-color: #0056b3; /* Change the background color on hover */
+  background-color: #007ab4; /* Change the background color on hover */
 }
 .time-join-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.text-end {
+    text-align: right !important;
+    color: #007ab4;
+}
+
+.app_card {
+    background: #efefef;
+    height: 100%;
+    box-shadow: 0px 6px 6px -9px;
+    border-radius: 10px;
 }

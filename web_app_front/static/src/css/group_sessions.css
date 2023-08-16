@@ -1,0 +1,51 @@
+.group-information {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.group-container {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.group-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 2px solid #25C88D;
+}
+
+.group-doc,
+.appointment-time_start,
+.age-group {
+    font-size: 16px;
+
+    display:inline-block;
+    color: #007ab4;
+    margin-left: 10px;
+}
+.name-doc-group{
+margin-left:2px;
+font-weight:bold;
+}
+
+.group-image-box {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px;
+     overflow: hidden;
+
+}
+
+.group-image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}

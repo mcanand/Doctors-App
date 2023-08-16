@@ -7,13 +7,13 @@
                 <t t-set="app_nav_in_content">
 
                 </t>
-                  <div class="col-12 text-white p-3">
-                        <h1 class="mt-4 text-left" style="font-size:45px;">
+                  <div class="col-12  p-3" style="color:#007ab4;">
+                        <h1 class="mt-4 text-left" style="font-size:45px; color:#007ab4;">
                             <b>Sign Up ...</b>
                         </h1>
                         <p class="mt-2 dont-have-account">Already have an account ?
                             <span class="mt-2">
-                                <a t-attf-href="/web/login" class="text-white">Login</a>
+                                <a t-attf-href="/web/login" style="color:#007ab4;">Login</a>
                             </span>
                         </p>
                     </div>

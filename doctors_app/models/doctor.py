@@ -240,40 +240,6 @@ class Doctor(models.Model):
     #     }
 
 
-    def create_zoom_meeting(self):
-        api_key = "EKgsBRIxS6nkvGfMnnH1w"
-        api_secret = "N1CB2uRMKB9jyaO35kQ5lxt50M0MqtAH"
 
-        # API endpoints
-        base_url = "https://api.zoom.us/v2"
-        meeting_create_url = f"{base_url}/users/me/meetings"
 
-        # Create a meeting
-        headers = {
-            "Authorization": f"Bearer {api_key}:{api_secret}",
-            "Content-Type": "application/json"
-        }
-
-        payload = {
-            "topic": "My Zoom Meeting",
-            "type": 2,  # Scheduled meeting
-            "start_time": "2023-06-20T09:00:00",
-            "duration": 60,
-            "timezone": "America/New_York"
-        }
-
-        response = requests.post(meeting_create_url, headers=headers, data=json.dumps(payload))
-        data = response.json()
-
-        # Handle the response
-        if response.status_code == 201:
-            meeting_id = data["id"]
-            booking = self.env['booking.model'].browse(self.env.context.get('active_id'))
-            booking.zoom_meeting_id = meeting_id
-            join_url = data["join_url"]
-            booking.meeting_link = join_url
-            print(f"Meeting created! ID: {meeting_id}, Join URL: {join_url}")
-        else:
-         print("Failed to create the meeting.")
-         print(f"Error: {data['message']}")
 

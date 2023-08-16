@@ -10,7 +10,7 @@
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                        <div class="container">
 
-                <h3 style="font-size:35px;">Doctor Details</h3>
+                <h3 style="font-size:35px;color:#007ab4">Doctor Details</h3>
                 <div class="row image_det">
                     <div class="image_container">
 

@@ -26,6 +26,8 @@
         'views/add_prescription.xml',
         'views/apply_doctor_detals.xml',
         'views/group_sessions.xml',
+        'views/create_meeting.xml',
+        'views/add_extra_slot.xml',
     ],
     'installable': True,
     'application': True,

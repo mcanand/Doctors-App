@@ -6,7 +6,7 @@
 
             <!-- use this method to add content to the nav bar -->
             <t t-set="app_nav_in_content">
-                <span class="poppins300" style="font-size:13px;color:#666;">
+                <span class="poppins300" style="font-size:13px;">
                     Welcome
                 </span>
                 <br/>
@@ -60,31 +60,32 @@
         <t t-set="doctor_doctor_id" t-value="request.env.user.employee_ids"/>
         <t t-set="bookings_doctor_meeting" t-value="request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', doctor_doctor_id.id),
-            ('booking_button', '=', True),
+            ('group_meeting', '!=', False),
             ('date','=',datetime.datetime.now().strftime('%Y-%m-%d'))
         ])"/>
         <t t-set="booking_details_doctor_meeting" t-value="[]"/>
         <t t-foreach="bookings_doctor_meeting" t-as="mbooking">
-        <t t-if="mbooking.partner_ids and len(mbooking.partner_ids) > 1">
+<!--        <t t-if="mbooking.partner_ids and len(mbooking.partner_ids) > 1">-->
         <t t-set="meeting_dict" t-value="{
             'appointment_time': mbooking.from_time,
             'appointment_end': mbooking.to_time,
+            'group_meeting':mbooking.group_meeting,
 
         }"/>
         <t t-set="booking_details_doctor_meeting" t-value="booking_details_doctor_meeting + [meeting_dict]"/>
-    </t>
+<!--    </t>-->
         </t>
 
 
 
             <t t-set="group_meetings" t-value="request.env['doctor.time.slots'].sudo().search([
-               ('booking_button', '=', True),
+               ('group_meeting', '!=', False),
                ('date', '=', datetime.datetime.now().strftime('%Y-%m-%d'))
             ])"/>
             <t t-set="meetings" t-value="[]"/>
 
             <t t-foreach="group_meetings" t-as="meeting">
-                <t t-if="meeting.partner_ids and len(meeting.partner_ids) > 1">
+<!--                <t t-if="meeting.partner_ids and len(meeting.partner_ids) > 1">-->
                     <t t-set="group_doctor" t-value="{
                          'doctor_name': meeting.doctor_id.name,
                          'dep_name': meeting.doctor_id.department_id.name,
@@ -92,22 +93,29 @@
                          'appointment_end': meeting.to_time,
                          'doctor_image': meeting.doctor_id.image_1920,
                          'slot_id':meeting.id,
+                         'group_meeting':meeting.group_meeting,
                     }"/>
+<!--                </t>-->
+                <t t-if="not group_doctor in meetings">
+                  <t t-set="meetings" t-value="meetings + [group_doctor]"/>
                 </t>
-                <t t-set="meetings" t-value="meetings + [group_doctor]"/>
+<!--                <t t-set="meetings" t-value="meetings + [group_doctor]"/>-->
             </t>
 
             <div class="container" style="maximum-width:1500px;" id="wrap">
-
+                 <t t-if="user_id.partner_id.categry_id == 'patient'">
                 <div class="row mt-3">
                     <div class="col-9 poppins500 app_color">
                         Today's<br/>Appointments
                     </div>
+
                     <div class="col-3 text-end app_color">
-                        see all
+                        <a href="/today/appointment">
+                        see all       </a>
                     </div>
+
                 </div>
-                <t t-if="user_id.partner_id.categry_id == 'patient'">
+<!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
                     <div class="appointment-container mt-3">
                         <t t-foreach="booking_details" t-as="appointment">
                             <div class="appointments-box">
@@ -143,6 +151,7 @@
                         </t>
                     </div>
                 </t>
+
                 <t t-if="user_id.partner_id.categry_id == 'patient'">
 
                     <div class="row mt-3">
@@ -150,12 +159,14 @@
                             Group<br/>Meetings
                         </div>
                         <div class="col-3 text-end app_color">
-                            see all
+                             <a href="/group/sessions">
+                                 see all</a>
                         </div>
                     </div>
                     <div class="meeting-container mt-3">
+
                         <t t-foreach="meetings" t-as="m">
-                            <t t-if="m">
+                             <t t-if="m">
                                 <div class="meeting-box">
 
                                     <div class="meeting-details">
@@ -186,6 +197,10 @@
                                             to
                                             <t t-esc="m.get('appointment_end')"/>
                                         </div>
+<!--                                            <div class="departments">-->
+<!--                                                Meeting in   <t t-esc="m.get('group_meeting')"/>-->
+<!--                                            </div>-->
+
                                         <div class="time-join-container">
                                             <div class="time-icon">
                                                 <i class="fa fa-calendar"></i>
@@ -253,7 +268,7 @@
 
                                         <div class="doctor-box" t-att-data-id="rating.doctor_id.id">
                                             <div class="doctor-information">
-                                                <div class="image-box">
+                                                <div class="image-box1">
                                                     <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"
                                                          alt="Doctor Image"/>
                                                 </div>
@@ -278,7 +293,7 @@
                             </div>
                         </t>
                         <t t-else="">
-                            <div class="col-24">
+                            <div class="col-24 poppins500 app_color">
                                 No Doctors found.
                             </div>
                         </t>
@@ -289,7 +304,7 @@
                     <div class="modal-content">
                         <span class="close">×</span>
                         <p>
-                            <span id="doctorImage">
+                            <span id="doctorImage" class="doctor-name">
                                 <img t-attf-src="data:image/png;base64,{{doctorImage}}"
                                      alt="Doctor Image"/>
                             </span>
@@ -339,6 +354,17 @@
 
 
                 <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                     <div class="row mt-3">
+                    <div class="col-9 poppins500 app_color">
+                        Today's<br/>Appointments
+                    </div>
+
+                    <div class="col-3 text-end app_color">
+                        <a href="/today/appointment/doctor">
+                        see all       </a>
+                    </div>
+
+                </div>
                     <div class="appointment-container mt-3">
                         <t t-foreach="booking_details_doctor" t-as="dappointment">
                             <t t-if="dappointment">
@@ -367,7 +393,7 @@
                             </t>
                         </t>
                         <t t-if="not booking_details_doctor">
-                            <div class="col-9 poppins500 app_color">
+                            <div class="col-24 poppins500 app_color">
                                 No Appointments Today
                             </div>
                         </t>
@@ -379,6 +405,10 @@
 
                         <div class="col-9 poppins500 app_color">
                             Group<br/>Counceling
+                        </div>
+                           <div class="col-3 text-end app_color">
+                             <a href="/today/appointment/doctor">
+                                 see all</a>
                         </div>
                     </div>
 
@@ -392,8 +422,8 @@
 <!--                                            <div class="small-box">-->
 <!--                                                <img t-attf-src="data:image/png;base64,{{mappointment.get('patient_image')}}"/>-->
 <!--                                            </div>-->
-                                            <div class="name"> Group Meeting
-<!--                                                <t t-esc="mappointment.get('patient_name')"/>-->
+                                            <div class="name">
+                                                <t t-esc="mappointment.get('group_meeting')"/>
                                             </div>
 
                                         </div>
@@ -410,7 +440,7 @@
                             </t>
                         </t>
                         <t t-if="not booking_details_doctor_meeting">
-                            <div class="col-9 poppins500 app_color">
+                            <div class="col-24 poppins500 app_color">
                                 No Appointments Today
                             </div>
                         </t>

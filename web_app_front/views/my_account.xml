@@ -5,7 +5,7 @@
             <t t-call="website.layout">
                 <!-- Your header content here -->
                 <t t-set="app_nav_in_content">
-                    <span class="poppins300" style="font-size:15px;color:#333;">
+                    <span class="poppins300" style="font-size:15px;">
                         My Account
                     </span>
                     <br/>
@@ -61,6 +61,25 @@
                             </div>
                         </div>
                         </t>
+                             <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
+                            <div class="app_card p-2">
+                                 <a href="/create/meeting">
+                                <p>Create Meeting</p>
+                                 </a>
+                            </div>
+                        </div>
+                        </t>
+                              <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                        <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
+                            <div class="app_card p-2">
+                                 <a href="/add/extra/slot">
+                                <p>Add Extra Slot</p>
+                                 </a>
+                            </div>
+                        </div>
+                        </t>
+
                             <t t-if="user_id.partner_id.categry_id == 'patient'">
                         <div class="col-6 f15 mt-3 text-center poppins300 align-self-center">
                             <div class="app_card p-2">
@@ -116,7 +135,7 @@
                     <a href="javascript: window.history.back()">
                         <i style="font-size:16px;" class="fa fa-angle-left"/>
                     </a>
-                    <span class="poppins300 ml-2" style="font-size:15px;color:#333;">
+                    <span class="poppins300 ml-2" style="font-size:15px;">
                         My Details
                     </span>
                     <br/>
@@ -148,7 +167,7 @@
                     <a href="javascript: window.history.back()">
                         <i style="font-size:16px;" class="fa fa-angle-left"/>
                     </a>
-                    <span class="poppins300 ml-2 f15" style="color:#333;">
+                    <span class="poppins300 ml-2 f15" >
                         My Security
                     </span>
                     <br/>

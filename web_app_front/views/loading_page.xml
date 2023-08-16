@@ -2,7 +2,7 @@
     <template id="signup_page_template">
         <t t-call="website.layout">
              <div class="col-12 d-flex justify-content-left p-3" style="margin-top:100px;">
-                    <span class="text-white">R-<span>me</span><br/>Counseling</span>
+                    <span style="color:#007ab4;font-size: 38px;">R-<span>me</span><br/>Counseling</span>
                 </div>
                 <div class="col-12 d-flex justify-content-center">
                     <div class="rectangle align-items-start">

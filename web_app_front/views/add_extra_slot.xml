@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="edit_booking_time_template">
+    <template id="add_extra_slot">
         <t t-call="website.layout">
             <!-- Your header content here -->
             <t t-set="app_nav_in_content">
@@ -8,16 +8,17 @@
                     <i style="font-size:16px;" class="fa fa-angle-left"/>
                 </a>
                 <span class="poppins300 ml-2" style="font-size:15px;">
-                    Edit Booking Time
+                    Add New Booking Time
                 </span>
                 <br/>
             </t>
             <!-- =================================== -->
-            <form class="app_edit_booking_time" action="/booking/time/update" method="post">
+            <form class="app_edit_booking_time" action="/create/extra/slot" method="post">
                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
                 <div class="container mt-4">
                     <div class="row">
+
                         <div class="col-md-4">
                             <label>Date:</label>
                             <input type="date" name="date" required="required" class="form-control"/>
