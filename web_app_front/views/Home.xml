@@ -37,7 +37,7 @@
 
 
             <!-- For single-person bookings -->
-        <t t-set="user_doctor_id" t-value="request.env.user.employee_ids"/>
+        <t t-set="user_doctor_id" t-value="request.env.user.employee_id"/>
         <t t-set="bookings_doctor" t-value="request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', user_doctor_id.id),
             ('booking_button', '=', True),
@@ -57,7 +57,7 @@
 </t>
 
 <!-- For group meetings -->
-        <t t-set="doctor_doctor_id" t-value="request.env.user.employee_ids"/>
+        <t t-set="doctor_doctor_id" t-value="request.env.user.employee_id"/>
         <t t-set="bookings_doctor_meeting" t-value="request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', doctor_doctor_id.id),
             ('group_meeting', '!=', False),
@@ -65,6 +65,7 @@
         ])"/>
         <t t-set="booking_details_doctor_meeting" t-value="[]"/>
         <t t-foreach="bookings_doctor_meeting" t-as="mbooking">
+
 <!--        <t t-if="mbooking.partner_ids and len(mbooking.partner_ids) > 1">-->
         <t t-set="meeting_dict" t-value="{
             'appointment_time': mbooking.from_time,
@@ -85,6 +86,14 @@
             <t t-set="meetings" t-value="[]"/>
 
             <t t-foreach="group_meetings" t-as="meeting">
+
+<t t-set="appointment_hour" t-value="int(meeting['from_time'].split(':')[0])">
+<t t-set="am_pm" t-value="'AM'" t-if="12 > appointment_hour"/>
+                <t t-set="am_pm" t-value="'PM'" t-if=" not 12 > appointment_hour"/>
+<t t-set="formatted_appointment_time" t-value="f'{appointment_hour} {am_pm}'"/>
+
+</t>
+
 <!--                <t t-if="meeting.partner_ids and len(meeting.partner_ids) > 1">-->
                     <t t-set="group_doctor" t-value="{
                          'doctor_name': meeting.doctor_id.name,

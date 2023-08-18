@@ -10,10 +10,10 @@ class ResPartner(models.Model):
         ('patient', 'Patient'),
     ]
 
-    categry_id = fields.Selection(CATEGORY_SELECTION, string='Category', required=True)
+    categry_id = fields.Selection(CATEGORY_SELECTION, string='Category')
     doctor_time_slot_ids = fields.One2many('doctor.time.slots', 'partner_ids', string='Booked Slots')
     doctor_id = fields.Many2one('hr.employee', string='Doctor')
-    date_of_birth = fields.Date(string='Date of Birth')
+    date_of_birth = fields.Date(string='Birth Date')
     age = fields.Integer(string='Age', compute='_compute_age', store=True)
 
     @api.depends('date_of_birth')

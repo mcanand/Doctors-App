@@ -101,8 +101,8 @@ class Doctor(models.Model):
     def on_partner_id_change(self):
         if self.partner_ids:
             self.booking_button = True
-            self.meeting_link = self.create_zoom_meeting()
-            # self.meeting_link="/gggggg/nnnnnnnnn"
+            # self.meeting_link = self.create_zoom_meeting()
+            self.meeting_link="/gggggg/nnnnnnnnn"
         else:
             self.booking_button = False
 

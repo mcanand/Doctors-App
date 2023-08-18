@@ -39,10 +39,16 @@ class AppController(http.Controller):
 
         for booking in bookings:
             doctor_image_url = booking.doctor_id.image_1920 or ''
+            appointment_time = booking.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = booking.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             booking_dict = {
                 'doctor_name': booking.doctor_id.name,
-                'appointment_time': booking.from_time,
-                'appointment_end': booking.to_time,
+                'appointment_time': f"{appointment_time} {am_pm}" ,
+                'appointment_end': f"{appointment_end} {ams_pms}" ,
                 'doctor_image': doctor_image_url,
                 'department': booking.doctor_id.department_id.name,
             }
@@ -93,10 +99,17 @@ class AppController(http.Controller):
 
         for booking in bookings:
             doctor_image_url = booking.doctor_id.image_1920 or ''
+            appointment_time = booking.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = booking.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
+
             booking_dict = {
                 'doctor_name': booking.doctor_id.name,
-                'appointment_time': booking.from_time,
-                'appointment_end': booking.to_time,
+                'appointment_time':  f"{appointment_time} {am_pm}" ,
+                'appointment_end':  f"{appointment_end} {ams_pms}" ,
                 'doctor_image': doctor_image_url,
                 'id': booking.id,
                 'department': booking.doctor_id.department_id.name,
@@ -107,10 +120,16 @@ class AppController(http.Controller):
 
         for previous_booking in previous_bookings:
             doctor_image_url = previous_booking.doctor_id.image_1920 or ''
+            appointment_time = previous_booking.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = previous_booking.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             previous_booking_dict = {
                 'doctor_name': previous_booking.doctor_id.name,
-                'appointment_time': previous_booking.from_time,
-                'appointment_end': previous_booking.to_time,
+                'appointment_time':  f"{appointment_time} {am_pm}" ,
+                'appointment_end':  f"{appointment_end} {ams_pms}" ,
                 'doctor_image': doctor_image_url,
                 'department': previous_booking.doctor_id.department_id.name,
             }
@@ -141,26 +160,32 @@ class AppController(http.Controller):
         return http.request.render('web_app_front.edit_booking_time_template')
 
 
-    @http.route('/booking/time/update', type='http', auth='public', website=True, method=['POST'])
+    @http.route('/booking/time/update', type='http', auth='public', website=True,)
     def update_booking_time(self, **kw):
-        partner_id = request.env.user.partner_id
-        partner = request.env.user.partner_id
-        employee = request.env['hr.employee'].sudo().search([('partner_ids', '=', partner.id)], limit=1)
+        doctor_id = request.env.user.employee_id.id
+        print(doctor_id)
+        doctor = request.env['hr.employee'].sudo().browse(doctor_id)
+
+        print(doctor)
         date = kw.get('date')
         from_time = kw.get('from_time')
         to_time = kw.get('to_time')
-
-        employee.write({
+        from_time_str = from_time.replace(':', '.')
+        to_time_str = to_time.replace(':', '.')
+        slot = request.env['doctor.time.slots'].sudo().search([('date', '=', date)])
+        if slot:
+           doctor.write({
             'date': date,
-            'time_from': from_time,
-            'time_to': to_time,
-        })
-
+            'time_from': from_time_str,
+            'time_to': to_time_str,
+           })
+        else:
+            return "please enter a valid date to change the slot time."
         return request.redirect('/my')
 
     @http.route('/today/appointment/doctor', type='http', auth='public', website=True)
     def view_appointments_doctor(self):
-        doctor_id = request.env.user.employee_ids
+        doctor_id = request.env.user.employee_id
         bookings = request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', doctor_id.id),
             ('booking_button', '=', True),
@@ -175,12 +200,18 @@ class AppController(http.Controller):
             patient_names = [partner.name for partner in booking.partner_ids]
             patient_name = ', '.join(patient_names)
             partner_ids = [partner.id for partner in booking.partner_ids]
+            appointment_time = booking.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = booking.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             booking_dict = {
                 'patient_name': patient_name,
                 'group_meeting':booking.group_meeting,
                 'patient_id': partner_ids,
-                'appointment_time': booking.from_time,
-                'appointment_end': booking.to_time,
+                'appointment_time': f"{appointment_time} {am_pm}" ,
+                'appointment_end': f"{appointment_end} {ams_pms}",
                 'id': booking.id,
             }
             if len(partner_ids) > 1:
@@ -190,9 +221,10 @@ class AppController(http.Controller):
 
         return request.render('web_app_front.today_appointment_doctor', {'appointments': booking_details,'group_patient_appointments': group_patient_bookings})
 
+
     @route('/all/appointment/doctor', type='http', auth='public', website=True)
     def all_appointments_doctor(self, **kwargs):
-        doctor_id = request.env.user.employee_ids
+        doctor_id = request.env.user.employee_id
         today = date.today().strftime('%Y-%m-%d')
         bookings = request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', doctor_id.id),
@@ -213,12 +245,19 @@ class AppController(http.Controller):
             patient_names = [partner.name for partner in booking.partner_ids]
             patient_name = ', '.join(patient_names)
             partner_ids = [partner.id for partner in booking.partner_ids]
+            appointment_time = booking.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = booking.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
+
             booking_dict = {
 
                 'patient_name': patient_name,
                 'group_meeting':booking.group_meeting,
-                'appointment_time': booking.from_time,
-                'appointment_end': booking.to_time,
+                'appointment_time': f"{appointment_time} {am_pm}",
+                'appointment_end':  f"{appointment_end} {ams_pms}",
                 'id': booking.id,
                 'date': booking.date,
                 'patient_id': partner_ids,
@@ -231,10 +270,16 @@ class AppController(http.Controller):
             patient_names = [partner.name for partner in previous_booking.partner_ids]
             patient_name = ', '.join(patient_names)
             partner_ids = [partner.id for partner in previous_booking.partner_ids]
+            appointment_time = previous_booking.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = previous_booking.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             previous_booking_dict = {
                 'patient_name': patient_name,
-                'appointment_time': previous_booking.from_time,
-                'appointment_end': previous_booking.to_time,
+                'appointment_time': f"{appointment_time} {am_pm}",
+                'appointment_end': f"{appointment_end} {ams_pms}",
                 'date': previous_booking.date,
                 'patient_id': partner_ids,
 
@@ -415,7 +460,7 @@ class AppController(http.Controller):
         # Extract data from request parameters
         patient_ids_str = kw.get('patient_id')
         patient_ids_list = [int(id) for id in patient_ids_str.strip('[]').split(',') if id.strip().isdigit()]
-        doctor_id = request.env.user.employee_ids.ids[0]
+        doctor_id = request.env.user.employee_id.id
         case_details = kw.get('case')
         prescription = kw.get('pres')
         next_sitting = kw.get('next_sitting')
@@ -567,13 +612,19 @@ class AppController(http.Controller):
         ])
         booking_details=[]
         for slot in slots:
+            appointment_time = slot.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = slot.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             doctor_details = {
                 'doctor_name': slot.doctor_id.name,
                 'department_name': slot.doctor_id.department_id.name,
                 'date': slot.date,
                 'doctor_image':slot.doctor_id.image_1920,
-                'from_time': slot.from_time,
-                'to_time': slot.to_time,
+                'from_time': f"{appointment_time} {am_pm}",
+                'to_time': f"{appointment_end} {ams_pms}",
                 'slot_id': slot.id,
 
             }
@@ -599,7 +650,7 @@ class AppController(http.Controller):
 
     @http.route('/create/new/meeting', type='http', auth='public', website=True)
     def create_booking_time(self, **kw):
-        employee =request.env.user.employee_ids
+        employee =request.env.user.employee_id
         date = kw.get('date')
         from_time = kw.get('from_time')
         to_time = kw.get('to_time')
@@ -658,7 +709,7 @@ class AppController(http.Controller):
 
     @http.route('/create/extra/slot', type='http', auth='public', website=True)
     def create_extra_time(self, **kw):
-        employee = request.env.user.employee_ids
+        employee = request.env.user.employee_id
         date = kw.get('date')
         from_time = kw.get('from_time')
         to_time = kw.get('to_time')

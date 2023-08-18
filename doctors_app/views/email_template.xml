@@ -14,13 +14,13 @@
                     <p>Here are your upcoming appointments:</p>
                     <ul>
                         <t t-foreach="object.slots_ids" t-as="slot">
-                            <t t-if="slot.date == datetime.datetime.now().date() and slot.partner_id">
+                            <t t-if="slot.date == datetime.datetime.now().date() and slot.partner_ids">
                                 <li>
                                     <br/>
                                     <t t-esc="slot.date"/>
                                     <br/>
                                     <b>Partner:</b>
-                                    <t t-esc="slot.partner_id.name"/>
+                                    <t t-esc="slot.partner_ids.name"/>
                                     <br/>
                                     <b>Time Interval:</b>
                                     <t t-esc="slot.from_time"/>

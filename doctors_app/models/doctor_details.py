@@ -42,8 +42,8 @@ class Doctor(models.Model):
     )
     profile_pic = fields.Binary(string='Profile Picture', attachment=True)
     # date = fields.Date(default=lambda self: datetime.now().date() + timedelta(days=1))
-    time_from = fields.Char(string='From')
-    time_to = fields.Char(string='To')
+    time_from = fields.Char(string='From(24 hour format)')
+    time_to = fields.Char(string='To(24 hour format)')
 
 
     @api.depends('status')

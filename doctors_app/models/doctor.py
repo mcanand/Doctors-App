@@ -1,15 +1,16 @@
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
-from datetime import date,datetime, timedelta
+from datetime import date, datetime, timedelta
 import requests
 import json
+
 
 class Doctor(models.Model):
     _inherit = 'hr.employee'
 
     date = fields.Date(default=lambda self: datetime.now().date() + timedelta(days=1))
-    time_from = fields.Float(string='From')
-    time_to = fields.Float(string='To')
+    time_from = fields.Float(string='From(24 hour format)')
+    time_to = fields.Float(string='To(24 hour format)')
     partner_ids = fields.Many2many('res.partner', string='Partner')
     slots_ids = fields.One2many('doctor.time.slots', 'doctor_id')
     prescription_ids = fields.One2many('doctor.patient.prescription', 'doctor_id', string='Prescriptions')
@@ -21,16 +22,14 @@ class Doctor(models.Model):
         [('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
         string='Gender'
     )
-    work_address = fields.Text(string='Work Address')
+    work_address = fields.Text(string='Work Address Details')
     CATEGORY_SELECTION = [
         ('doctor', 'Doctor'),
         ('patient', 'Patient'),
     ]
 
-    cate_id = fields.Selection(CATEGORY_SELECTION, string='Category', required=True)
+    cate_id = fields.Selection(CATEGORY_SELECTION, string='Category')
     one_hour_fee = fields.Float(string='Sitting fee per hour', digits=(10, 2), default=0.0)
-
-
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -105,7 +104,6 @@ class Doctor(models.Model):
             intervals.append((time_str_start, time_str_end))
         return intervals
 
-
     def write(self, vals):
         res = super(Doctor, self).write(vals)
 
@@ -166,7 +164,6 @@ class Doctor(models.Model):
                 doctor.time_to = float(to_time_str.split(':')[0]) + float(to_time_str.split(':')[1]) / 60
 
         return res
-
 
     @api.model
     def cron_demo_method(self):
@@ -238,8 +235,3 @@ class Doctor(models.Model):
     #         'context': context,
     #         'action': action_id,
     #     }
-
-
-
-
-
