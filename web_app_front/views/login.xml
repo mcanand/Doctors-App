@@ -48,7 +48,7 @@
                     <p class="alert alert-success" t-if="message" role="status">
                         <t t-esc="message"/>
                     </p>
-                    <div class="row mt-5">
+                    <div class="row mt-5 text-white">
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary button_login">Log in</button>
                         </div>

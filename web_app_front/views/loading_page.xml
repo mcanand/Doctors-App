@@ -14,7 +14,7 @@
 
                         <div class="rectangle align-items-start">
                             <i class="fa fa-user"></i>
-                            <a t-attf-href="/web/signup?user_type=patient" class="signup-link">
+                            <a href="/web/signup?" class="signup-link">
                                 <span class="text-left">I am a<br/>Patient...</span>
                             </a>
 

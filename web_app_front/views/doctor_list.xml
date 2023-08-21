@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="department_doctors">
+    <template id="doctors_list">
         <t t-call="website.layout">
             <!-- Your header content here -->
             <t t-set="app_nav_in_content">
@@ -12,24 +12,23 @@
                 </span>
             </t>
             <!-- =================================== -->
-
             <div class="container">
-                <div class="doctor_department_search-container">
+                <div class="doctor-search-container">
                  <div class="col-md-6 d-flex align-items-center">
                         <form t-att-action="" method="POST">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            <div class="input-box doctor_department_search">
+                            <div class="input-box doctor-search">
                                 <span class="search-icon">
                                     <i class="fa fa-search"></i>
                                 </span>
-                                <input type="text" placeholder="Search Doctor Here..." />
-                                 <input type="hidden" id="department_id" t-attf-value="{{department_id}}" />
+                                <input type="text" id="searchInput" placeholder="Search Doctor Here..." />
+
                             </div>
                         </form>
                     </div>
 
                 <div class="row mt-3">
-                    <t t-foreach="doctors" t-as="doc">
+                    <t t-foreach="doctors_list" t-as="doc">
                         <div class="col-6 pb-3 text-center">
                             <a href="">
                                 <div class="p-2 text-center align-self-center app_card">

@@ -19,12 +19,63 @@ class AppController(http.Controller):
     def get_doctors(self, department_id, **kw):
         print("ggggggg")
         department = request.env['hr.department'].sudo().browse(department_id)
-        doctors = department.member_ids
-        values = {
-            'doctors': doctors,
-        }
-        print(values)
-        return http.request.render('web_app_front.department_doctors', values)
+        doctors = request.env['hr.employee'].sudo().search([('id', 'in', department.member_ids.ids)])
+        doctors_list = []  # Change the variable name to doctors_list
+        for doctor in doctors:
+            det = {
+                'name': doctor.name,
+                'image_1920': doctor.image_1920,
+            }
+            # print(det)
+            doctors_list.append(det)
+
+        return http.request.render('web_app_front.department_doctors',
+                                   {'doctors': doctors_list, 'department_id': department_id})
+
+    @http.route('/all/doctors', type='http', auth="public", website=True)
+    def all_doctors(self, **kw):
+        print("ggggggg")
+        doctors = request.env['hr.employee'].sudo().search([])  # Retrieve all doctors
+        doctor_list = []
+
+        for doctor in doctors:
+            values = {
+                'name': doctor.name,
+                'image_1920': doctor.image_1920,
+                'doctor_id':doctor.id,
+            }
+            doctor_list.append(values)
+
+        return http.request.render('web_app_front.doctors_list', {'doctors_list': doctor_list})
+
+    @http.route(['/fetch/doctor/names'], type='json', auth='public', methods=['POST'])
+    def find_doctor_data(self, search_term, **post):
+        names = self._fetch_doctor_names(search_term)
+        return names
+
+    def _fetch_doctor_names(self, search_term):
+        employees = request.env['hr.employee'].sudo().search([
+            ('name', 'ilike', search_term),
+        ])
+        print(employees)
+        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920} for employee in employees]
+        return doctor_data
+        print(doctor_data)
+        return doctor_data
+
+    @http.route(['/fetch/department/doctor/names'], type='json', auth='public', methods=['POST'])
+    def find_department_doctor_data(self, search_term, department_id, **post):
+        names = self._fetch_department_doctor_names(search_term, department_id)
+        return names
+
+    def _fetch_department_doctor_names(self, search_term, department_id):
+        employees = request.env['hr.employee'].sudo().search([
+            ('name', 'ilike', search_term),
+            ('department_id', '=', int(department_id))  # Filter by department_id
+        ])
+
+        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920} for employee in employees]
+        return doctor_data
 
     @http.route('/today/appointment', type='http', auth='public', website=True)
     def view_appointments(self):

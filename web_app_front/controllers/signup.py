@@ -1,8 +1,4 @@
 from odoo import http
-from odoo.http import request
-import base64
-from datetime import datetime
-
 
 class SignupPageControllerAdd(http.Controller):
     @http.route('/loading/page', type='http', auth='public',website=True)

@@ -87,18 +87,20 @@
 
             <t t-foreach="group_meetings" t-as="meeting">
 
-<t t-set="appointment_hour" t-value="int(meeting['from_time'].split(':')[0])">
-<t t-set="am_pm" t-value="'AM'" t-if="12 > appointment_hour"/>
-                <t t-set="am_pm" t-value="'PM'" t-if=" not 12 > appointment_hour"/>
-<t t-set="formatted_appointment_time" t-value="f'{appointment_hour} {am_pm}'"/>
+ <t t-set="appointment_hour" t-value="int(meeting['from_time'].split(':')[0])">
+      <t  t-if="12 > appointment_hour  "><t t-set="am_pm" t-value="'AM'"/></t>
+      <t  t-if=" not 12 > appointment_hour  "><t t-set="am_pm" t-value="'PM'"/></t>
+      <t t-set="formatted_appointment_time" t-value="f'{appointment_hour} {am_pm}'"/>
 
-</t>
+
+
+ </t>
 
 <!--                <t t-if="meeting.partner_ids and len(meeting.partner_ids) > 1">-->
                     <t t-set="group_doctor" t-value="{
                          'doctor_name': meeting.doctor_id.name,
                          'dep_name': meeting.doctor_id.department_id.name,
-                         'appointment_time': meeting.from_time,
+                         'appointment_time': formatted_appointment_time,
                          'appointment_end': meeting.to_time,
                          'doctor_image': meeting.doctor_id.image_1920,
                          'slot_id':meeting.id,
@@ -355,7 +357,7 @@
 
                     <div class="row mt-3">
                         <div class="col-12">
-                            <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all doctors
+                            <a t-attf-href="/all/doctors" class="btn shadow-none app_card w-100 poppins400">View all doctors
                             </a>
                         </div>
                     </div>
