@@ -10,6 +10,7 @@ odoo.define('web_app_front.doctor_department_search', function (require) {
         selector: '.doctor_department_search-container',
         events: {
             'input .input-box input': '_onInputDoctorSearch',
+
         },
 
         start: function () {
@@ -27,6 +28,7 @@ odoo.define('web_app_front.doctor_department_search', function (require) {
             }
         },
 
+
         _fetchDoctorNames: function (searchTerm, dep_id) {
             var self = this;
             ajax.jsonRpc('/fetch/department/doctor/names', 'call', {search_term: searchTerm, department_id: dep_id})
@@ -34,9 +36,10 @@ odoo.define('web_app_front.doctor_department_search', function (require) {
                     $('.row.mt-3').empty();
 
                     $.each(data, function (key, value) {
-                        var doctorCard = '<div class="col-6 pb-3 text-center">' +
-                                         '<a href="">' +
-                                         '<div class="p-2 text-center align-self-center app_card">';
+//                     var doctorCard = '<div class="col-6 pb-3 text-center doctor-info-data" t-att-data-id="' + value.doctor_id + '">' +
+//                                         '<div class="p-2 text-center align-self-center app_card">';
+                         var doctorCard = '<div class="col-6 pb-3 text-center doctor-info-data" data-id="' + value.doctor_id + '">'+
+                         '<div class="p-2 text-center align-self-center app_card">';
 
                         if (value.image_1920) {
                             doctorCard += '<img class="doctor_image" src="data:image/png;base64,' + value.image_1920 + '"/>';

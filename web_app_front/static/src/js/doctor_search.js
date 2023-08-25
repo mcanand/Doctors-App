@@ -34,9 +34,9 @@ odoo.define('web_app_front.doctor_search', function (require) {
 
 
             $.each(data, function (key, value) {
-                var doctorCard = '<div class="col-6 pb-3 text-center">' +
-                                 '<a href="">' +
-                                 '<div class="p-2 text-center align-self-center app_card">';
+                 var doctorCard = '<div class="col-6 pb-3 text-center doctor-all-data" data-id="' + value.doctor_id + '">' +
+                                         '<div class="p-2 text-center align-self-center app_card">';
+
 
                 if (value.image_1920) {
                     doctorCard += '<img class="doctor_image" src="data:image/png;base64,' + value.image_1920 + '"/>';
