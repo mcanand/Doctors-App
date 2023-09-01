@@ -1,6 +1,5 @@
 from odoo import models, fields, api
 
-
 class DoctorRating(models.Model):
     _name = 'doctor.rating'
     _description = 'Doctor Rating'
@@ -10,19 +9,26 @@ class DoctorRating(models.Model):
     rating = fields.Float(string='Rating', default=0.0)
     count = fields.Integer(string='Count', default=0)
 
-    @api.onchange('rating', 'count')
-    def _onchange_rating(self):
-        if self.count > 0:
-            self.rating = self.rating / self.count
-        else:
-            self.rating = 0.0
+    @api.model_create_single
+    def create(self, vals_list):
+        if 'rating' in vals_list and 'doctor_id' in vals_list:
+            # Check if a rating already exists for the same doctor
+            existing_rating = self.search([
+                ('doctor_id', '=', vals_list['doctor_id']),
+            ], limit=1)
 
-    def _compute_average_rating(self):
-        for rating in self:
-            if rating.count > 0:
-                rating.rating = rating.rating / rating.count
+            if existing_rating:
+                # If a rating already exists, update the count and recalculate the rating
+                existing_rating.rating = (existing_rating.rating * existing_rating.count + vals_list['rating']) / (
+                            existing_rating.count + 1)
+                existing_rating.count += 1
+                return existing_rating
             else:
-                rating.rating = 0.0
+                # If no rating exists for the doctor, create a new one
+                vals_list['count'] = 1
+                return super(DoctorRating, self).create(vals_list)
+        else:
+            return super(DoctorRating, self).create(vals_list)
 
     @api.model
     def _clean_duplicate_ratings(self):
@@ -35,16 +41,6 @@ class DoctorRating(models.Model):
                 ratings_to_delete.unlink()
 
     def write(self, vals):
-        if 'rating' in vals or 'count' in vals:
-            self._onchange_rating()
         # Before writing new data, clean up duplicates
         self._clean_duplicate_ratings()
         return super(DoctorRating, self).write(vals)
-
-    @api.model_create_single
-    def create(self, vals_list):
-        if vals_list.get('rating') or vals_list.get('count'):
-            vals_list['rating'] = vals_list['rating'] / vals_list['count']
-        # Before creating new data, clean up duplicates
-        self._clean_duplicate_ratings()
-        return super(DoctorRating, self).create(vals_list)

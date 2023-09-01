@@ -17,7 +17,7 @@
                         <label for="image_1920" class="image-upload-label">
                             <img class="uploaded-image image_1920"
                                  src="/web/image/web.app.front.image_det/#{object.id}/image" alt="Uploaded Image"/>
-                            <input type="file" id="image_1920" name="image_1920" t-ref="fileInput"
+                            <input type="file" id="image_1920" name="image_1920"
                                    style="display:none"/>
                         </label>
                     </div>

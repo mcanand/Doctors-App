@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError,ValidationError
+import base64
 
 
 class Doctor(models.Model):
@@ -44,6 +45,13 @@ class Doctor(models.Model):
     # date = fields.Date(default=lambda self: datetime.now().date() + timedelta(days=1))
     time_from = fields.Char(string='From(24 hour format)')
     time_to = fields.Char(string='To(24 hour format)')
+
+    @api.model
+    def create(self, vals):
+        profile_pic = vals.get('profile_pic')
+        if profile_pic:
+            vals['profile_pic'] = base64.b64encode(profile_pic.read())
+        return super(Doctor, self).create(vals)
 
 
     @api.depends('status')

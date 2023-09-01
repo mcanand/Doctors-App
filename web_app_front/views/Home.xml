@@ -270,6 +270,7 @@
 
                     <t t-set="doctor_ratings"
                        t-value="request.env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
+<!--                    <t t-esc="doctor_ratings"/>-->
 
                     <div class="row">
                         <t t-if="doctor_ratings">
@@ -332,8 +333,8 @@
                             <br/>
                             <span id="doctorExperience"></span>
                             <br/>
-                            <span id="doctorId"></span>
-                            <br/>
+<!--                            <span id="doctorId"></span>-->
+<!--                            <br/>-->
                             <strong>About:</strong>
                             <br/>
                             <span id="doctorAbout"></span>
@@ -345,6 +346,10 @@
                             <a class="btn btn-primary" id="myButton" t-attf-href="/booking/availability/{{doctorID}} ">
                                 Schedule a Meeting
                             </a>
+                            <div class="hidden">
+                            <span id="doctorId"></span>
+                            </div>
+                            <br/>
 
                         </p>
                         <!-- Your existing template code -->

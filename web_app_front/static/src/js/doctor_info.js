@@ -57,8 +57,16 @@ odoo.define('web_app_front.doctor_information', function (require) {
             modalDoctorDepartment.textContent = doctorDetails.department_name;
             modalDoctorImage.querySelector("img").setAttribute("src", "data:image/png;base64," + doctorDetails.image);
             modalDoctorExperience.textContent = doctorDetails.experience + " Years of experience";
-            modalDoctorAbout.textContent = doctorDetails.about.substr(0, 100) + '...'; // Display truncated content
-            modalDoctorAboutFull.textContent = doctorDetails.about;
+//            modalDoctorAbout.textContent = doctorDetails.about.substr(0, 100) + '...'; // Display truncated content
+//            modalDoctorAboutFull.textContent = doctorDetails.about;
+  if (typeof doctorDetails.about === 'string') {
+                modalDoctorAbout.textContent = doctorDetails.about.substr(0, 100) + '...';
+                modalDoctorAboutFull.textContent = doctorDetails.about;
+            } else {
+        // Handle the case where about is not a string
+                 modalDoctorAbout.textContent = "About information not available";
+                 modalDoctorAboutFull.textContent = "About information not available";
+        }
             modalDoctorId.textContent = doctorDetails.doctor_id;
             modalDoctorRating.textContent = "Rating: " + doctorDetails.rating;
             modalScheduleMeetingButton.setAttribute("href", "/booking/availability/" + doctorDetails.doctor_id);
