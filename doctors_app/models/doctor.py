@@ -109,54 +109,6 @@ class Doctor(models.Model):
 
 
     #
-    # def write(self, vals):
-    #     res = super(Doctor, self).write(vals)
-    #
-    #     if any(field_name in vals for field_name in ('time_from', 'time_to', 'date')):
-    #         for doctor in self:
-    #             if doctor.time_from and doctor.time_to and doctor.date:
-    #                 if doctor.time_from > doctor.time_to:
-    #                     raise ValidationError("Invalid time interval: time_from should be less than time_to")
-    #
-    #                 start_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
-    #                 end_date = start_date + timedelta(days=15)
-    #
-    #                 slots = self.env['doctor.time.slots'].search([
-    #                     ('doctor_id', '=', doctor.id),
-    #                     ('date', '>=', start_date.strftime("%Y-%m-%d")),
-    #                     ('date', '<=', end_date.strftime("%Y-%m-%d"))
-    #                 ])
-    #
-    #                 # Remove existing slots
-    #                 slots.unlink()
-    #
-    #                 # Generate new slots
-    #                 current_date = start_date
-    #
-    #                 while current_date <= end_date:
-    #                     if current_date.weekday() not in (5, 6):  # 5 = Saturday, 6 = Sunday
-    #                         intervals = doctor._get_time_intervals(doctor.time_from, doctor.time_to)
-    #                         for from_time, to_time in intervals:
-    #                             display_interval = f'From {from_time} to {to_time}'
-    #                             self.env['doctor.time.slots'].create({
-    #                                 'doctor_id': doctor.id,
-    #                                 'partner_ids': [(6, 0, doctor.partner_ids.ids)],
-    #                                 'date': current_date.strftime("%Y-%m-%d"),
-    #                                 'from_time': from_time,
-    #                                 'to_time': to_time,
-    #                                 'display_time_interval': display_interval,
-    #                             })
-    #                     current_date += timedelta(days=1)
-    #
-    #     if 'display_time_interval' in vals:
-    #         for doctor in self:
-    #             # Extract 'from_time' and 'to_time' from the 'display_time_interval' when it's being updated
-    #             from_time_str, to_time_str = vals.get('display_time_interval', '').split(' to ')
-    #             doctor.time_from = float(from_time_str.split(':')[0]) + float(from_time_str.split(':')[1]) / 60
-    #             doctor.time_to = float(to_time_str.split(':')[0]) + float(to_time_str.split(':')[1]) / 60
-    #
-    #     return res
-
     def write(self, vals):
         res = super(Doctor, self).write(vals)
 
@@ -166,22 +118,35 @@ class Doctor(models.Model):
                     if doctor.time_from > doctor.time_to:
                         raise ValidationError("Invalid time interval: time_from should be less than time_to")
 
-                    # Determine the end date of the last slot created
-                    last_slot_date =  self.env['doctor.time.slots'].search([
-                ('doctor_id', '=', doctor.id),
-            ], order='date desc', limit=1)
+                    start_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+                    end_date = start_date + timedelta(days=15)
 
-                    # Find the next non-Saturday and non-Sunday date after the last slot
-                    end_date = last_slot_date + timedelta(days=1)
-                    while end_date.weekday() in (5, 6):  # 5 = Saturday, 6 = Sunday
-                        end_date += timedelta(days=1)
+                    slots = self.env['doctor.time.slots'].search([
+                        ('doctor_id', '=', doctor.id),
+                        ('date', '>=', start_date.strftime("%Y-%m-%d")),
+                        ('date', '<=', end_date.strftime("%Y-%m-%d"))
+                    ])
 
-                    # Calculate the end date for the next 15 days
-                    end_date += timedelta(days=15)
+                    # Remove existing slots
+                    slots.unlink()
 
-                    while end_date > last_slot_date:
-                        doctor._generate_slots(last_slot_date, last_slot_date + timedelta(days=1))
-                        last_slot_date += timedelta(days=1)
+                    # Generate new slots
+                    current_date = start_date
+
+                    while current_date <= end_date:
+                        if current_date.weekday() not in (5, 6):  # 5 = Saturday, 6 = Sunday
+                            intervals = doctor._get_time_intervals(doctor.time_from, doctor.time_to)
+                            for from_time, to_time in intervals:
+                                display_interval = f'From {from_time} to {to_time}'
+                                self.env['doctor.time.slots'].create({
+                                    'doctor_id': doctor.id,
+                                    'partner_ids': [(6, 0, doctor.partner_ids.ids)],
+                                    'date': current_date.strftime("%Y-%m-%d"),
+                                    'from_time': from_time,
+                                    'to_time': to_time,
+                                    'display_time_interval': display_interval,
+                                })
+                        current_date += timedelta(days=1)
 
         if 'display_time_interval' in vals:
             for doctor in self:
@@ -191,6 +156,41 @@ class Doctor(models.Model):
                 doctor.time_to = float(to_time_str.split(':')[0]) + float(to_time_str.split(':')[1]) / 60
 
         return res
+
+    # def write(self, vals):
+    #     res = super(Doctor, self).write(vals)
+    #
+    #     if any(field_name in vals for field_name in ('time_from', 'time_to', 'date')):
+    #         for doctor in self:
+    #             if doctor.time_from and doctor.time_to and doctor.date:
+    #                 if doctor.time_from > doctor.time_to:
+    #                     raise ValidationError("Invalid time interval: time_from should be less than time_to")
+    #
+    #                 # Determine the end date of the last slot created
+    #                 last_slot_date =  self.env['doctor.time.slots'].search([
+    #             ('doctor_id', '=', doctor.id),
+    #         ], order='date desc', limit=1)
+    #
+    #                 # Find the next non-Saturday and non-Sunday date after the last slot
+    #                 end_date = last_slot_date + timedelta(days=1)
+    #                 while end_date.weekday() in (5, 6):  # 5 = Saturday, 6 = Sunday
+    #                     end_date += timedelta(days=1)
+    #
+    #                 # Calculate the end date for the next 15 days
+    #                 end_date += timedelta(days=15)
+    #
+    #                 while end_date > last_slot_date:
+    #                     doctor._generate_slots(last_slot_date, last_slot_date + timedelta(days=1))
+    #                     last_slot_date += timedelta(days=1)
+    #
+    #     if 'display_time_interval' in vals:
+    #         for doctor in self:
+    #             # Extract 'from_time' and 'to_time' from the 'display_time_interval' when it's being updated
+    #             from_time_str, to_time_str = vals.get('display_time_interval', '').split(' to ')
+    #             doctor.time_from = float(from_time_str.split(':')[0]) + float(from_time_str.split(':')[1]) / 60
+    #             doctor.time_to = float(to_time_str.split(':')[0]) + float(to_time_str.split(':')[1]) / 60
+    #
+    #     return res
 
     @api.model
     def cron_demo_method(self):
