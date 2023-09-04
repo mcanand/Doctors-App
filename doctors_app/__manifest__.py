@@ -21,6 +21,7 @@
         'views/doctor_rating.xml',
         'views/available_dates.xml',
         'views/hr_department.xml',
+        'views/all_slots.xml',
         'views/doctor_details.xml',
 
 

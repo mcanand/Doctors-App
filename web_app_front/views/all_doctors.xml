@@ -7,7 +7,7 @@
                 <a href="javascript: window.history.back()">
                     <i style="font-size:16px;" class="fa fa-angle-left"/>
                 </a>
-                <span class="poppins300 ml-2" >
+                <span class="poppins300 ml-2">
                     Doctors
                 </span>
             </t>
@@ -15,93 +15,101 @@
 
             <div class="container">
                 <div class="doctor_department_search-container">
-                 <div class="col-md-6 d-flex align-items-center">
+                    <div class="col-md-6 d-flex align-items-center">
                         <form t-att-action="" method="POST">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <div class="input-box doctor_department_search">
                                 <span class="search-icon">
                                     <i class="fa fa-search"></i>
                                 </span>
-                                <input type="text" placeholder="Search Doctor Here..." />
-                                 <input type="hidden" id="department_id" t-attf-value="{{department_id}}" />
+                                <input type="text" placeholder="Search Doctor Here..."/>
+                                <input type="hidden" id="department_id" t-attf-value="{{department_id}}"/>
                             </div>
                         </form>
                     </div>
-                <div class="doctor_information_pick">
-                    <div class="information-container">
-                <div class="row mt-3 " >
-                    <t t-foreach="doctors" t-as="doc">
-                        <div class="col-6 pb-3 text-center doctor-info-data" t-att-data-id="doc.get('doctor_id')">
+                    <div class="doctor_information_pick">
+                        <div class="information-container">
+                            <div class="row mt-3 ">
+                                <t t-foreach="doctors" t-as="doc">
+                                    <div class="col-6 pb-3 text-center doctor-info-data"
+                                         t-att-data-id="doc.get('doctor_id')">
 
-                                <div class="p-2 text-center align-self-center app_card">
-                                    <t t-if="doc.get('image_1920')">
-                                        <img class="doctor_image"
-                                             t-attf-src="data:image/png;base64,{{doc.get('image_1920')}}"/>
-                                    </t>
-                                    <t t-else="">
-                                        <svg class="doctor_image" xmlns="http://www.w3.org/2000/svg" height="2em"
-                                             viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                            <style>svg{fill:#77767b}</style>
-                                            <path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/>
-                                        </svg>
-                                    </t>
-                                    <p class="poppins400 mt-2" style="font-size:14px;">
-                                        <t t-esc="doc.get('name')"/>
-                                    </p>
-                                </div>
+                                        <div class="p-2 text-center align-self-center app_card">
+                                            <t t-if="doc.get('image_1920')">
+                                                <img class="doctor_image"
+                                                     t-attf-src="data:image/png;base64,{{doc.get('image_1920')}}"/>
+                                            </t>
+                                            <t t-else="">
+                                                <svg class="doctor_image" xmlns="http://www.w3.org/2000/svg"
+                                                     height="2em"
+                                                     viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                    <style>svg{fill:#77767b}</style>
+                                                    <path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/>
+                                                </svg>
+                                            </t>
+                                            <p class="poppins400 mt-2" style="font-size:14px;">
+                                                <t t-esc="doc.get('name')"/>
+                                                <br/>
 
-                        </div>
-                    </t>
-                </div>
-                        </div>
-                     </div>
-                </div>
-                </div>
+                                                <t t-esc="doc.get('department')"/>
+                                                <br/>Rating :
 
-              <!-- The modal box -->
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">×</span>
-                        <p>
-                            <span id="doctorImage" class="doctor-name">
-                                <img t-attf-src="data:image/png;base64,{{doctorImage}}"
-                                     alt="Doctor Image"/>
-                            </span>
-                            <br/>
-                            <strong>
-                                <span id="doctorName"></span>
-                            </strong>
-                            <br/>
-                            <strong>
-                                <span id="doctorDepartment"></span>
-                            </strong>
-                            <br/>
-                            <span id="doctorRating"></span>
-                            <br/>
-                            <span id="doctorExperience"></span>
-                            <br/>
-                            <strong>About:</strong>
-                            <br/>
-                            <span id="doctorAbout"></span>
-                            <span id="doctorAboutFull" style="display: none;"></span>
-                            <a href="#" id="readMoreLink">Read More...</a>
+                                                <t t-esc="doc.get('rating')"/>
+                                            </p>
+                                        </div>
 
-
-                            <br/>
-                            <a class="btn btn-primary" id="myButton" t-attf-href="/booking/availability/{{doctorID}} ">
-                                Schedule a Meeting
-                            </a>
-                            <div class="hidden">
-                            <span id="doctorId"></span>
+                                    </div>
+                                </t>
                             </div>
-                            <br/>
-
-                        </p>
-                        <!-- Your existing template code -->
-
-
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- The modal box -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">×</span>
+                    <p>
+                        <span id="doctorImage" class="doctor-name">
+                            <img t-attf-src="data:image/png;base64,{{doctorImage}}"
+                                 alt="Doctor Image"/>
+                        </span>
+                        <br/>
+                        <strong>
+                            <span id="doctorName"></span>
+                        </strong>
+                        <br/>
+                        <strong>
+                            <span id="doctorDepartment"></span>
+                        </strong>
+                        <br/>
+                        <span id="doctorRating"></span>
+                        <br/>
+                        <span id="doctorExperience"></span>
+                        <br/>
+                        <strong>About:</strong>
+                        <br/>
+                        <span id="doctorAbout"></span>
+                        <span id="doctorAboutFull" style="display: none;"></span>
+                        <a href="#" id="readMoreLink">Read More...</a>
+
+
+                        <br/>
+                        <a class="btn btn-primary" id="myButton" t-attf-href="/booking/availability/{{doctorID}} ">
+                            Schedule a Meeting
+                        </a>
+                        <div class="hidden">
+                            <span id="doctorId"></span>
+                        </div>
+                        <br/>
+
+                    </p>
+                    <!-- Your existing template code -->
+
+
+                </div>
+            </div>
         </t>
     </template>
 </odoo>

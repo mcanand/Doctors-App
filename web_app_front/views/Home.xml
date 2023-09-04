@@ -31,6 +31,7 @@
                     'from_time': booking.from_time,
                     'dep_name' :booking.doctor_id.department_id.name,
                     'doctor_image':booking.doctor_id.image_1920,
+                    'average_rating':booking.doctor_id.ratings.rating,
                 }"/>
                 <t t-set="booking_details" t-value="booking_details + [booking_dict]"/>
             </t>
@@ -105,6 +106,7 @@
                          'doctor_image': meeting.doctor_id.image_1920,
                          'slot_id':meeting.id,
                          'group_meeting':meeting.group_meeting,
+                         'average_rating':meeting.doctor_id.ratings.rating,
                     }"/>
 <!--                </t>-->
                 <t t-if="not group_doctor in meetings">
@@ -144,7 +146,7 @@
                                         <div class="departments">
                                             <t t-esc="appointment.get('dep_name')"/>
                                         </div>
-                                        <div class="rating">Rating: 4.5</div>
+                                        <div class="rating">Rating:<t t-esc="appointment.get('average_rating')"/> </div>
                                     </div>
                                     <div class="time-icon">
                                         <i class="fa fa-clock-o"></i>
@@ -199,7 +201,7 @@
                                             <div class="departments">
                                                 <t t-esc="m.get('dep_name')"/>
                                             </div>
-                                            <div class="rating">Rating: 4.5</div>
+                                            <div class="rating">Rating:   <t t-esc="m.get('average_rating')"/> </div>
                                         </div>
                                         <div class="time-icon">
                                             <i class="fa fa-clock-o"></i>
@@ -276,7 +278,9 @@
                         <t t-if="doctor_ratings">
                             <div class="col-24 doctor-container">
                                 <t t-foreach="doctor_ratings" t-as="rating">
-                                    <t t-if="rating.rating > 0">
+                                    <t t-if="rating.doctor_id and rating.rating > 0">
+
+
 
                                         <div class="doctor-box" t-att-data-id="rating.doctor_id.id">
                                             <div class="doctor-information">
@@ -339,7 +343,7 @@
                             <br/>
                             <span id="doctorAbout"></span>
                             <span id="doctorAboutFull" style="display: none;"></span>
-                            <a href="#" id="readMoreLink">Read More...</a>
+                            <a href="#" id="readMoreLink">  Read More...</a>
 
 
                             <br/>

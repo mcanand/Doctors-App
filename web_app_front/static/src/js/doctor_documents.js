@@ -25,7 +25,7 @@ odoo.define('web_app_front.documents_det', function (require) {
                 });
             });
 
-            alert('Widget initialized.');
+//            alert('Widget initialized.');
 
             // Call _super to invoke the parent class start method
             return this._super.apply(this, arguments);

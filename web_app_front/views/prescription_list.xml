@@ -18,7 +18,7 @@
                     <t t-foreach="prescriptions" t-as="presc">
                      <div class="col-24 user-container">
                             <div class="user-box">
-                                <a t-att-href="'/d/%s' %presc.id ">
+                                <a t-att-href="'/prescription/view/%s' %presc.id ">
                                 <div class="user-information">
                                     <div class="appointment-time">
                                         <span class="name-doc">

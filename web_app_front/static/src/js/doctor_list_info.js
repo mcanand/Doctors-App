@@ -57,7 +57,7 @@ odoo.define('web_app_front.doctor_information_data', function (require) {
             modalDoctorName.textContent = doctorDetails.doctor_name;
             modalDoctorDepartment.textContent = doctorDetails.department_name;
             modalDoctorImage.querySelector("img").setAttribute("src", "data:image/png;base64," + doctorDetails.image);
-            modalDoctorExperience.textContent = doctorDetails.experience + " Years of experience";
+            modalDoctorExperience.textContent = doctorDetails.experience + "  Years of experience";
 //            modalDoctorAbout.textContent = doctorDetails.about.substr(0, 100) + '...'; // Display truncated content
 //            modalDoctorAboutFull.textContent = doctorDetails.about;
             if (typeof doctorDetails.about === 'string') {

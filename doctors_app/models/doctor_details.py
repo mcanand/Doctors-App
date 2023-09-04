@@ -91,7 +91,7 @@ class Doctor(models.Model):
             raise UserError(("The user cannot be created. Please check the user information."))
 
         # #  ate res.partner record
-        user.partner_id.write({'name': doctor.name, 'email': doctor.email, 'user_id': user.id})
+        user.partner_id.write({'name': doctor.name, 'email': doctor.email, 'user_id': user.id,'categry_id':'doctor'})
         # Create employee for user
         user.action_create_employee()
         time_from_str = doctor.time_from.replace(':', '.')

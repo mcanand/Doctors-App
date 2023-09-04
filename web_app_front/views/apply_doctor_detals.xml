@@ -2,8 +2,11 @@
 <odoo>
     <template id="enter_details">
         <t t-call="website.layout">
-            <!--            <div class="page">-->
-
+             <t t-set="app_nav_in_content">
+           <a href="javascript: window.history.back()">
+                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                </a>
+             </t>
 
 
                 <form action="/doctor/details/save" method="POST">

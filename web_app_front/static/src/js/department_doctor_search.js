@@ -22,10 +22,10 @@ odoo.define('web_app_front.doctor_department_search', function (require) {
             var searchTerm = $(ev.currentTarget).val().trim();
             var dep_id = $('#department_id').val();
 
-            if (searchTerm.length >= 2) {
-                this._fetchDoctorNames(searchTerm, dep_id);
+        this._fetchDoctorNames(searchTerm,dep_id);
 
-            }
+
+
         },
 
 
@@ -47,7 +47,7 @@ odoo.define('web_app_front.doctor_department_search', function (require) {
                             doctorCard += '<svg class="doctor_image" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 384 512"><!-- SVG path definition here --></svg>';
                         }
 
-                        doctorCard += '<p class="poppins400 mt-2" style="font-size:14px;">' + value.name + '</p>' +
+                        doctorCard += '<p class="poppins400 mt-2" style="font-size:14px;">' + value.name + '<br/>' + value.department + '<br/>Rating:' + value.rating + '</p>' +
                                       '</div></a></div>';
 
                         $('.row.mt-3').append(doctorCard);

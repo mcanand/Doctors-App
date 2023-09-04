@@ -46,7 +46,11 @@
                                                     </svg>
                                                 </t>
                                                 <p class="poppins400 mt-2" style="font-size:14px;">
-                                                    <t t-esc="doc.get('name')"/>
+                                                    <t t-esc="doc.get('name')"/><br/>
+
+                                                    <t t-esc="doc.get('department')"/><br/>Rating :
+
+                                                    <t t-esc="doc.get('rating')"/>
                                                 </p>
                                             </div>
 

@@ -10,7 +10,7 @@ class ResPartner(models.Model):
         ('patient', 'Patient'),
     ]
 
-    categry_id = fields.Selection(CATEGORY_SELECTION, string='Category')
+    categry_id = fields.Selection(CATEGORY_SELECTION, string='Category', default='patient')
     doctor_time_slot_ids = fields.One2many('doctor.time.slots', 'partner_ids', string='Booked Slots')
     doctor_id = fields.Many2one('hr.employee', string='Doctor')
     date_of_birth = fields.Date(string='Birth Date')

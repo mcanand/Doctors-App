@@ -28,6 +28,10 @@ class Doctor(models.Model):
     group_meeting = fields.Char(string='Session Name', store=True)
     prescription_status = fields.Boolean(string='Prescription Completed',
                                          default=False)
+    ratings = fields.One2many('doctor.rating', 'doctor_id', string='Ratings')
+
+
+
 
 
 

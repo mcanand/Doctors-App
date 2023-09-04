@@ -28,6 +28,10 @@
                         </field>
                     </page>
                 </xpath>
+                 <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="open_all_slots" string="All Slots" type="object"
+                            class="oe_highlight"/>
+                </xpath>
 
                 <xpath expr="//div[@name='button_box']" position="inside">
                     <button name="open_booked_slots_doctor" string="Today's Booked Slots" type="object"
