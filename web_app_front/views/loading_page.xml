@@ -8,13 +8,13 @@
                     <div class="rectangle align-items-start">
                         <i class="fa fa-user-md"></i>
                           <a t-attf-href="/enter/details" class="signup-link">
-                                <span class="text-left">I am a<br/>Doctor...</span>
+                                <span class="text-left">I am not<br/>Doctor...</span>
                             </a>
                     </div>
 
                         <div class="rectangle align-items-start">
                             <i class="fa fa-user"></i>
-                            <a href="/web/signup?" class="signup-link">
+                            <a href="/web/signup?signup_enabled=True" class="signup-link">
                                 <span class="text-left">I am a<br/>Patient...</span>
                             </a>
 
