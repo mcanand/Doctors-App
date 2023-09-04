@@ -8,7 +8,7 @@
                     <div class="rectangle align-items-start">
                         <i class="fa fa-user-md"></i>
                           <a t-attf-href="/enter/details" class="signup-link">
-                                <span class="text-left">I am not<br/>Doctor...</span>
+                                <span class="text-left">I am Anand<br/>Doctor...</span>
                             </a>
                     </div>
 
