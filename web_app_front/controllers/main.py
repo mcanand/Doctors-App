@@ -550,8 +550,6 @@ class AppController(http.Controller):
     @http.route('/doctor/details/save', type='http', auth='user', website=True)
     def add_doctor(self, **kw):
         # file = kw.get('image_1920').filename()
-
-
         request.env['doctor.details'].sudo().create({
             'department_id': kw.get('department_id'),
             'name': kw.get('name'),
@@ -570,8 +568,9 @@ class AppController(http.Controller):
             'emergency_contact_phone': kw.get('contact'),
 
         })
+        return http.request.render('web_app_front.view_success_page_mobile')
 
-        return request.redirect('/web/login')
+        # return request.redirect('/web/login')
 
     @http.route('/group/sessions', type='http', auth='public', website=True)
     def group_details(self, **kw):

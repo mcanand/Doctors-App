@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <template id="view_success_page_mobile">
+            <t t-call="website.layout">
+                <div class="container pt-5 pb-5">
+                    <div class="container">
+                         <div class="col-24 no-appointments-container" style="color:#007ab4;">
+
+                            <div class="col-md-12" style="color:#007ab4;">
+                                <h1>Registration Successful!</h1>
+                                <p style="color:black;">Your are successfully registered.
+                            <span class="mt-2">
+                                <a t-attf-href="/web/login" style="color:#007ab4;">Login</a>
+                            </span>
+                        </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -48,8 +48,8 @@
                     </t>
                      </t>
                      <t t-else="">
-                        <div class="col-24 no-appointments-container">
-                            <p class="no-appointments-text">No appointments today.</p>
+                         <div class="col-24 poppins500 app_color">
+                            No appointments today.
                         </div>
                     </t>
                 </div>
