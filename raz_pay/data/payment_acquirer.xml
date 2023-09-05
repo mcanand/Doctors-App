@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="payment_provider_razor" model="payment.provider">
+        <field name="name">Razor Pay</field>
+        <field name="code">razorpay</field>
+    </record>
+</odoo>

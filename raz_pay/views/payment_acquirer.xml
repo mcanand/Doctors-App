@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="payment_acquirer_form_razor" model="ir.ui.view">
+        <field name="name">Razor Pay Form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <page name="credentials" position="inside">
+                <group attrs="{'invisible': [('code', '!=', 'razorpay')]}">
+                    <field name="razorpay_endpoint"
+                           attrs="{'required':[('code', '=', 'razorpay'), ('state', '!=', 'disabled')]}"/>
+                    <field name="razorpay_api_key"
+                           attrs="{'required':[('code', '=', 'razorpay'), ('state', '!=', 'disabled')]}"/>
+                    <field name="razorpay_secret_key"
+                           attrs="{'required':[('code', '=', 'razorpay'), ('state', '!=', 'disabled')]}"/>
+                </group>
+            </page>
+        </field>
+    </record>
+</odoo>
