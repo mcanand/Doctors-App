@@ -71,7 +71,7 @@
                     </t>
                     <t t-else="">
                         <div class="col-24 no-appointments-container">
-                            <p class="no-appointments-text">Full Booked.</p>
+                            <p class="no-appointments-text">No available slots.</p>
                         </div>
                     </t>
 

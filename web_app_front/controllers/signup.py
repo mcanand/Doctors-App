@@ -22,6 +22,7 @@ class AuthSignupHome(BaseAuthSignupHome):
 
         if 'error' not in qcontext and request.httprequest.method == 'POST':
             try:
+                qcontext.update({'signup_enabled': False})
                 self.do_signup(qcontext)
                 # Send an account creation confirmation email
                 User = request.env['res.users']
@@ -52,6 +53,12 @@ class AuthSignupHome(BaseAuthSignupHome):
         response.headers['X-Frame-Options'] = 'SAMEORIGIN'
         response.headers['Content-Security-Policy'] = "frame-ancestors 'self'"
         return response
+
+    def _prepare_signup_values(self, qcontext):
+        # Call the parent class's _prepare_signup_values method
+        values = super(AuthSignupHome, self)._prepare_signup_values(qcontext)
+        values['categry_id'] = 'patient'  # Add your custom value here
+        return values
 
 
 class SignupPageControllerAdd(http.Controller):
