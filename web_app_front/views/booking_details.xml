@@ -68,10 +68,11 @@
 
                     </div>
 
-                    <button class="join-button">Join</button>
+                    <a t-att-href="booking.meeting_link" class="btn join-button">Join</a>
 
                 </div>
             </div>
         </t>
     </template>
+
 </odoo>

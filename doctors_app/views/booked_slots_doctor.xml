@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
+    <record model="ir.rule" id="res_partner_portal_public_rule">
+            <field name="name">res_partner: portal/public: read access on my commercial partner</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[Command.link(ref('base.group_portal')), Command.link(ref('base.group_public'))]"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_write" eval="False"/>
+        </record>
         <record id="view_booked_slots_form_doctors" model="ir.ui.view">
             <field name="name">booked.slots.form</field>
             <field name="model">doctor.time.slots</field>
@@ -25,5 +33,4 @@
             <field name="view_id" ref="view_booked_slots_form_doctors"/>
             <field name="target">new</field>
         </record>
-    </data>
 </odoo>
