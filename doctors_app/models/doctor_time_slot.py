@@ -32,11 +32,6 @@ class Doctor(models.Model):
 
 
 
-
-
-
-
-
     @api.depends('partner_ids')
     def _compute_multiple_partners(self):
         for slot in self:
@@ -105,50 +100,23 @@ class Doctor(models.Model):
     def on_partner_id_change(self):
         if self.partner_ids:
             self.booking_button = True
-            # self.meeting_link = self.create_zoom_meeting()
-            self.meeting_link="/gggggg/nnnnnnnnn"
+            partners_to = [self.doctor_id.user_id.partner_id.id] + self.partner_ids.ids
+            name = ''
+            if self.multiple_partners:
+                name += "Group Meeting " + self.doctor_id.name
+            else:
+                name += "Meeting " + self.doctor_id.name
+            url = self.create_meeting_link(partners_to, name)
+            self.meeting_link = url
         else:
             self.booking_button = False
 
-    def create_zoom_meeting(self):
-        api_key = "uATMNoHUQJmGczmdJfO6tw"
-        api_secret = "7oO7dWEiKaoXPYUp63toEemwMT2W0sx8"
-
-        # Create a JWT token
-        token_payload = {
-            "iss": api_key,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=3600)  # Token expiration time
-        }
-        jwt_token = jwt.encode(token_payload, api_secret, algorithm='HS256')
-
-        base_url = "https://api.zoom.us/v2"
-        meeting_create_url = f"{base_url}/users/me/meetings"
-
-        headers = {
-            "Authorization": f"Bearer {jwt_token}",
-            "Content-Type": "application/json"
-        }
-
-        payload = {
-            "topic": "My Zoom Meeting",
-            "type": 2,  # Scheduled meeting
-            "start_time": "2023-06-20T09:00:00",
-            "duration": 60,
-            "timezone": "America/New_York"
-        }
-
-        response = requests.post(meeting_create_url, headers=headers, data=json.dumps(payload))
-        print(response)
-        data = response.json()
-
-        if response.status_code == 201:
-            return data["join_url"]
-        else:
-            error_message = f"Failed to create Zoom meeting. Error: {data.get('message', 'Unknown error')}"
-            return error_message
-
-
-
+    def create_meeting_link(self, partners_to, name):
+        default_display_mode = 'video_full_screen'
+        vals = self.env['mail.channel'].create_group(partners_to, default_display_mode, name)
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        url = base_url + '/chat/' + str(vals.get('id')) + '/' + vals.get('uuid')
+        return url
 
     # booking validation
     @api.constrains('doctor_id', 'date', 'from_time', 'to_time', 'partner_ids')

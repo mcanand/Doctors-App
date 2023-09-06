@@ -34,6 +34,7 @@ class Doctor(models.Model):
     ratings = fields.One2many('doctor.rating', 'doctor_id', string='Ratings')
 
 
+
     @api.model_create_multi
     def create(self, vals_list):
         res = super(Doctor, self).create(vals_list)
