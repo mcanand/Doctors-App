@@ -5,10 +5,11 @@ class PaymentTransaction(models.Model):
 
     doctor_id = fields.Many2one('res.partner', string='Doctor')
 
-    def create_transaction(self):
-        tx = self.env['payment.transaction'].create({
-            'amount': 100,
-            'provider_id': provider.id,
-            'currency_id': self.env.company.currency_id.id,
-            'partner_id': portal_partner.id,
-        })
+    # def create_transaction(self):
+    #     tx = self.env['payment.transaction'].create({
+    #         'amount': 100,
+    #         'provider_id': provider.id,
+    #         'currency_id': self.env.company.currency_id.id,
+    #         'partner_id': portal_partner.id,
+    #         'doctor_id':
+    #     })
