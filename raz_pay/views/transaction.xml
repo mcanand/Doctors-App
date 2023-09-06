@@ -1,0 +1,14 @@
+<odoo>
+    <!-- Update the existing tree view for payment.transaction -->
+    <record id="view_payment_transaction_tree_inherit" model="ir.ui.view">
+        <field name="name">payment.transaction.tree.inherit</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_list" />
+        <field name="arch" type="xml">
+            <!-- Add the doctor field to the tree view -->
+            <xpath expr="//field[@name='provider_id']" position="after">
+                <field name="doctor_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
