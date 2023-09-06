@@ -8,4 +8,5 @@ from . import lab_attachment
 from . import department
 from . import doctor_details
 from . import certificates
+from . import channels
 

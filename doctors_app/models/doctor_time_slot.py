@@ -23,12 +23,14 @@ class Doctor(models.Model):
     booking_status = fields.Boolean(string='Completed', default=False)
     patient_prescription_ids = fields.One2many('doctor.patient.prescription', 'slot_id', string='Prescriptions')
     multiple_partners = fields.Boolean(string="Multiple Partners", compute="_compute_multiple_partners")
-    from_time = fields.Char(string='Start Time', compute='_compute_from_time', store=True)
-    to_time = fields.Char(string='End Time', compute='_compute_to_time', store=True)
+    from_time = fields.Char(string='Start Time', store=True)
+    to_time = fields.Char(string='End Time', store=True)
     group_meeting = fields.Char(string='Session Name', store=True)
     prescription_status = fields.Boolean(string='Prescription Completed',
                                          default=False)
     ratings = fields.One2many('doctor.rating', 'doctor_id', string='Ratings')
+    channel_id = fields.Many2one('mail.channel')
+
 
 
 
@@ -115,6 +117,7 @@ class Doctor(models.Model):
         default_display_mode = 'video_full_screen'
         vals = self.env['mail.channel'].create_group(partners_to, default_display_mode, name)
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        self.channel_id = vals.get('id')
         url = base_url + '/chat/' + str(vals.get('id')) + '/' + vals.get('uuid')
         return url
 
