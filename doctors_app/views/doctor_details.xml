@@ -76,16 +76,17 @@
                                 <field name="email"/>
                                 <field name="department_id"/>
                                 <field name="experience"/>
-
-
+                                 <field name="state_id"/>
+                                <field name="work_address"/>
                             </group>
                             <group>
-                                <field name="state_id"/>
-                                <field name="work_address"/>
                                 <field name="about"/>
                                 <field name="private_contact_address"/>
+                                <field name="one_hour_fee"/>
                                  <field name="time_from"/>
                                  <field name="time_to"/>
+                                  <field name="holiday1"/>
+                                 <field name="holiday2"/>
                                 <field name="certificates" widget="many2many_binary" filename_field="mimetype"/>
                             </group>
                         </group>

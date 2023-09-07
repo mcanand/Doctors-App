@@ -15,64 +15,55 @@
                 <div class="row mt-3">
                     <div class="col-24 booking-container">
                         <div class="booking-information">
-                            <div class="booking-time">
+                            <div class="booking-item">
                                 <span class="booking-label">Doctor Name:</span>
                                 <span class="value">
                                     <t t-esc="booking.doctor_id.name"/>
                                 </span>
                             </div>
-                            <div class="booking-time">
+                            <div class="booking-item">
                                 <span class="booking-label">Department:</span>
                                 <span class="value">
                                     <t t-esc="booking.doctor_id.department_id.name"/>
                                 </span>
                             </div>
-                            <div class="booking-time">
-                                <span class="booking-label"> From:</span>
+                            <div class="booking-item">
+                                <span class="booking-label">From:</span>
                                 <span class="value">
                                     <t t-esc="booking.from_time"/>
                                 </span>
                             </div>
-                             <div class="booking-time">
-                                <span class="booking-label"> To:</span>
+                            <div class="booking-item">
+                                <span class="booking-label">To:</span>
                                 <span class="value">
                                     <t t-esc="booking.to_time"/>
                                 </span>
                             </div>
-                            <div class="booking-link">
-                                <span class="booking-label">Meeting Link:</span>
-                                <span class="value">
-                                    <t t-esc="booking.meeting_link"/>
-                                </span>
-                            </div>
-                            <div class="booking-link">
+                            <div class="booking-item">
                                 <span class="booking-label">Date:</span>
                                 <span class="value">
                                     <t t-esc="booking.date"/>
                                 </span>
                             </div>
-                            <div class="booking-question">
-                                <span class="booking-label">Do you want to provide details to the doctor ?:</span>
-                                <div class="radio-buttons">
-                                    <label>
-                                        <input type="radio" name="details_provided" value="yes"/>
-                                        <span>Yes</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="details_provided" value="no"/>
-                                        <span>No</span>
-                                    </label>
-                                </div>
+                            <div class="booking-item">
+                                <span class="booking-label">Do you want to provide previous details to the doctor?:</span>
+
+                             <span class="radio-item">
+                                <label>
+                                    <input type="radio" name="details_provided" value="yes"/>
+                                    <span >Yes</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="details_provided" value="no"/>
+                                    <span>No</span>
+                                </label>
+                             </span>
                             </div>
                         </div>
-
                     </div>
-
                     <a t-att-href="booking.meeting_link" class="btn join-button">Join</a>
-
                 </div>
             </div>
         </t>
     </template>
-
 </odoo>

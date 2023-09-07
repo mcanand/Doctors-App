@@ -26,8 +26,8 @@
                 <span class="poppins300 ml-2" >
                     <t t-esc="department"/>
                 </span><br/>
-                <span class="poppins300 ml-2" >
-                    Fee Per Hour:<t t-esc="one_hour_fee"/>
+                <span class="poppins300 ml-2" style="color:green;" >
+                    Fee Per Hour : <t t-esc="one_hour_fee"/>
                 </span><br/><br/>
                             <h6>Upcoming Available Slots</h6>
                         </div>

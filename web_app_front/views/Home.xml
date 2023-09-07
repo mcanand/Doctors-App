@@ -38,46 +38,45 @@
 
 
             <!-- For single-person bookings -->
-        <t t-set="user_doctor_id" t-value="request.env.user.employee_id"/>
-        <t t-set="bookings_doctor" t-value="request.env['doctor.time.slots'].sudo().search([
+            <t t-set="user_doctor_id" t-value="request.env.user.employee_id"/>
+            <t t-set="bookings_doctor" t-value="request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', user_doctor_id.id),
             ('booking_button', '=', True),
             ('date','=',datetime.datetime.now().strftime('%Y-%m-%d'))
         ])"/>
-        <t t-set="booking_details_doctor" t-value="[]"/>
-        <t t-foreach="bookings_doctor" t-as="dbooking">
-        <t t-if="dbooking.partner_ids and len(dbooking.partner_ids) == 1">
-        <t t-set="booking_dict_doctor" t-value="{
+            <t t-set="booking_details_doctor" t-value="[]"/>
+            <t t-foreach="bookings_doctor" t-as="dbooking">
+                <t t-if="dbooking.partner_ids and len(dbooking.partner_ids) == 1">
+                    <t t-set="booking_dict_doctor" t-value="{
             'patient_name': dbooking.partner_ids.name,
             'appointment_time': dbooking.from_time,
             'appointment_end': dbooking.to_time,
             'patient_image': dbooking.partner_ids.image_1920,
         }"/>
-        <t t-set="booking_details_doctor" t-value="booking_details_doctor + [booking_dict_doctor]"/>
-    </t>
-</t>
+                    <t t-set="booking_details_doctor" t-value="booking_details_doctor + [booking_dict_doctor]"/>
+                </t>
+            </t>
 
-<!-- For group meetings -->
-        <t t-set="doctor_doctor_id" t-value="request.env.user.employee_id"/>
-        <t t-set="bookings_doctor_meeting" t-value="request.env['doctor.time.slots'].sudo().search([
+            <!-- For group meetings -->
+            <t t-set="doctor_doctor_id" t-value="request.env.user.employee_id"/>
+            <t t-set="bookings_doctor_meeting" t-value="request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', doctor_doctor_id.id),
             ('group_meeting', '!=', False),
             ('date','=',datetime.datetime.now().strftime('%Y-%m-%d'))
         ])"/>
-        <t t-set="booking_details_doctor_meeting" t-value="[]"/>
-        <t t-foreach="bookings_doctor_meeting" t-as="mbooking">
+            <t t-set="booking_details_doctor_meeting" t-value="[]"/>
+            <t t-foreach="bookings_doctor_meeting" t-as="mbooking">
 
-<!--        <t t-if="mbooking.partner_ids and len(mbooking.partner_ids) > 1">-->
-        <t t-set="meeting_dict" t-value="{
+                <!--        <t t-if="mbooking.partner_ids and len(mbooking.partner_ids) > 1">-->
+                <t t-set="meeting_dict" t-value="{
             'appointment_time': mbooking.from_time,
             'appointment_end': mbooking.to_time,
             'group_meeting':mbooking.group_meeting,
 
         }"/>
-        <t t-set="booking_details_doctor_meeting" t-value="booking_details_doctor_meeting + [meeting_dict]"/>
-<!--    </t>-->
-        </t>
-
+                <t t-set="booking_details_doctor_meeting" t-value="booking_details_doctor_meeting + [meeting_dict]"/>
+                <!--    </t>-->
+            </t>
 
 
             <t t-set="group_meetings" t-value="request.env['doctor.time.slots'].sudo().search([
@@ -88,47 +87,51 @@
 
             <t t-foreach="group_meetings" t-as="meeting">
 
- <t t-set="appointment_hour" t-value="int(meeting['from_time'].split(':')[0])">
-      <t  t-if="12 > appointment_hour  "><t t-set="am_pm" t-value="'AM'"/></t>
-      <t  t-if=" not 12 > appointment_hour  "><t t-set="am_pm" t-value="'PM'"/></t>
-      <t t-set="formatted_appointment_time" t-value="f'{appointment_hour} {am_pm}'"/>
+                <t t-set="appointment_hour" t-value="int(meeting['from_time'].split(':')[0])">
+                    <t t-if="12 > appointment_hour  ">
+                        <t t-set="am_pm" t-value="'AM'"/>
+                    </t>
+                    <t t-if=" not 12 > appointment_hour  ">
+                        <t t-set="am_pm" t-value="'PM'"/>
+                    </t>
+                    <t t-set="formatted_appointment_time" t-value="f'{appointment_hour} {am_pm}'"/>
 
 
+                </t>
 
- </t>
-
-<!--                <t t-if="meeting.partner_ids and len(meeting.partner_ids) > 1">-->
-                    <t t-set="group_doctor" t-value="{
+                <!--                <t t-if="meeting.partner_ids and len(meeting.partner_ids) > 1">-->
+                <t t-set="group_doctor" t-value="{
                          'doctor_name': meeting.doctor_id.name,
                          'dep_name': meeting.doctor_id.department_id.name,
-                         'appointment_time': formatted_appointment_time,
+                         'appointment_time': meeting.from_time,
                          'appointment_end': meeting.to_time,
                          'doctor_image': meeting.doctor_id.image_1920,
                          'slot_id':meeting.id,
                          'group_meeting':meeting.group_meeting,
                          'average_rating':meeting.doctor_id.ratings.rating,
                     }"/>
-<!--                </t>-->
+                <!--                </t>-->
                 <t t-if="not group_doctor in meetings">
-                  <t t-set="meetings" t-value="meetings + [group_doctor]"/>
+                    <t t-set="meetings" t-value="meetings + [group_doctor]"/>
                 </t>
-<!--                <t t-set="meetings" t-value="meetings + [group_doctor]"/>-->
+                <!--                <t t-set="meetings" t-value="meetings + [group_doctor]"/>-->
             </t>
 
             <div class="container" style="maximum-width:1500px;" id="wrap">
-                 <t t-if="user_id.partner_id.categry_id == 'patient'">
-                <div class="row mt-3">
-                    <div class="col-9 poppins500 app_color">
-                        Today's<br/>Appointments
-                    </div>
+                <t t-if="user_id.partner_id.categry_id == 'patient'">
+                    <div class="row mt-3">
+                        <div class="col-9 poppins500 app_color">
+                            Today's<br/>Appointments
+                        </div>
 
-                    <div class="col-3 text-end app_color">
-                        <a href="/today/appointment">
-                        see all       </a>
-                    </div>
+                        <div class="col-3 text-end app_color">
+                            <a href="/today/appointment">
+                                see all
+                            </a>
+                        </div>
 
-                </div>
-<!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+                    </div>
+                    <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
                     <div class="appointment-container mt-3">
                         <t t-foreach="booking_details" t-as="appointment">
                             <div class="appointments-box">
@@ -146,7 +149,9 @@
                                         <div class="departments">
                                             <t t-esc="appointment.get('dep_name')"/>
                                         </div>
-                                        <div class="rating">Rating:<t t-esc="appointment.get('average_rating')"/> </div>
+                                        <div class="rating">Rating:
+                                            <t t-esc="appointment.get('average_rating')"/>
+                                        </div>
                                     </div>
                                     <div class="time-icon">
                                         <i class="fa fa-clock-o"></i>
@@ -172,14 +177,15 @@
                             Group<br/>Meetings
                         </div>
                         <div class="col-3 text-end app_color">
-                             <a href="/group/sessions">
-                                 see all</a>
+                            <a href="/group/sessions">
+                                see all
+                            </a>
                         </div>
                     </div>
                     <div class="meeting-container mt-3">
 
                         <t t-foreach="meetings" t-as="m">
-                             <t t-if="m">
+                            <t t-if="m">
                                 <div class="meeting-box">
 
                                     <div class="meeting-details">
@@ -201,7 +207,9 @@
                                             <div class="departments">
                                                 <t t-esc="m.get('dep_name')"/>
                                             </div>
-                                            <div class="rating">Rating:   <t t-esc="m.get('average_rating')"/> </div>
+                                            <div class="rating">Rating:
+                                                <t t-esc="m.get('average_rating')"/>
+                                            </div>
                                         </div>
                                         <div class="time-icon">
                                             <i class="fa fa-clock-o"></i>
@@ -210,9 +218,9 @@
                                             to
                                             <t t-esc="m.get('appointment_end')"/>
                                         </div>
-<!--                                            <div class="departments">-->
-<!--                                                Meeting in   <t t-esc="m.get('group_meeting')"/>-->
-<!--                                            </div>-->
+                                        <!--                                            <div class="departments">-->
+                                        <!--                                                Meeting in   <t t-esc="m.get('group_meeting')"/>-->
+                                        <!--                                            </div>-->
 
                                         <div class="time-join-container">
                                             <div class="time-icon">
@@ -221,7 +229,9 @@
 
                                             </div>
                                             <div class="departments">
-                                                <a class="join_button" t-att-href="'/join/group/meetings/%s' %(m.get('slot_id'))">Join Now</a>
+                                                <a class="join_button"
+                                                   t-att-href="'/join/group/meetings/%s' %(m.get('slot_id'))">Join Now
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -272,14 +282,13 @@
 
                     <t t-set="doctor_ratings"
                        t-value="request.env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
-<!--                    <t t-esc="doctor_ratings"/>-->
+                    <!--                    <t t-esc="doctor_ratings"/>-->
 
                     <div class="row">
                         <t t-if="doctor_ratings">
                             <div class="col-24 doctor-container">
                                 <t t-foreach="doctor_ratings" t-as="rating">
                                     <t t-if="rating.doctor_id and rating.rating > 0">
-
 
 
                                         <div class="doctor-box" t-att-data-id="rating.doctor_id.id">
@@ -337,13 +346,13 @@
                             <br/>
                             <span id="doctorExperience"></span>
                             <br/>
-<!--                            <span id="doctorId"></span>-->
-<!--                            <br/>-->
+                            <!--                            <span id="doctorId"></span>-->
+                            <!--                            <br/>-->
                             <strong>About:</strong>
                             <br/>
                             <span id="doctorAbout"></span>
                             <span id="doctorAboutFull" style="display: none;"></span>
-                            <a href="#" id="readMoreLink">  Read More...</a>
+                            <a href="#" id="readMoreLink">Read More...</a>
 
 
                             <br/>
@@ -351,7 +360,7 @@
                                 Schedule a Meeting
                             </a>
                             <div class="hidden">
-                            <span id="doctorId"></span>
+                                <span id="doctorId"></span>
                             </div>
                             <br/>
 
@@ -366,7 +375,8 @@
 
                     <div class="row mt-3">
                         <div class="col-12">
-                            <a t-attf-href="/all/doctors" class="btn shadow-none app_card w-100 poppins400">View all doctors
+                            <a t-attf-href="/all/doctors" class="btn shadow-none app_card w-100 poppins400">View all
+                                doctors
                             </a>
                         </div>
                     </div>
@@ -374,17 +384,18 @@
 
 
                 <t t-if="user_id.partner_id.categry_id == 'doctor'">
-                     <div class="row mt-3">
-                    <div class="col-9 poppins500 app_color">
-                        Today's<br/>Appointments
-                    </div>
+                    <div class="row mt-3">
+                        <div class="col-9 poppins500 app_color">
+                            Today's<br/>Appointments
+                        </div>
 
-                    <div class="col-3 text-end app_color">
-                        <a href="/today/appointment/doctor">
-                        see all       </a>
-                    </div>
+                        <div class="col-3 text-end app_color">
+                            <a href="/today/appointment/doctor">
+                                see all
+                            </a>
+                        </div>
 
-                </div>
+                    </div>
                     <div class="appointment-container mt-3">
                         <t t-foreach="booking_details_doctor" t-as="dappointment">
                             <t t-if="dappointment">
@@ -421,14 +432,15 @@
                     </div>
                 </t>
                 <t t-if="user_id.partner_id.categry_id == 'doctor'">
-                     <div class="row">
+                    <div class="row">
 
                         <div class="col-9 poppins500 app_color">
                             Group<br/>Counceling
                         </div>
-                           <div class="col-3 text-end app_color">
-                             <a href="/today/appointment/doctor">
-                                 see all</a>
+                        <div class="col-3 text-end app_color">
+                            <a href="/today/appointment/doctor">
+                                see all
+                            </a>
                         </div>
                     </div>
 
@@ -439,9 +451,9 @@
 
                                     <div class="appointment-details">
                                         <div class="doctor-info">
-<!--                                            <div class="small-box">-->
-<!--                                                <img t-attf-src="data:image/png;base64,{{mappointment.get('patient_image')}}"/>-->
-<!--                                            </div>-->
+                                            <!--                                            <div class="small-box">-->
+                                            <!--                                                <img t-attf-src="data:image/png;base64,{{mappointment.get('patient_image')}}"/>-->
+                                            <!--                                            </div>-->
                                             <div class="name">
                                                 <t t-esc="mappointment.get('group_meeting')"/>
                                             </div>

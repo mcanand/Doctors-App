@@ -1,6 +1,7 @@
+/* Add this CSS to your stylesheet */
 .booking-container {
     display: flex;
-
+    flex-direction: column;
 }
 
 .booking-information {
@@ -8,26 +9,24 @@
     margin-bottom: 10px;
 }
 
-.booking-time {
+.booking-item {
     font-size: 16px;
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
-}
-
-.booking-link {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-.booking-question {
-    font-size: 16px;
-    margin-bottom: 10px;
-     word-wrap: break-word;
-     display: flex;
-
+    color:#007ab4;
 }
 
 .booking-label {
     font-weight: bold;
-    margin-left:10px;
+    width: 150px; /* Adjust the width as needed */
+    margin-left: 10px;
+    color:#007ab4;
+}
+
+.value {
+    font-size: 16px;
+    color:#007ab4;
 }
 
 .join-button {
@@ -38,7 +37,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    border:#007ab4;
+    border: #007ab4;
     margin: 20px auto;
     display: block;
     max-width: 200px;
@@ -48,4 +47,7 @@
 .join-button:hover {
     background-color: #007ab4;
 }
-
+.radio-item {
+    display: flex;
+    align-items: center;
+}

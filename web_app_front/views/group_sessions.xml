@@ -34,15 +34,19 @@
                                             <span class="age-group">
                                                 <t t-esc="appointment.get('department_name')"/>
                                             </span>
-                                        </div>
-                                        <div class="form-group">
+
                                             <span class="age-group">From
                                                 <t t-esc="appointment.get('from_time')"/>
                                                 to
                                                 <t t-esc="appointment.get('to_time')"/>
                                             </span>
-                                        </div>
-                                        <div class="form-group">
+                                            <span class="age-group">
+                                                Consultaion Fee :
+                                                <t t-esc="appointment.get('amount')"/>
+                                            </span>
+                                            <!--                                        </div>-->
+                                            <!--                                        <div class="form-group">-->
+
                                             <span class="age-group">
                                                 <a class="join_button"
                                                    t-att-href="'/join/group/meetings/%s' %(appointment.get('slot_id'))">
@@ -51,12 +55,12 @@
                                             </span>
                                         </div>
                                     </div>
-                                     <div class="form-group">
+                                    <div class="form-group">
 
-                                    <div class="group-image-box">
-                                        <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                        <div class="group-image-box">
+                                            <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                        </div>
                                     </div>
-                                     </div>
                                 </div>
                             </div>
                         </t>

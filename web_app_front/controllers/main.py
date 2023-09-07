@@ -62,7 +62,6 @@ class AppController(http.Controller):
             names = self._fetch_doctor_names(search_term)
         else:
             names=self._fetch_all_doctor_data()
-            print(f"Returning names: {names}")
         return names
 
     def _fetch_doctor_names(self, search_term):
@@ -394,26 +393,36 @@ class AppController(http.Controller):
         available_slots = request.env['doctor.time.slots'].sudo().search([
             ('doctor_id', '=', id),
             ('booking_button', '!=', True),
-            ('date', '>', today.strftime('%Y-%m-%d'))
+            ('date', '>=', today.strftime('%Y-%m-%d'))
         ])
+        doctors = request.env['hr.employee'].sudo().browse(id)
+
 
         booking_details = []
-        one_hour_fee= available_slots.doctor_id.one_hour_fee
-        doctor=available_slots.doctor_id.name
-        department = available_slots.doctor_id.department_id.name
+        amount= doctors.one_hour_fee
+        doctor=doctors.name
+        department =doctors.department_id.name
+
 
         for slot in available_slots:
+            appointment_time = slot.from_time
+            appointment_hour = int(appointment_time.split(':')[0])
+            am_pm = 'AM' if 0 <= appointment_hour < 12 else 'PM'
+            appointment_end = slot.to_time
+            appointment_hours = int(appointment_end.split(':')[0])
+            ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             doctor_details = {
                 'doctor_name': slot.doctor_id.name,
                 'date': slot.date,
-                'from_time': slot.from_time,
-                'to_time': slot.to_time,
+                'from_time': f"{appointment_time} {am_pm}",
+                'to_time': f"{appointment_end} {ams_pms}",
                 'slot_id': slot.id,
+                'amount':(slot.amount)/2,
 
             }
             booking_details.append(doctor_details)
 
-        return http.request.render('web_app_front.booking_availability', {'available_slots': booking_details,'department':department,'doctor':doctor,'one_hour_fee':one_hour_fee})
+        return http.request.render('web_app_front.booking_availability', {'available_slots': booking_details,'department':department,'doctor':doctor,'one_hour_fee':amount})
 
 
 
@@ -523,6 +532,8 @@ class AppController(http.Controller):
         return None
 
 
+
+
     @http.route(['/book/now'], type='json', auth='public', website=True, methods=['POST'])
     def book_now(self, slot_id, **kw):
         Slot = request.env['doctor.time.slots'].sudo()
@@ -566,8 +577,11 @@ class AppController(http.Controller):
             'time_to': kw.get('time_to'),
             'work_address': kw.get('work_address'),
             'about': kw.get('about'),
+            'holiday1': kw.get('holiday1'),
+            'holiday2': kw.get('holiday2'),
             'private_contact_address': kw.get('address'),
             'emergency_contact_phone': kw.get('contact'),
+            'one_hour_fee': kw.get('one_hour_fee'),
 
         })
         return http.request.render('web_app_front.view_success_page_mobile')
@@ -599,6 +613,7 @@ class AppController(http.Controller):
                 'from_time': f"{appointment_time} {am_pm}",
                 'to_time': f"{appointment_end} {ams_pms}",
                 'slot_id': slot.id,
+                'amount':(slot.amount)/2,
 
             }
             booking_details.append(doctor_details)

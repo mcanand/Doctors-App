@@ -45,8 +45,21 @@ class Doctor(models.Model):
     # date = fields.Date(default=lambda self: datetime.now().date() + timedelta(days=1))
     time_from = fields.Char(string='From(24 hour format)')
     time_to = fields.Char(string='To(24 hour format)')
+    HOLIDAY_SELECTION = [
+        ('6', 'Sunday'),
+        ('0', 'Monday'),
+        ('1', 'Tuesday'),
+        ('2', 'Wednesday'),
+        ('3', 'Thursday'),
+        ('4', 'Friday'),
+        ('5', 'Saturday'),
+    ]
 
-    
+    holiday1 = fields.Selection(HOLIDAY_SELECTION, string='Holiday 1')
+    holiday2 = fields.Selection(HOLIDAY_SELECTION, string='Holiday 2')
+    one_hour_fee = fields.Integer(string='One Hour Fee')
+
+
 
 
     @api.depends('status')
@@ -82,16 +95,17 @@ class Doctor(models.Model):
          }
         try:
             user = Users.create(user_vals)
+            user.action_reset_password()
         except ValidationError:
             raise UserError(("The user cannot be created. Please check the user information."))
 
-        # #  ate res.partner record
+        # # create res.partner record
         user.partner_id.write({'name': doctor.name, 'email': doctor.email, 'user_id': user.id,'categry_id':'doctor'})
         # Create employee for user
         user.action_create_employee()
         time_from_str = doctor.time_from.replace(':', '.')
         time_to_str = doctor.time_to.replace(':', '.')
-
+        print(doctor.holiday1)
         # Update employee record
         user.employee_id.write({
             'name': doctor.name,
@@ -105,4 +119,8 @@ class Doctor(models.Model):
             'cate_id': 'doctor',
             'time_from': time_from_str,
             'time_to': time_to_str,
+            'holiday1': doctor.holiday1,
+            'holiday2': doctor.holiday2,
+            'one_hour_fee' :doctor.one_hour_fee,
+            'work_experience': doctor.experience,
         })

@@ -9,6 +9,8 @@
 <!--                    <field name="date"/>-->
                     <field name="time_from"/>
                     <field name="time_to"/>
+                    <field name="holiday1"/>
+                     <field name="holiday2"/>
                 </xpath>
                 <xpath expr="//notebook/page[@name='hr_settings']" position="after">
                     <page string="Slots">
@@ -17,6 +19,7 @@
                                 <field name="from_time"/>
                                 <field name="to_time"/>
                                 <field name="date"/>
+                                <field name="amount"/>
                                 <field name="group_meeting"/>
                                 <field name="booking_button" widget="boolean_button"/>
                                 <field name="partner_ids" widget="many2many_tags"/>
