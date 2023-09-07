@@ -131,7 +131,8 @@
                         </div>
 
                     </div>
-                    <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+<!--                </t>-->
+<!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
                     <div class="appointment-container mt-3">
                         <t t-foreach="booking_details" t-as="appointment">
                             <div class="appointments-box">
@@ -158,6 +159,7 @@
                                         Today
                                         <t t-esc="appointment.get('from_time')"/>
                                     </div>
+
                                 </div>
                             </div>
                         </t>
