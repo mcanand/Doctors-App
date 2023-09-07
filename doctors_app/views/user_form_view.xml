@@ -13,13 +13,8 @@
                     <button name="view_prescription_details" string="Prescription Details" type="object" class="oe_highlight"/>
                 </xpath>
                  <xpath expr="//field[@name='mobile'] " position="after">
-                     <group>
-
                           <field name="categry_id"/>
-                           <field name="date_of_birth"/>
-
-                     </group>
-
+                         <field name="date_of_birth"/>
                 </xpath>
             </field>
         </record>

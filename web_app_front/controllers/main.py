@@ -523,21 +523,23 @@ class AppController(http.Controller):
         return None
 
 
-
-
     @http.route(['/book/now'], type='json', auth='public', website=True, methods=['POST'])
     def book_now(self, slot_id, **kw):
         Slot = request.env['doctor.time.slots'].sudo()
         slot = Slot.browse(int(slot_id))
-        if not slot.partner_ids:
-            patient_id = request.env.user.partner_id.id
-
-            slot.write({
-                'partner_ids': [(4, patient_id, 0)],
-            })
-            slot.on_partner_id_change()
-
-        return True
+        user = request.env.user
+        if slot:
+            payment_link = slot.get_payment_link(user)
+            return payment_link
+        else:
+            return False
+        # if not slot.partner_ids:
+        #     patient_id = request.env.user.partner_id.id
+        #     slot.write({
+        #         'partner_ids': [(4, patient_id, 0)],
+        #     })
+        #     slot.on_partner_id_change()
+        # return True
 
     @http.route(['/enter/details'], type='http', auth='public', website=True)
     def enter_details(self, **kw):

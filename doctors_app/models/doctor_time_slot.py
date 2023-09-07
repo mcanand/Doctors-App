@@ -16,13 +16,20 @@ class Doctor(models.Model):
     partner_ids = fields.Many2many('res.partner', string='Partner')
     display_time_interval = fields.Char(string='Time Interval')
     booking_button = fields.Boolean(string='Assigned', default=False)
-    time_from = fields.Float(string='From', related='doctor_id.time_from', readonly=True)
-    time_to = fields.Float(string='To', related='doctor_id.time_to', readonly=True)
-    date = fields.Date(default=lambda self: datetime.now().date() + timedelta(days=1))
+    time_from = fields.Float(string='From', related='doctor_id.time_from',
+                             readonly=True)
+    time_to = fields.Float(string='To', related='doctor_id.time_to',
+                           readonly=True)
+    date = fields.Date(
+        default=lambda self: datetime.datetime.now().date() + timedelta(
+            days=1))
     meeting_link = fields.Char(string='Meeting Link', store=True)
     booking_status = fields.Boolean(string='Completed', default=False)
-    patient_prescription_ids = fields.One2many('doctor.patient.prescription', 'slot_id', string='Prescriptions')
-    multiple_partners = fields.Boolean(string="Multiple Partners", compute="_compute_multiple_partners")
+    patient_prescription_ids = fields.One2many('doctor.patient.prescription',
+                                               'slot_id',
+                                               string='Prescriptions')
+    multiple_partners = fields.Boolean(string="Multiple Partners",
+                                       compute="_compute_multiple_partners")
     from_time = fields.Char(string='Start Time', store=True)
     to_time = fields.Char(string='End Time', store=True)
     group_meeting = fields.Char(string='Session Name', store=True)
@@ -30,9 +37,17 @@ class Doctor(models.Model):
                                          default=False)
     ratings = fields.One2many('doctor.rating', 'doctor_id', string='Ratings')
     channel_id = fields.Many2one('mail.channel')
+    amount = fields.Float(compute="_compute_amount")
+    transaction_id = fields.Many2one('payment.transaction')
+    razor_pay_id = fields.Char()
 
-
-
+    @api.depends('amount', 'partner_ids')
+    def _compute_amount(self):
+        for rec in self:
+            if rec.doctor_id.one_hour_fee > 0:
+                rec.amount = rec.doctor_id.one_hour_fee / 2
+            else:
+                rec.amount = 0
 
     @api.depends('partner_ids')
     def _compute_multiple_partners(self):
@@ -43,12 +58,14 @@ class Doctor(models.Model):
                 slot.multiple_partners = False
 
     def view_prescription(self):
-        prescription = self.patient_prescription_ids[0] if self.patient_prescription_ids else False
+        prescription = self.patient_prescription_ids[
+            0] if self.patient_prescription_ids else False
 
         if not prescription:
             prescription = self.env['doctor.patient.prescription'].create({
                 'slot_id': self.id,
-                'partner_ids': [(6, 0, self.partner_ids.ids)],  # Set Many2many field using [(6, 0, ids)]
+                'partner_ids': [(6, 0, self.partner_ids.ids)],
+                # Set Many2many field using [(6, 0, ids)]
                 'doctor_id': self.doctor_id.id,
                 'date': self.date,
                 'department_id': self.doctor_id.department_id.id,
@@ -97,7 +114,6 @@ class Doctor(models.Model):
     #         'type': 'ir.actions.act_window',
     #     }
 
-
     # Set boolean button true and assign meeting link while booking
     @api.onchange('partner_ids')
     def on_partner_ids_change(self):
@@ -106,38 +122,71 @@ class Doctor(models.Model):
         else:
             self.booking_button = False
 
+    def get_payment_link(self, user):
+        tx = self.env['payment.transaction']
+        count = len(tx.search([])) + 1
+        transaction = tx.create({
+            'amount': self.amount,
+            'currency_id': self.env.company.currency_id.id,
+            'provider_id': self.env[
+                'payment.transaction'].get_rz_pay_provider().id,
+            'reference': str(count) + self.doctor_id.name + 'payment',
+            'operation': 'online_redirect',
+            'partner_id': user.partner_id.id,
+            'partner_ids': self.partner_ids.ids
+        })
+        self.write({'transaction_id': transaction.id})
+        if transaction:
+            vals = {
+                'amount': self.amount,
+                "name": user.partner_id.name,
+                "email": user.partner_id.email,
+                "contact": "+91" + str(user.partner_id.mobile) or str(user.partner_id.phone),
+                "call_back_url": transaction.get_base_url() + "/payment/razorpay/return"
+            }
+            response = transaction.create_razorpay_link(vals)
+            transaction.write({'razor_pay_id': response['id']})
+            self.write({'razor_pay_id': response['id']})
+            return response['short_url']
+        else:
+            return False
 
     def write(self, vals):
         if vals.get('booking_button') and vals.get('partner_ids'):
             for rec in self:
                 default_display_mode = 'video_full_screen'
-                partners_to = [rec.doctor_id.user_id.partner_id.id] + vals.get('partner_ids')[0][2]
+                partners_to = [rec.doctor_id.user_id.partner_id.id] + \
+                              vals.get('partner_ids')[0][2]
                 name = ''
                 if vals.get('multiple_partners'):
                     name += "Group Meeting " + rec.doctor_id.name
                 else:
                     name += "Meeting " + rec.doctor_id.name
-                meet = rec.env['mail.channel'].create_group(partners_to, default_display_mode, name)
-                base_url = rec.env['ir.config_parameter'].get_param('web.base.url')
-                url = base_url + '/chat/' + str(meet.get('id')) + '/' + meet.get('uuid')
+                meet = rec.env['mail.channel'].create_group(partners_to,
+                                                            default_display_mode,
+                                                            name)
+                base_url = rec.env['ir.config_parameter'].get_param(
+                    'web.base.url')
+                url = base_url + '/chat/' + str(
+                    meet.get('id')) + '/' + meet.get('uuid')
                 vals.update({'channel_id': meet.get('id')})
                 vals.update({'meeting_link': url})
         res = super(Doctor, self).write(vals)
         return res
 
-    def create_meeting_link(self):
-        default_display_mode = 'video_full_screen'
-        partners_to = [self.doctor_id.user_id.partner_id.id] + self.partner_ids.ids
-        name = ''
-        if self.multiple_partners:
-            name += "Group Meeting " + self.doctor_id.name
-        else:
-            name += "Meeting " + self.doctor_id.name
-        vals = self.env['mail.channel'].create_group(partners_to, default_display_mode, name)
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        url = base_url + '/chat/' + str(vals.get('id')) + '/' + vals.get('uuid')
-        self.channel_id = vals.get('id')
-        self.meeting_link = url
+    # def create_meeting_link(self):
+    #     default_display_mode = 'video_full_screen'
+    #     partners_to = [self.doctor_id.user_id.partner_id.id] + self.partner_ids.ids
+    #     name = ''
+    #     if self.multiple_partners:
+    #         name += "Group Meeting " + self.doctor_id.name
+    #     else:
+    #         name += "Meeting " + self.doctor_id.name
+    #     vals = self.env['mail.channel'].create_group(partners_to, default_display_mode, name)
+    #     base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+    #     url = base_url + '/chat/' + str(vals.get('id')) + '/' + vals.get('uuid')
+    #     self.channel_id = vals.get('id')
+    #     self.meeting_link = url
 
     # booking validation
     @api.constrains('doctor_id', 'date', 'from_time', 'to_time', 'partner_ids')
@@ -146,7 +195,8 @@ class Doctor(models.Model):
             if slot.date and slot.from_time and slot.to_time and slot.partner_ids:
                 partner_ids = slot.partner_ids.ids
                 if len(partner_ids) != len(set(partner_ids)):
-                    raise ValidationError("Same partner cannot be added multiple times to the same time slot.")
+                    raise ValidationError(
+                        "Same partner cannot be added multiple times to the same time slot.")
 
     # @api.constrains('doctor_id', 'date', 'partner_ids')
     # def _check_unique_booking(self):
@@ -163,6 +213,3 @@ class Doctor(models.Model):
     #             if existing_slots:
     #                 raise ValidationError(
     #                     "One or more of the selected partners have already booked this doctor for the selected date.")
-
-
-

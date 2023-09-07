@@ -1,5 +1,5 @@
 from odoo import fields, models, api, _
-
+import razorpay
 
 class PaymentProviderInherit(models.Model):
     _inherit = 'payment.provider'
@@ -14,3 +14,4 @@ class PaymentProviderInherit(models.Model):
                                    required_if_code='razorpay')
     razorpay_secret_key = fields.Char(string="Secret Key",
                                       required_if_code='razorpay')
+

@@ -11,18 +11,17 @@ odoo.define('web_app_front.book_now', function (require) {
         events: {
             'click .user-box': '_onClickBookNow',
         },
-
-        start: function () {
-//            alert('j');
-        },
-
         _onClickBookNow: function (ev) {
             var self = this;
             var slotId = ev.currentTarget.getAttribute('data-id');
             ajax.jsonRpc('/book/now', 'call', {'slot_id': slotId})
                 .then(function (result) {
-                    console.log(result);
-
+                    if(result){
+                        window.location.replace(result);
+                    }
+                    else{
+                        console.log('update your address')
+                    }
                 });
         },
     });

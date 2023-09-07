@@ -57,8 +57,7 @@ class PaymentDetails(models.Model):
         return self.env['ir.config_parameter'].sudo().get_param('web.base.url')
 
     def create_razorpay_link(self, vals):
-        client = razorpay.Client(
-            auth=(vals.get('api_key'), vals.get('secret_key')))
+        client = razorpay.Client(auth=(vals.get('api_key'), vals.get('secret_key')))
         response = client.payment_link.create({
             "amount": int(vals.get('amount')) * 100,
             "currency": "INR",

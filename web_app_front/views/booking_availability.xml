@@ -42,21 +42,20 @@
 
                             </div>
                             <div class="col-24 user-container">
-                                <div class="user-box" t-att-data-id="slot.get('slot_id')">
-
-                                    <div class="user-information">
-                                        <a t-att-href="">
-                                            <div class="booking-time">
-                                                <span class="booking-time">Time from
+                                <div class="user-box" t-att-data-id="slot.get('slot_id')" style="cursor:pointer;">
+                                    <div class="user-information" t-att-data-id="slot.get('slot_id')">
+                                        <a t-att-href="" t-att-data-id="slot.get('slot_id')">
+                                            <div class="booking-time" t-att-data-id="slot.get('slot_id')">
+                                                <span class="booking-time" t-att-data-id="slot.get('slot_id')">Time from
                                                     <t t-esc="slot.get('from_time')"/>
                                                 </span>
 
-                                                <span class="booking-time">to
+                                                <span class="booking-time" t-att-data-id="slot.get('slot_id')">to
                                                     <t t-esc="slot.get('to_time')"/>
                                                 </span>
-                                                <span class="booking-time book_now" t-attf-data-id="slot.get('slot_id')">
+                                                <span t-att-data-id="slot.get('slot_id')" class="booking-time book_now" t-attf-data-id="slot.get('slot_id')">
 
-                                                    <a class="book_button" id="myButtons" >Book Now</a>
+                                                    <a t-att-data-id="slot.get('slot_id')" class="book_button" id="myButtons" >Book Now</a>
                                                 </span>
 
                                             </div>
