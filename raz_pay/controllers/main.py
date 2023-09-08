@@ -23,43 +23,31 @@ class CashFreeController(http.Controller):
         save_session=False
     )
     def cashfree_return_from_checkout(self, **pdt_data):
-        # print(pdt_data)
-        # {'razorpay_payment_id': 'pay_LLvIaGyHLOmLT1',
-        #  'razorpay_payment_link_id': 'plink_LLvDyAPPEnOebO',
-        #  'razorpay_payment_link_reference_id': '',
-        #  'razorpay_payment_link_status': 'paid',
-        #  'razorpay_signature': '1b39604b0bd3ff1378f94743627d15ab91fbe40338732ddb027120a06d02b3c6'}
-        _logger.info("handling redirection from razorpay with data:\n%s",
-                     pprint.pformat(pdt_data))
+        _logger.info(
+            "handling redirection from razorpay with data////////////:\n%s",
+            pprint.pformat(pdt_data))
         """pt data link id will come"""
         if not pdt_data:
+            print('pass')
             pass
         if pdt_data:
+            print('inininininiin')
             # ''plink_LLxjLZB18ybSkB''
             # if the payment status is paid
-            domain = [('razor_pay_id', '=', pdt_data['razorpay_payment_link_id'])]
-            details = request.env['payment.details'].sudo().search(domain,limit=1)
+            domain = [
+                ('razor_pay_id', '=', pdt_data['razorpay_payment_link_id'])]
+            transaction = request.env['payment.transaction'].sudo().search(
+                domain, limit=1)
             if pdt_data.get('razorpay_payment_link_status') == 'paid':
-                if details:
-                    payment_renewal = request.env['payment.renewal']
-                    exist_renewal = payment_renewal.sudo().search([('application_partner_id', '=', details.franchise_application_id.id),
-                                                                   ('state','=','send')],limit=1)
-                    if exist_renewal:
-                        exist_renewal.set_paid()
-                    # if franchise application not done then approve franchise
-                    if details.franchise_application_id.status != 'done':
-                        details.franchise_application_id.approve()
-                    details.set_done()
-                    # create renewal for next renewal date
-                    renewal = payment_renewal.create_renewal_record(details)
+                if transaction:
+                    transaction.create_invoice()
+                    transaction.create_bill()
+                    transaction.write({'state': 'done'})
+                    slot = request.env['doctor.time.slots'].search([('transaction_id', '=', transaction.id)])
+                    partners = slot.partner_ids.ids + [transaction.partner_id.id]
+                    slot.partner_ids = partners
                 return request.redirect('/')
             if pdt_data.get('razorpay_payment_link_status') != 'paid':
-                if details:
-                    payment_renewal = request.env['payment.renewal']
-                    exist_renewal = payment_renewal.sudo().search(
-                        [('franchise_application_id', '=', details.franchise_application_id.id),
-                         ('state', '=', 'send')], limit=1)
-                    details.set_canceled()
-
-
+                if transaction:
+                    transaction.write({'state': 'cancel'})
         return request.redirect('/')

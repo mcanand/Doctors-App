@@ -133,7 +133,8 @@ class Doctor(models.Model):
             'reference': str(count) + self.doctor_id.name + 'payment',
             'operation': 'online_redirect',
             'partner_id': user.partner_id.id,
-            'partner_ids': self.partner_ids.ids
+            'partner_ids': self.partner_ids.ids,
+            'doctor_id': self.doctor_id.user_id.partner_id.id
         })
         self.write({'transaction_id': transaction.id})
         if transaction:

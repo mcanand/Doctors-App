@@ -4,7 +4,7 @@
     'author': 'Anand',
     'category': 'Custom',
     'summary': 'Custom doctors app for managing patients and doctors',
-    'depends': ['base', 'contacts', 'hr','razpay'],
+    'depends': ['base', 'contacts', 'hr', 'raz_pay'],
     'data': [
         'security/ir.model.access.csv',
         'views/doctors_form_view.xml',

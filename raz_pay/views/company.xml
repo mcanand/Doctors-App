@@ -12,9 +12,9 @@
                 <xpath expr="//notebook/page[@name='general_info']" position="after">
                     <page string="percentage">
                         <group>
-                            <field name="deduction_percentage"/>
-                            <field name="product_id"/>
-                            <field name="meeting_id"/>
+                                  <field name="deduction_percentage"/>
+                            <field name="meeting_product_id"/>
+                            <field name="group_meeting_product_id"/>
                         </group>
                     </page>
                 </xpath>

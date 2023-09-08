@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, Command
 import razorpay
 
 
@@ -8,6 +8,7 @@ class PaymentTransaction(models.Model):
     doctor_id = fields.Many2one('res.partner', string='Doctor')
     partner_ids = fields.Many2many('res.partner', string="Patients")
     razor_pay_id = fields.Char()
+
 
     def get_rz_pay_provider(self):
         """get payment provider"""
@@ -73,3 +74,39 @@ class PaymentTransaction(models.Model):
             "callback_method": "get"
         }
         return vals
+
+    def create_invoice(self):
+        out_invoice = self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_id.id,
+            'date': self.create_date.strftime('%Y-%m-%d'),
+            'invoice_date': self.create_date.strftime('%Y-%m-%d'),
+            'invoice_line_ids': [Command.create({
+                'product_id': self.env.company.meeting_product_id.id,
+                'price_unit': self.amount,
+                'quantity': 1
+            })]
+        }])
+        out_invoice.action_post()
+
+        pmt_wizard = self.env['account.payment.register'].with_context(
+            active_model='account.move', active_ids=out_invoice.ids).create({
+            'amount': out_invoice.amount_total,
+            'currency_id': out_invoice.currency_id.id,
+            'payment_date': out_invoice.invoice_date,
+        })
+        pmt_wizard._create_payments()
+
+    def create_bill(self):
+        in_invoice = self.env['account.move'].create([{
+            'move_type': 'in_invoice',
+            'partner_id': self.doctor_id.id,
+            'date': self.create_date.strftime('%Y-%m-%d'),
+            'invoice_date': self.create_date.strftime('%Y-%m-%d'),
+            'invoice_line_ids': [Command.create({
+                'product_id': self.env.company.meeting_product_id.id,
+                'price_unit': self.amount - ((self.env.company.deduction_percentage / 100) * self.amount),
+                'quantity': 1
+            })]
+        }])
+        in_invoice.action_post()
