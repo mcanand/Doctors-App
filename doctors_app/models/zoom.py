@@ -57,7 +57,3 @@ class ZoomSettings(models.TransientModel):
             meeting_id = data["id"]
             join_url = data["join_url"]
             meeting_link = f"https://zoom.us/j/{meeting_id}"  # Zoom meeting link
-            print(f"Meeting created! ID: {meeting_id}, Join URL: {join_url}, Meeting Link: {meeting_link}")
-        else:
-            print("Failed to create the meeting.")
-            print(f"Error: {data['message']}")

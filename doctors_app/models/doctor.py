@@ -30,6 +30,7 @@ class Doctor(models.Model):
     ]
 
     cate_id = fields.Selection(CATEGORY_SELECTION, string='Category')
+    review_ids = fields.One2many('doctor.review', 'doctor_id', string='Reviews')
     HOLIDAY_SELECTION = [
         ('6', 'Sunday'),
         ('0', 'Monday'),
@@ -123,15 +124,13 @@ class Doctor(models.Model):
 
                     while current_date <= end_date:
                         intervals = doctor._get_time_intervals(doctor.time_from, doctor.time_to)
-                        print(f"current_date.weekday(): {current_date.weekday()}")
-                        print(f"holiday1: {doctor.holiday1}")
-                        # print(f"doctor.holiday2: {doctor.holiday2}")
+
 
                         # Check if the current day is either holiday1 or holiday2
                         is_holiday = (
                                 current_date.weekday() == int(doctor.holiday1) or current_date.weekday() == int(
                             doctor.holiday2))
-                        print(is_holiday)
+
 
                         # If it's not a holiday, create slots
                         if not is_holiday:
@@ -157,54 +156,7 @@ class Doctor(models.Model):
 
         return res
 
-    # def write(self, vals):
-    #     res = super(Doctor, self).write(vals)
-    #
-    #     if any(field_name in vals for field_name in ('time_from', 'time_to', 'date', 'holiday1', 'holiday2')):
-    #         for doctor in self:
-    #             if doctor.time_from and doctor.time_to and doctor.date:
-    #                 if doctor.time_from > doctor.time_to:
-    #                     raise ValidationError("Invalid time interval: time_from should be less than time_to")
-    #
-    #                 start_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
-    #                 end_date = start_date + timedelta(days=15)
-    #
-    #                 slots = self.env['doctor.time.slots'].search([
-    #                     ('doctor_id', '=', doctor.id),
-    #                     ('date', '>=', start_date.strftime("%Y-%m-%d")),
-    #                     ('date', '<=', end_date.strftime("%Y-%m-%d"))
-    #                 ])
-    #
-    #                 # Remove existing slots
-    #                 slots.unlink()
-    #
-    #                 # Generate new slots
-    #                 current_date = start_date
-    #
-    #                 while current_date <= end_date:
-    #                     if current_date.weekday() not in (doctor.holiday1,doctor.holiday2):
-    #                         print(doctor.holiday1)
-    #                         intervals = doctor._get_time_intervals(doctor.time_from, doctor.time_to)
-    #                         for from_time, to_time in intervals:
-    #                             display_interval = f'From {from_time} to {to_time}'
-    #                             self.env['doctor.time.slots'].create({
-    #                                 'doctor_id': doctor.id,
-    #                                 'partner_ids': [(6, 0, doctor.partner_ids.ids)],
-    #                                 'date': current_date.strftime("%Y-%m-%d"),
-    #                                 'from_time': from_time,
-    #                                 'to_time': to_time,
-    #                                 'display_time_interval': display_interval,
-    #                             })
-    #                     current_date += timedelta(days=1)
-    #
-    #     if 'display_time_interval' in vals:
-    #         for doctor in self:
-    #             # Extract 'from_time' and 'to_time' from the 'display_time_interval' when it's being updated
-    #             from_time_str, to_time_str = vals.get('display_time_interval', '').split(' to ')
-    #             doctor.time_from = float(from_time_str.split(':')[0]) + float(from_time_str.split(':')[1]) / 60
-    #             doctor.time_to = float(to_time_str.split(':')[0]) + float(to_time_str.split(':')[1]) / 60
-    #
-    #     return res
+
 
     @api.model
     def create_slots_for_all_doctors(self):
@@ -233,12 +185,11 @@ class Doctor(models.Model):
 
             for current_date in dates:
                 intervals = self._get_time_intervals(self.time_from, self.time_to)
-                print(f"current_date.weekday(): {current_date.weekday()}")
-                print(f"holiday1: {self.holiday1}")
+
                 is_holiday = (
                         current_date.weekday() == int(self.holiday1) or current_date.weekday() == int(
                     self.holiday2))
-                print(is_holiday)
+
 
                 # If it's not a holiday, create slots
                 if not is_holiday:

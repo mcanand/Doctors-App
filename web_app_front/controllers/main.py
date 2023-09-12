@@ -230,10 +230,7 @@ class AppController(http.Controller):
     @http.route('/booking/time/update', type='http', auth='public', website=True,)
     def update_booking_time(self, **kw):
         doctor_id = request.env.user.employee_id.id
-
         doctor = request.env['hr.employee'].sudo().browse(doctor_id)
-
-
         date = kw.get('date')
         from_time = kw.get('from_time')
         to_time = kw.get('to_time')
@@ -643,6 +640,18 @@ class AppController(http.Controller):
         from_time = kw.get('from_time')
         to_time = kw.get('to_time')
         name = kw.get('name')
+        doctor = request.env['hr.employee'].sudo().browse(employee.id)
+        date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+
+        # Check if the current day is either holiday1 or holiday2
+        is_holiday = (
+                date_obj
+                .weekday() == int(doctor.holiday1) or date_obj.weekday() == int(
+            doctor.holiday2))
+
+        # If it's not a holiday, create slots
+        if is_holiday:
+            return "Slots cannot be created on holidays."
         existing_slot = request.env['doctor.time.slots'].search([
             ('doctor_id', '=', employee.id),
             ('date', '=', date),
@@ -656,7 +665,7 @@ class AppController(http.Controller):
                 existing_slot.write({
                     'group_meeting': name,
                 })
-                return None
+            return request.redirect('/my')
 
             if existing_slot.booking_button:
                 return "This time slot is already booked. Please choose another time."
@@ -701,6 +710,21 @@ class AppController(http.Controller):
         date = kw.get('date')
         from_time = kw.get('from_time')
         to_time = kw.get('to_time')
+        # Retrieve the doctor's holiday information
+        doctor = request.env['hr.employee'].sudo().browse(employee.id)
+        date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+
+
+        # Check if the current day is either holiday1 or holiday2
+        is_holiday = (
+                date_obj
+                .weekday() == int(doctor.holiday1) or date_obj.weekday() == int(
+            doctor.holiday2))
+
+
+        # If it's not a holiday, create slots
+        if is_holiday:
+            return "Slots cannot be created on holidays."
         existing_slot = request.env['doctor.time.slots'].search([
             ('doctor_id', '=', employee.id),
             ('date', '=', date),
@@ -740,8 +764,34 @@ class AppController(http.Controller):
 
 
 
+    @http.route(['/rate/doctor'], type='json', auth="public", methods=['POST'])
+    def submit_rating(self, rating, id, review, **kw):
+        doctor_id = int(id)
+        rating = int(rating)  # Convert the rating to an integer
 
+        DoctorRating = request.env['doctor.rating']
+        doctor_rating = DoctorRating.search([('doctor_id', '=', doctor_id)], limit=1)
 
+        if doctor_rating:
+            # Calculate the new rating with one decimal place
+            new_rating = round((doctor_rating.rating * doctor_rating.count + rating) / (doctor_rating.count + 1), 1)
+            doctor_rating.rating = new_rating
+            doctor_rating.count += 1
+        else:
+            # Create a new Doctor Rating record with the rounded rating
+            doctor_rating = DoctorRating.create({'doctor_id': doctor_id, 'rating': round(rating, 1), 'count': 1})
+
+        if review:
+            # Create a doctor review record associated with the ratingF
+            DoctorReview = request.env['doctor.review']
+            doctor_review = DoctorReview.write({
+                'doctor_id': doctor_id,
+                'patient_id': request.env.user.partner_id.id,
+                'review_text': review,
+                'rating_id': doctor_rating.id,
+            })
+
+        return {'success': True, 'message': 'Rating submitted successfully.'}
 
 
 class CustomerPortalInherit(CustomerPortal):

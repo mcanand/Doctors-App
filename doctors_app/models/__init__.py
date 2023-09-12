@@ -9,4 +9,5 @@ from . import department
 from . import doctor_details
 from . import certificates
 from . import channels
+from . import review
 

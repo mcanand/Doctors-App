@@ -14,7 +14,7 @@ odoo.define('web_app_front.doctor_information_pick', function (require) {
         },
 
         start: function () {
-//        alert('jj')
+
             this._super.apply(this, arguments);
             var self = this;
             var modal = document.getElementById("myModal");

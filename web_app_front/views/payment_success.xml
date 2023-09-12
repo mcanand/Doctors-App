@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="view_success_page_payment">
+            <t t-call="website.layout">
+                <div class="page-wrapper">
+                    <div class="custom-modal-data">
+                        <t t-if="is_success">
+                            <div class="success success-animation icon-top">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <div class="success border-bottom"></div>
+                            <div class="content">
+                                <p class="type">Payment</p>
+                                <p class="message-type">Payment Complete...</p>
+                                <p class="message-type">Amount: 250 Rs/-</p>
+                                <p class="message-type"><a class="btn-success" href="/">Login</a></p>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="danger danger-animation icon-top">
+                                <i class="fa fa-times"></i>
+                            </div>
+                            <div class="danger border-bottom"></div>
+                            <div class="content">
+                                <p class="type">Payment</p>
+                                <p class="message-type">A Problem Occurred</p>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

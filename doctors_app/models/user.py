@@ -15,6 +15,7 @@ class ResPartner(models.Model):
     doctor_id = fields.Many2one('hr.employee', string='Doctor')
     date_of_birth = fields.Date(string='Birth Date')
     age = fields.Integer(string='Age', compute='_compute_age', store=True)
+    review_ids = fields.One2many('doctor.review', 'patient_id', string='Reviews')
 
     @api.depends('date_of_birth')
     def _compute_age(self):

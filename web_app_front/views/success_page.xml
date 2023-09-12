@@ -1,22 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <template id="view_success_page_mobile">
             <t t-call="website.layout">
-                <div class="container pt-5 pb-5">
-                    <div class="container">
-                         <div class="col-24 no-appointments-container" style="color:#007ab4;">
-
-                            <div class="col-md-12" style="color:#007ab4;">
-                                <h1>Registration Successful!</h1>
-                                <p style="color:black;">Your are successfully registered.
-                            <span class="mt-2">
-                                <a t-attf-href="/web/login" style="color:#007ab4;">Login</a>
-                            </span>
-                        </p>
-                            </div>
+                <div class="page-wrapper">
+                    <div class="custom-modal">
+                        <div class="succes succes-animation icon-top">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <div class="succes border-bottom"></div>
+                        <div class="content">
+                            <p class="type">Registration</p>
+                            <p class="message-type">Succesfully Registerd</p>
+                            <p class="message-type">
+                                <a class="btn-success" href="/web/login">Login</a>
+                            </p>
                         </div>
                     </div>
+
+                    <!--  <div class="custom-modal">-->
+                    <!--    <div class="danger danger-animation icon-top"><i class="fa fa-times"></i></div>-->
+                    <!--    <div class="danger border-bottom"></div>-->
+                    <!--    <div class="content">-->
+                    <!--      <p class="type">Appointment</p>-->
+                    <!--      <p class="message-type">A Problem Occurred </p>-->
+                    <!--    </div>-->
+                    <!--  </div>-->
                 </div>
+
             </t>
         </template>
     </data>

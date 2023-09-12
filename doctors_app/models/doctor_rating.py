@@ -8,6 +8,7 @@ class DoctorRating(models.Model):
     patient_ids = fields.Many2many('res.partner', string='Patient')
     rating = fields.Float(string='Rating', default=0.0)
     count = fields.Integer(string='Count', default=0)
+    review_ids = fields.One2many('doctor.review', 'rating_id', string='Reviews')
 
     @api.model_create_single
     def create(self, vals_list):

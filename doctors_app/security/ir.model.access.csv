@@ -5,6 +5,7 @@ access_doctor_rating,doctor.rating,model_doctor_rating,,1,1,1,1
 access_lab_attachment,lab_attachment,model_lab_attachment,,1,1,1,1
 access_doctor_details,doctor.details,model_doctor_details,,1,1,1,1
 access_doctor_certificate,doctor.certificate,model_doctor_certificate,,1,1,1,1
+access_doctor_review,doctor.review,model_doctor_review,,1,1,1,1
 
 
 

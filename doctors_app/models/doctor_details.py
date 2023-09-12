@@ -105,7 +105,7 @@ class Doctor(models.Model):
         user.action_create_employee()
         time_from_str = doctor.time_from.replace(':', '.')
         time_to_str = doctor.time_to.replace(':', '.')
-        print(doctor.holiday1)
+
         # Update employee record
         user.employee_id.write({
             'name': doctor.name,
