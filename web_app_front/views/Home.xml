@@ -117,214 +117,223 @@
                 <!--                <t t-set="meetings" t-value="meetings + [group_doctor]"/>-->
             </t>
 
+
             <div class="container" style="maximum-width:1500px;" id="wrap">
-                <t t-if="user_id.partner_id.categry_id == 'patient'">
-                    <div class="row mt-3">
-                        <div class="col-9 poppins500 app_color">
-                            Today's<br/>Appointments
-                        </div>
-
-                        <div class="col-3 text-end app_color">
-                            <a href="/today/appointment">
-                                see all
-                            </a>
-                        </div>
-
-                    </div>
-<!--                </t>-->
-<!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
-                    <div class="appointment-container mt-3">
-                        <t t-foreach="booking_details" t-as="appointment">
-                            <div class="appointments-box">
-
-                                <div class="appointment-details">
-                                    <div class="doctor-info">
-                                        <div class="small-box">
-                                            <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
-                                        </div>
-                                        <div class="name">
-                                            <t t-esc="appointment.get('doctor_name')"/>
-                                        </div>
-                                    </div>
-                                    <div class="doctor-info">
-                                        <div class="departments">
-                                            <t t-esc="appointment.get('dep_name')"/>
-                                        </div>
-                                        <div class="rating">Rating:
-                                            <t t-esc="appointment.get('average_rating')"/>
-                                        </div>
-                                    </div>
-                                    <div class="time-icon">
-                                        <i class="fa fa-clock-o"></i>
-                                        Today
-                                        <t t-esc="appointment.get('from_time')"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </t>
-
-                        <t t-if="not booking_details">
+                <t t-if="booking_details">
+                    <t t-if="user_id.partner_id.categry_id == 'patient'">
+                        <div class="row mt-3">
                             <div class="col-9 poppins500 app_color">
-                                No Appointments Today
+                                Today's<br/>Appointments
                             </div>
-                        </t>
-                    </div>
-                </t>
 
-                <t t-if="user_id.partner_id.categry_id == 'patient'">
+                            <div class="col-3 text-end app_color">
+                                <a href="/today/appointment">
+                                    see all
+                                </a>
+                            </div>
 
-                    <div class="row mt-3">
-                        <div class="col-9 poppins500 app_color">
-                            Group<br/>Meetings
                         </div>
-                        <div class="col-3 text-end app_color">
-                            <a href="/group/sessions">
-                                see all
-                            </a>
-                        </div>
-                    </div>
-                    <div class="meeting-container mt-3">
+                        <!--                </t>-->
+                        <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+                        <div class="appointment-container mt-3">
+                            <t t-foreach="booking_details" t-as="appointment">
+                                <div class="appointments-box">
 
-                        <t t-foreach="meetings" t-as="m">
-                            <t t-if="m">
-                                <div class="meeting-box">
-
-                                    <div class="meeting-details">
+                                    <div class="appointment-details">
                                         <div class="doctor-info">
                                             <div class="small-box">
-                                                <t t-if="m.get('doctor_image')">
-                                                    <img t-attf-src="data:image/png;base64,{{m.get('doctor_image')}}"/>
-                                                </t>
-
+                                                <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
                                             </div>
                                             <div class="name">
-                                                <t t-if="m.get('doctor_name')">
-                                                    <t t-esc="m.get('doctor_name')"/>
-                                                </t>
-
+                                                <t t-esc="appointment.get('doctor_name')"/>
                                             </div>
                                         </div>
                                         <div class="doctor-info">
                                             <div class="departments">
-                                                <t t-esc="m.get('dep_name')"/>
+                                                <t t-esc="appointment.get('dep_name')"/>
                                             </div>
                                             <div class="rating">Rating:
-                                                <t t-esc="m.get('average_rating')"/>
+                                                <t t-esc="appointment.get('average_rating')"/>
                                             </div>
                                         </div>
                                         <div class="time-icon">
                                             <i class="fa fa-clock-o"></i>
-                                            From
-                                            <t t-esc="m.get('appointment_time')"/>
-                                            to
-                                            <t t-esc="m.get('appointment_end')"/>
+                                            Today
+                                            <t t-esc="appointment.get('from_time')"/>
                                         </div>
-                                        <!--                                            <div class="departments">-->
-                                        <!--                                                Meeting in   <t t-esc="m.get('group_meeting')"/>-->
-                                        <!--                                            </div>-->
 
-                                        <div class="time-join-container">
-                                            <div class="time-icon">
-                                                <i class="fa fa-calendar"></i>
-                                                Today
-
-                                            </div>
-                                            <div class="departments">
-                                                <a class="join_button"
-                                                   t-att-href="'/join/group/meetings/%s' %(m.get('slot_id'))">Join Now
-                                                </a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </t>
-                        </t>
-                    </div>
 
-                    <t t-if="not meetings">
-                        <div class="col-9 poppins500 app_color">
-                            No Meetings Today
+                            <t t-if="not booking_details">
+                                <div class="col-9 poppins500 app_color">
+                                    No Appointments Today
+                                </div>
+                            </t>
                         </div>
+                    </t>
+                </t>
+                <t t-if="meetings">
+
+                    <t t-if="user_id.partner_id.categry_id == 'patient'">
+
+                        <div class="row mt-3">
+                            <div class="col-9 poppins500 app_color">
+                                Group<br/>Meetings
+                            </div>
+                            <div class="col-3 text-end app_color">
+                                <a href="/group/sessions">
+                                    see all
+                                </a>
+                            </div>
+                        </div>
+                        <div class="meeting-container mt-3">
+
+                            <t t-foreach="meetings" t-as="m">
+                                <t t-if="m">
+                                    <div class="meeting-box">
+
+                                        <div class="meeting-details">
+                                            <div class="doctor-info">
+                                                <div class="small-box">
+                                                    <t t-if="m.get('doctor_image')">
+                                                        <img t-attf-src="data:image/png;base64,{{m.get('doctor_image')}}"/>
+                                                    </t>
+
+                                                </div>
+                                                <div class="name">
+                                                    <t t-if="m.get('doctor_name')">
+                                                        <t t-esc="m.get('doctor_name')"/>
+                                                    </t>
+
+                                                </div>
+                                            </div>
+                                            <div class="doctor-info">
+                                                <div class="departments">
+                                                    <t t-esc="m.get('dep_name')"/>
+                                                </div>
+                                                <div class="rating">Rating:
+                                                    <t t-esc="m.get('average_rating')"/>
+                                                </div>
+                                            </div>
+                                            <div class="time-icon">
+                                                <i class="fa fa-clock-o"></i>
+                                                From
+                                                <t t-esc="m.get('appointment_time')"/>
+                                                to
+                                                <t t-esc="m.get('appointment_end')"/>
+                                            </div>
+                                            <!--                                            <div class="departments">-->
+                                            <!--                                                Meeting in   <t t-esc="m.get('group_meeting')"/>-->
+                                            <!--                                            </div>-->
+
+                                            <div class="time-join-container">
+                                                <div class="time-icon">
+                                                    <i class="fa fa-calendar"></i>
+                                                    Today
+
+                                                </div>
+                                                <div class="departments">
+                                                    <a class="join_button"
+                                                       t-att-href="'/join/group/meetings/%s' %(m.get('slot_id'))">Join
+                                                        Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+                        </div>
+
+                        <t t-if="not meetings">
+                            <div class="col-9 poppins500 app_color">
+                                No Meetings Today
+                            </div>
+                        </t>
                     </t>
                 </t>
 
 
                 <t t-if="user_id.partner_id.categry_id == 'patient'">
+                  <div class="row mt-3">
+    <div class="col-4 mb-3">
+        <a href="/group/sessions" class="btn btn-primary customss-btn">All Group Sessions</a>
+    </div>
+    <div class="col-4 mb-3">
+        <a href="/departments" class="btn btn-primary customss-btn ">All Departments</a>
+    </div>
+    <div class="col-4 mb-3">
+        <a href="/all/doctors" class="btn btn-primary customss-btn">All Doctors</a>
+    </div>
+</div>
 
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <a href="/group/sessions" class="btn shadow-none app_card w-100 poppins400">View all
-                                Group Sessions
-                            </a>
-                        </div>
-                    </div>
+
+
+
+
+
+
                 </t>
                 <br/>
-                <t t-if="user_id.partner_id.categry_id == 'patient'">
 
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all
-                                departments
-                            </a>
+
+                <t t-set="doctor_ratings"
+                   t-value="request.env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
+                <t t-if="doctor_ratings">
+                    <t t-if="user_id.partner_id.categry_id == 'patient'">
+
+                        <div class="row">
+
+                            <div class="col-9 poppins500 app_color">
+                                Top-Rated<br/>Doctors
+                            </div>
                         </div>
-                    </div>
-                </t>
-                <br/>
-                <t t-if="user_id.partner_id.categry_id == 'patient'">
-
-                    <div class="row">
-
-                        <div class="col-9 poppins500 app_color">
-                            Top-Rated<br/>Doctors
-                        </div>
-                    </div>
 
 
-                    <t t-set="doctor_ratings"
-                       t-value="request.env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
-                    <!--                    <t t-esc="doctor_ratings"/>-->
+                        <!--                    <t t-esc="doctor_ratings"/>-->
 
-                    <div class="row">
-                        <t t-if="doctor_ratings">
-                            <div class="col-24 doctor-container">
-                                <t t-foreach="doctor_ratings" t-as="rating">
-                                    <t t-if="rating.doctor_id and rating.rating > 0">
+                        <div class="row">
+                            <t t-if="doctor_ratings">
+                                <div class="col-24 doctor-container">
+                                    <t t-foreach="doctor_ratings" t-as="rating">
+                                        <t t-if="rating.doctor_id and rating.rating > 0">
 
 
-                                        <div class="doctor-box" t-att-data-id="rating.doctor_id.id">
-                                            <div class="doctor-information">
-                                                <div class="image-box1">
-                                                    <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"
-                                                         alt="Doctor Image"/>
-                                                </div>
-                                                <div class="doctor-name">
-                                                    <t t-esc="rating.doctor_id.name"/>
+                                            <div class="doctor-box" t-att-data-id="rating.doctor_id.id">
+                                                <div class="doctor-information">
+                                                    <div class="image-box1">
+                                                        <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"
+                                                             alt="Doctor Image"/>
+                                                    </div>
+                                                    <div class="doctor-name">
+                                                        <t t-esc="rating.doctor_id.name"/>
+                                                        <br/>
+                                                        <div class="department-name">
+                                                            <t t-esc="rating.doctor_id.department_id.name"/>
+                                                        </div>
+                                                    </div>
                                                     <br/>
-                                                    <div class="department-name">
-                                                        <t t-esc="rating.doctor_id.department_id.name"/>
+
+                                                    <div class="doctor-rating">
+                                                        <span>Rating :</span>
+                                                        <t t-esc="rating.rating"/>
+
                                                     </div>
                                                 </div>
-                                                <br/>
-
-                                                <div class="doctor-rating">
-                                                    <span>Rating :</span>
-                                                    <t t-esc="rating.rating"/>
-
-                                                </div>
                                             </div>
-                                        </div>
+                                        </t>
                                     </t>
-                                </t>
-                            </div>
-                        </t>
-                        <t t-else="">
-                            <div class="col-24 poppins500 app_color">
-                                No Doctors found.
-                            </div>
-                        </t>
-                    </div>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="col-24 poppins500 app_color">
+                                    No Doctors found.
+                                </div>
+                            </t>
+                        </div>
+                    </t>
                 </t>
                 <!-- The modal box -->
                 <div id="myModal" class="modal">

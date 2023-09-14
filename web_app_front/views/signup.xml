@@ -2,27 +2,25 @@
     <template id="signup_inherit" inherit_id="auth_signup.signup">
         <xpath expr="//t[@t-call='web.login_layout']" position="replace">
             <t t-call="website.layout">
-                <!-- Your header content here -->
-                  <!-- Your header content here -->
-                <t t-set="app_nav_in_content">
+                <!-- =================================== -->
+                <form class="oe_signup_form" role="form" method="post" t-if="not message">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                     <div class="text-center">
+                      <img src="/web_app_front/static/src/images/signup.jpg" alt="Your Image Alt Text" width="180" height="180"/>
 
-                </t>
+                    </div>
                   <div class="col-12  p-3" style="color:#007ab4;">
-                        <h1 class="mt-4 text-left" style="font-size:45px; color:#007ab4;">
-                            <b>Sign Up ...</b>
+                        <h1 class="mt-4 text-center poppins400" style=" color:#007ab4;">
+                            <b>Sign Up </b>
                         </h1>
-                        <p class="mt-2 dont-have-account">Already have an account ?
+                        <p class="mt-2 dont-have-account text-center poppins400 ">Already have an account ?
                             <span class="mt-2">
                                 <a t-attf-href="/web/login" style="color:#007ab4;">Login</a>
                             </span>
                         </p>
                     </div>
 
-                <!-- =================================== -->
-                <form class="oe_signup_form" role="form" method="post" t-if="not message">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-
-                    <div class="mb-3 field-login">
+                    <div class="mb-3 field-login poppins400">
                         <label for="login"  class="form-label app_color">Email </label>
                         <input type="text" name="login" t-att-value="login" id="login"
                                class="form-control form-control-sm" autofocus="autofocus"
@@ -30,7 +28,7 @@
                                t-att-readonly="'readonly' if only_passwords else None"/>
                     </div>
 
-                    <div class="mb-3 field-name">
+                    <div class="mb-3 field-name poppins400">
                         <label for="name"  class="form-label app_color">User Name</label>
                         <input type="text" name="name" t-att-value="name" id="name" class="form-control form-control-sm"
                                placeholder="e.g. John Doe"
@@ -38,13 +36,13 @@
                                t-att-autofocus="'autofocus' if login and not only_passwords else None"/>
                     </div>
 
-                    <div class="mb-3 field-password pt-2">
+                    <div class="mb-3 field-password pt-2 poppins400">
                         <label for="password"  class="form-label app_color">Password </label>
                         <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="enter your password"
                                required="required" t-att-autofocus="'autofocus' if only_passwords else None"/>
                     </div>
 
-                    <div class="mb-3 field-confirm_password">
+                    <div class="mb-3 field-confirm_password poppins400">
                         <label for="confirm_password"  class="form-label app_color">Confirm Password </label>
                         <input type="password" name="confirm_password" id="confirm_password" placeholder="Re enter your password"
                                class="form-control form-control-sm" required="required"/>
@@ -57,7 +55,7 @@
                     <input type="hidden" name="token" t-att-value="token"/>
 
                     <div class="text-center oe_login_buttons d-grid pt-3">
-                         <div class="col-12 text-center">
+                         <div class="col-12 text-end">
                         <button type="submit" class="btn btn-primary button_signup">Sign up</button>
                          </div>
 <!--                        <i class="fa fa-google mt-2"></i>-->

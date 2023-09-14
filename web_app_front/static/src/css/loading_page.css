@@ -35,3 +35,26 @@
         color: #007ab4;
        font-size:20px;
 }
+.add_button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007ab4;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border: #007ab4;
+    height: 50px;
+    width:180px;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+    line-height: 14px;
+}
+ .add_button a {
+        text-decoration: none;
+        color: #007ab4;
+       font-size:20px;
+}
+.add_button i {
+        font-size:20px;
+        margin-bottom: 10px;
+    }

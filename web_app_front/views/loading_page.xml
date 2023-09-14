@@ -6,27 +6,30 @@
                     <i style="font-size:16px;" class="fa fa-angle-left"/>
                 </a>
              </t>
-             <div class="col-12 d-flex justify-content-left p-3" style="margin-top:100px;">
-                    <span style="color:#007ab4;font-size: 38px;">R-<span>me</span><br/>Counseling</span>
-                </div>
-                <div class="col-12 d-flex justify-content-center">
-                    <div class="rectangle align-items-start">
+            <div class="text-center">
+                <img src="/web_app_front/static/src/images/loading_page.jpg" alt="Your Image Alt Text" width="180" height="180"/>
+            </div>
+            <div class="col-12 text-center poppins400">
+                <span style="color:#007ab4;font-size: 38px;">R-<span>me</span><br/>Counseling</span>
+            </div><br/>
+
+                <div class="col-12 col-md-6 text-center">
+                    <div class="add_button">
                         <i class="fa fa-user-md"></i>
-                          <a t-attf-href="/enter/details" class="signup-link">
-                                <span class="text-left">I am a<br/>Doctor...</span>
-                            </a>
+                        <a t-attf-href="/enter/details" class="signup-link" style="color: white;">
+                            <span class="text-left poppins400">Doctor...</span>
+                        </a>
+                    </div>
+                </div><br/>
+                <div class="col-12 col-md-6 text-center">
+                    <div class="add_button">
+                        <i class="fa fa-user"></i>
+                        <a href="/web/signup?signup_enabled=True" class="signup-link" style="color: white;">
+                            <span class="text-left">Patient...</span>
+                        </a>
                     </div>
 
-                        <div class="rectangle align-items-start">
-                            <i class="fa fa-user"></i>
-                            <a href="/web/signup?signup_enabled=True" class="signup-link">
-                                <span class="text-left">I am a<br/>Patient...</span>
-                            </a>
-
-                    </div>
-                </div>
-
-
+            </div>
         </t>
     </template>
 </odoo>

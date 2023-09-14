@@ -9,10 +9,15 @@
 
                 </t>
                 <!-- =================================== -->
+                     <div class="text-center">
+                      <img src="/web_app_front/static/src/images/login.png" alt="Your Image Alt Text" width="180" height="180"/>
+
+                    </div>
                 <form class="oe_login_form poppins400" role="form" t-attf-action="/web/login" method="post"
                       onsubmit="this.action = '/web/login' + location.hash">
-                    <h1>Login...</h1>
-                    <p class="mb-5" style="font-size:14px;">Dont have an account? <a href="/loading/page">sign up</a></p>
+
+                    <h1 style="text-align:center;">Login</h1>
+                    <p class="mb-5 text-center poppins400" >Dont have an account? <a href="/loading/page">sign up</a></p>
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <t t-if="request.env.user.has_group('base.group_user')">
                         <div class="mb-3" t-if="databases and len(databases) &gt; 1">
@@ -27,16 +32,16 @@
                             </div>
                         </div>
                     </t>
-                    <div class="mb-3 field-login">
+                    <div class="mb-3 field-login poppins400">
                         <label for="login" class="form-label app_color">Email</label>
-                        <input type="text" placeholder="Email..." name="login" t-att-value="login" id="login"
-                               t-attf-class="form-control #{'form-control-sm' if form_small else ''}"
+                        <input type="text"  placeholder="Email..." name="login" t-att-value="login" id="login"
+                               t-attf-class="form-control #{'form-control-sm' if form_small else ''}" style="border-radius:0px;"
                                required="required" autofocus="autofocus" autocapitalize="off"/>
                     </div>
 
-                    <div class="mb-3 field-password">
+                    <div class="mb-3 field-password poppins400">
                         <label for="password" class="form-label app_color">Password</label>
-                        <input type="password" placeholder="Password..." name="password" id="password"
+                        <input type="password" style="border-radius:0px;" placeholder="Password..." name="password" id="password"
                                t-attf-class="form-control #{'form-control-sm' if form_small else ''}"
                                required="required" autocomplete="current-password"
                                t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
@@ -49,8 +54,8 @@
                         <t t-esc="message"/>
                     </p>
                     <div class="row mt-5 text-white">
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary button_login">Log in</button>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary button_login" >Log in</button>
                         </div>
                         <div class="col-12 text-center">
                             <t t-if="debug">

@@ -17,7 +17,7 @@
         'views/doctor_list.xml',
         'views/today_appointment.xml',
         'views/all_appointments.xml',
-        'views/success_page.xml',
+
         'views/booking_details.xml',
         'views/prescription_list.xml',
         'views/prescription.xml',
@@ -30,6 +30,8 @@
         'views/group_sessions.xml',
         'views/create_meeting.xml',
         'views/add_extra_slot.xml',
+        'views/payment_success.xml',
+        'views/success_page.xml',
     ],
     'installable': True,
     'application': True,
