@@ -17,7 +17,7 @@
                     <div class="add_button">
                         <i class="fa fa-user-md"></i>
                         <a t-attf-href="/enter/details" class="signup-link" style="color: white;">
-                            <span class="text-left poppins400">Doctor...</span>
+                            <span class="text-left">Doctor...</span>
                         </a>
                     </div>
                 </div><br/>
