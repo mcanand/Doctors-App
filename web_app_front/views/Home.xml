@@ -382,16 +382,6 @@
                     </div>
                 </div>
 
-                <t t-if="user_id.partner_id.categry_id == 'patient'">
-
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <a t-attf-href="/all/doctors" class="btn shadow-none app_card w-100 poppins400">View all
-                                doctors
-                            </a>
-                        </div>
-                    </div>
-                </t>
 
 
                 <t t-if="user_id.partner_id.categry_id == 'doctor'">
