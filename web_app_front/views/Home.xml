@@ -126,7 +126,7 @@
                                 Today's<br/>Appointments
                             </div>
 
-                            <div class="col-3 text-end app_color">
+                            <div class="col-3 text-end poppins500 app_color" >
                                 <a href="/today/appointment">
                                     see all
                                 </a>
@@ -142,7 +142,12 @@
                                     <div class="appointment-details">
                                         <div class="doctor-info">
                                             <div class="small-box">
+                                                <t t-if="appointment.get('doctor_image')">
                                                 <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                                </t>
+                                                <t t-else="">
+                                                       <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
+                                                </t>
                                             </div>
                                             <div class="name">
                                                 <t t-esc="appointment.get('doctor_name')"/>
@@ -182,7 +187,7 @@
                             <div class="col-9 poppins500 app_color">
                                 Group<br/>Meetings
                             </div>
-                            <div class="col-3 text-end app_color">
+                            <div class="col-3 text-end poppins500 app_color">
                                 <a href="/group/sessions">
                                     see all
                                 </a>
@@ -199,6 +204,9 @@
                                                 <div class="small-box">
                                                     <t t-if="m.get('doctor_image')">
                                                         <img t-attf-src="data:image/png;base64,{{m.get('doctor_image')}}"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                           <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
                                                     </t>
 
                                                 </div>
@@ -257,17 +265,17 @@
 
 
                 <t t-if="user_id.partner_id.categry_id == 'patient'">
-                  <div class="row mt-3">
-    <div class="col-4 mb-3">
-        <a href="/group/sessions" class="btn btn-primary customss-btn">All Group Sessions</a>
-    </div>
-    <div class="col-4 mb-3">
-        <a href="/departments" class="btn btn-primary customss-btn ">All Departments</a>
-    </div>
-    <div class="col-4 mb-3">
-        <a href="/all/doctors" class="btn btn-primary customss-btn">All Doctors</a>
-    </div>
-</div>
+                    <div class="row mt-3">
+                        <div class="col-4 mb-3">
+                            <a href="/group/sessions" class="btn btn-primary customss-btn">All Group Sessions</a>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <a href="/departments" class="btn btn-primary customss-btn ">All Departments</a>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <a href="/all/doctors" class="btn btn-primary customss-btn">All Doctors</a>
+                        </div>
+                    </div>
 
 
 
@@ -276,6 +284,40 @@
 
 
                 </t>
+
+
+                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+
+                <!--                    <div class="row mt-3">-->
+                <!--                        <div class="col-12">-->
+                <!--                            <a href="/group/sessions" class="btn shadow-none app_card w-100 poppins400">View all-->
+                <!--                                Group Sessions-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+                <!--                <br/>-->
+                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+
+                <!--                    <div class="row mt-3">-->
+                <!--                        <div class="col-12">-->
+                <!--                            <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all-->
+                <!--                                departments-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+
+                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+
+                <!--                    <div class="row mt-3">-->
+                <!--                        <div class="col-12">-->
+                <!--                            <a t-attf-href="/all/doctors" class="btn shadow-none app_card w-100 poppins400">View all-->
+                <!--                                doctors-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </t>-->
                 <br/>
 
 
@@ -304,8 +346,13 @@
                                             <div class="doctor-box" t-att-data-id="rating.doctor_id.id">
                                                 <div class="doctor-information">
                                                     <div class="image-box1">
+                                                        <t t-if="rating.doctor_id.image_1920">
                                                         <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"
                                                              alt="Doctor Image"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                               <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
+                                                        </t>
                                                     </div>
                                                     <div class="doctor-name">
                                                         <t t-esc="rating.doctor_id.name"/>
@@ -316,7 +363,7 @@
                                                     </div>
                                                     <br/>
 
-                                                    <div class="doctor-rating">
+                                                    <div class="doctor-rating" style="font-size:16px;">
                                                         <span>Rating :</span>
                                                         <t t-esc="rating.rating"/>
 
@@ -337,14 +384,14 @@
                 </t>
                 <!-- The modal box -->
                 <div id="myModal" class="modal">
-                    <div class="modal-content">
+                    <div class="modal-content" style="font-size:18px;">
                         <span class="close">×</span>
                         <p>
                             <span id="doctorImage" class="doctor-name">
                                 <img t-attf-src="data:image/png;base64,{{doctorImage}}"
                                      alt="Doctor Image"/>
                             </span>
-                            <br/>
+<!--                            <br/>-->
                             <strong>
                                 <span id="doctorName"></span>
                             </strong>
@@ -390,7 +437,7 @@
                             Today's<br/>Appointments
                         </div>
 
-                        <div class="col-3 text-end app_color">
+                        <div class="col-3 text-end poppins500 app_color">
                             <a href="/today/appointment/doctor">
                                 see all
                             </a>
@@ -438,7 +485,7 @@
                         <div class="col-9 poppins500 app_color">
                             Group<br/>Counceling
                         </div>
-                        <div class="col-3 text-end app_color">
+                        <div class="col-3 text-end poppins500 app_color">
                             <a href="/today/appointment/doctor">
                                 see all
                             </a>

@@ -17,7 +17,7 @@
                     </div>
                 <div class="container">
 
-                  <h3 class="text-center poppins400" style="color: #007ab4;">Doctor Details</h3>
+                  <h3 class="text-center poppins400" style="color: #007ab4;  font-size:40px;">Doctor Details</h3>
 
                     <div class="row image_det">
                         <div class="image_container">

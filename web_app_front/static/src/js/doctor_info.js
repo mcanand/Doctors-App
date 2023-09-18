@@ -45,17 +45,27 @@ odoo.define('web_app_front.doctor_information', function (require) {
             var modal = document.getElementById("myModal");
             var modalDoctorName = modal.querySelector("#doctorName");
             var modalDoctorDepartment = modal.querySelector("#doctorDepartment");
-            var modalDoctorImage = modal.querySelector("#doctorImage");
+//            var modalDoctorImage = modal.querySelector("#doctorImage");
             var modalDoctorExperience = modal.querySelector("#doctorExperience");
             var modalDoctorAbout = modal.querySelector("#doctorAbout");
              var modalDoctorAboutFull = modal.querySelector("#doctorAboutFull");
             var modalDoctorRating = modal.querySelector("#doctorRating");
             var modalDoctorId = modal.querySelector("#doctorId");
             var modalScheduleMeetingButton = modal.querySelector("#myButton");
+            var modalDoctorImage = modal.querySelector("#doctorImage");
+            var imageSrc;
+
+            if (doctorDetails.image) {
+               imageSrc = "data:image/png;base64," + doctorDetails.image;
+            } else {
+                imageSrc = "/web_app_front/static/src/images/people.png";
+            }
+
+            modalDoctorImage.querySelector("img").setAttribute("src", imageSrc);
 
             modalDoctorName.textContent = doctorDetails.doctor_name;
             modalDoctorDepartment.textContent = doctorDetails.department_name;
-            modalDoctorImage.querySelector("img").setAttribute("src", "data:image/png;base64," + doctorDetails.image);
+//            modalDoctorImage.querySelector("img").setAttribute("src", "data:image/png;base64," + doctorDetails.image);
             modalDoctorExperience.textContent = doctorDetails.experience + "  Years of experience";
 //            modalDoctorAbout.textContent = doctorDetails.about.substr(0, 100) + '...'; // Display truncated content
 //            modalDoctorAboutFull.textContent = doctorDetails.about;

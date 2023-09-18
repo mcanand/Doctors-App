@@ -5,7 +5,7 @@
             <t t-call="website.layout">
                 <!-- Your header content here -->
                 <t t-set="app_nav_in_content">
-                    <span class="poppins300" style="font-size:15px;">
+                    <span class="poppins300" style="font-size:18px;">
                         My Account
                     </span>
                     <br/>
@@ -15,12 +15,12 @@
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="o_portal_my_details poppins400 f15 app_card p-2">
-                                <h4 class="f15">Details
+                                <h4 class="f15" style="font-size:18px;">Details
                                     <a role="button" href="/my/account" class="btn btn-sm btn-link  float-end f15">
                                         <i class="fa fa-pencil"/>
                                     </a>
                                 </h4>
-                                <div class="f13 mt-2" t-field="user_id.partner_id"
+                                <div class="f13 mt-2" style="font-size:18px;" t-field="user_id.partner_id"
                                      t-options='{"widget": "contact", "fields": ["email", "phone", "address", "name"]}'/>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                     <a href="javascript: window.history.back()">
                         <i style="font-size:16px;" class="fa fa-angle-left"/>
                     </a>
-                    <span class="poppins300 ml-2" style="font-size:15px;">
+                    <span class="poppins300 ml-2" style="font-size:18px;">
                         My Details
                     </span>
                     <br/>

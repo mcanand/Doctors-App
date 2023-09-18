@@ -23,13 +23,13 @@
                 <span class="poppins300 ml-2" style=" font-weight:bold;">
                     <b> <t t-esc="doctor"/></b>
                 </span><br/>
-                <span class="poppins300 ml-2" >
+                <span class="poppins300 ml-2" style=" font-weight:bold;">
                     <t t-esc="department"/>
                 </span><br/>
                 <span class="poppins300 ml-2" style="color:green;" >
                     Fee Per Hour : <t t-esc="one_hour_fee"/>
                 </span><br/><br/>
-                            <h6>Upcoming Available Slots</h6>
+                            <h6 style="font-size:18px;">Upcoming Available Slots</h6>
                         </div>
                     </div>
                     <t t-if="available_slots">

@@ -7,8 +7,8 @@
                 <a href="javascript: window.history.back()">
                     <i style="font-size:16px;" class="fa fa-angle-left"/>
                 </a>
-                <span class="poppins300 ml-2">
-                    All Appoinments
+                <span class="poppins300 ml-2" style="font-size:18px;">
+                    All Appointments
                 </span>
             </t>
 
@@ -53,7 +53,12 @@
                                     </a>
                                 </div>
                                 <div class="user-image-box">
+                                    <t t-if="appointment.get('doctor_image')">
                                     <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                    </t>
+                                    <t t-else="">
+                                           <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
+                                    </t>
 
                                 </div>
 
@@ -105,7 +110,12 @@
                                     </div>
                                 </div>
                                 <div class="user-image-box">
+                                    <t t-if="pappointment.get('doctor_image')">
                                     <img t-attf-src="data:image/png;base64,{{pappointment.get('doctor_image')}}"/>
+                                    </t>
+                                    <t t-else="">
+                                           <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
+                                    </t>
 
                                 </div>
                             </div>

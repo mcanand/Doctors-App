@@ -1,11 +1,11 @@
 .field-login label{
 
-    font-size:15px;
+    font-size:18px;
     color:#007ab4;
 }
 .field-password label,.col-form-label, label{
     font-weight: normal !important;
-    font-size:15px;
+    font-size:18px;
      color:#007ab4;
 }
 .form-control,.form-select{
@@ -30,6 +30,7 @@
     width: 50% !important;
     padding:10px;
     border-radius:10px;
+    font-size:18px;
     color:white !important;
     background-color: #007ab4 !important;
     border:0px;

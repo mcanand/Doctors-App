@@ -10,10 +10,10 @@
 
                     </div>
                   <div class="col-12  p-3" style="color:#007ab4;">
-                        <h1 class="mt-4 text-center poppins400" style=" color:#007ab4;">
+                        <h1 class="mt-4 text-center poppins400" style=" color:#007ab4; font-size:50px;">
                             <b>Sign Up </b>
                         </h1>
-                        <p class="mt-2 dont-have-account text-center poppins400 ">Already have an account ?
+                        <p class="mt-2 dont-have-account text-center poppins400 " style=" font-size:20px;">Already have an account ?
                             <span class="mt-2">
                                 <a t-attf-href="/web/login" style="color:#007ab4;">Login</a>
                             </span>
