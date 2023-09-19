@@ -20,6 +20,7 @@
       .customss-btn {
             width: 100px;
     height: 80px;
+    font-size:16px;
     background-color: #007ab4;
     }
 
@@ -77,7 +78,7 @@
         justify-content: center;
         border-radius: 20px;
         padding: 10px 20px;
-        font-size: 16px;
+        font-size: 18px;
         background-color: #efefef;
         color: #333333;
         cursor: pointer;
@@ -130,18 +131,18 @@
 .appointment-details {
     display: flex;
     flex-direction: column;
-    font-size:10px;
+    font-size:12px;
 }
 
 
 .doctor-info {
     display: flex;
-    font-size:10px;
+    font-size:12px;
 }
 
 .doctor-initials {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     margin-right: 5px;
 }
 
@@ -150,7 +151,7 @@
     white-space: nowrap;
    text-align:center;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color:#007ab4;
 }
@@ -159,7 +160,7 @@
 .departments {
     color: #007ab4;
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 16px;
     white-space: nowrap;
 }
 .rating {
@@ -167,7 +168,7 @@
         margin-left: 50px;
             white-space: nowrap;
             margin-top: 10px;
-        font-size: 12px;
+        font-size: 16px;
 }
 
 
@@ -178,12 +179,12 @@
     color: #007ab4;
     display: flex;
     align-items: center;
-    font-size: 15px;
+    font-size: 18px;
     height:40px;
 }
 
 .fa {
-    font-size: 14px;
+    font-size: 18px;
     margin-right: 5px;
 }
 
@@ -219,12 +220,12 @@
 }
 /* Styling for the doctor's name */
 .doctor-information .doctor-name {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color:#007ab4;
 }
 .doctor-information .doctor-rating {
-    font-size: 16px;
+    font-size: 18px;
 
     margin-left: 10px;
     color:#007ab4;
@@ -233,7 +234,7 @@
 /* Styling for the department name */
 .doctor-information .department-name {
     color: #007bff;
-    font-size: 12px;
+    font-size: 14px;
     color:#007ab4;
 }
 
@@ -292,6 +293,7 @@
   background-color: #007ab4;
   color: #fff;
   width:100%;
+  font-size:18px;
   text-align: center;
   text-decoration: none;
   height:35px;
@@ -312,7 +314,7 @@
         justify-content: center;
         border-radius: 20px;
         padding: 10px 20px;
-        font-size: 16px;
+        font-size: 18px;
         background-color: #efefef;
         color: #333333;
         cursor: pointer;
@@ -350,7 +352,7 @@
 .meeting-details {
     display: flex;
     flex-direction: column;
-    font-size:10px;
+    font-size:12px;
 }
 .join_button {
   display: inline-block;
