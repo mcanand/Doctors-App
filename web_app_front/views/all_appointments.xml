@@ -16,7 +16,7 @@
                 <div class="row mt-3">
                 <div class="col-12">
                     <div class="today-heading">
-                        <h6>Upcoming Appointments</h6>
+                        <h6 style="font-size:18px;">Upcoming Appointments</h6>
                     </div>
                 </div>
                 <t t-if="appointments">
@@ -38,8 +38,8 @@
                                                 <t t-esc="appointment.get('doctor_name')"/>
                                             </span>
 
-                                            <span class="appointment-time">Start at
-                                                <t t-esc="appointment.get('appointment_time')"/>
+                                            <span class="appointment-time">Date
+                                                <t t-esc="appointment.get('appointment_date')"/>
                                             </span>
                                             <!--                                          <span class="appointment-time"> to-->
                                             <!--                                        <t t-esc="appointment.get('appointment_end')" />-->
@@ -75,18 +75,18 @@
                 <div class="row mt-3">
                     <div class="col-12">
                         <div class="today-heading">
-                            <h6>Previous Appointments</h6>
+                            <h6 style="font-size:18px;">Previous Appointments</h6>
                         </div>
                     </div>
                 </div>
                 <t t-if="previous_appointments">
                     <t t-foreach="previous_appointments" t-as="pappointment">
                         <div class="time-icon">
-                            <i class="fa fa-clock-o"></i>
-                              From
-                            <t t-esc="pappointment.get('appointment_time')"/>
-                            to
-                            <t t-esc="pappointment.get('appointment_end')" />
+                            <i class="fas fa-calendar"></i>
+
+                            <t t-esc="pappointment.get('appointment_date')"/>
+<!--                            to-->
+<!--                            <t t-esc="pappointment.get('appointment_end')" />-->
                         </div>
                         <div class="col-24 user-container">
                             <div class="user-box">
@@ -96,7 +96,7 @@
                                             <t t-esc="pappointment.get('doctor_name')"/>
                                         </span>
 
-                                        <span class="appointment-time">Start at
+                                        <span class="appointment-time">Time
                                             <t t-esc="pappointment.get('appointment_time')"/>
                                         </span>
                                         <!--                                          <span class="appointment-time"> to-->

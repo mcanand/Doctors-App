@@ -11,7 +11,7 @@ main{
     color:#007ab4;
 }
 .f15{
-    font-size:18px !important;
+    font-size:17px !important;
 }
 .f13{
     font-size:15px !important;
@@ -40,8 +40,8 @@ main{
     color:#007ab4;
 }
 .app_navbar .app_img{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50px;
 }
 .app_navbar .navbar_content{

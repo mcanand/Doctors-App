@@ -264,61 +264,6 @@
                 </t>
 
 
-                <t t-if="user_id.partner_id.categry_id == 'patient'">
-                    <div class="row mt-3">
-                        <div class="col-4 mb-3">
-                            <a href="/group/sessions" class="btn btn-primary customss-btn">All Group Sessions</a>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <a href="/departments" class="btn btn-primary customss-btn ">All Departments</a>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <a href="/all/doctors" class="btn btn-primary customss-btn">All Doctors</a>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                </t>
-
-
-                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
-
-                <!--                    <div class="row mt-3">-->
-                <!--                        <div class="col-12">-->
-                <!--                            <a href="/group/sessions" class="btn shadow-none app_card w-100 poppins400">View all-->
-                <!--                                Group Sessions-->
-                <!--                            </a>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </t>-->
-                <!--                <br/>-->
-                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
-
-                <!--                    <div class="row mt-3">-->
-                <!--                        <div class="col-12">-->
-                <!--                            <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all-->
-                <!--                                departments-->
-                <!--                            </a>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </t>-->
-
-                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
-
-                <!--                    <div class="row mt-3">-->
-                <!--                        <div class="col-12">-->
-                <!--                            <a t-attf-href="/all/doctors" class="btn shadow-none app_card w-100 poppins400">View all-->
-                <!--                                doctors-->
-                <!--                            </a>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </t>-->
-                <br/>
 
 
                 <t t-set="doctor_ratings"
@@ -384,7 +329,7 @@
                 </t>
                 <!-- The modal box -->
                 <div id="myModal" class="modal">
-                    <div class="modal-content" style="font-size:18px;">
+                    <div class="modal-content" style="font-size:17px;">
                         <span class="close">×</span>
                         <p>
                             <span id="doctorImage" class="doctor-name">
@@ -428,6 +373,62 @@
 
                     </div>
                 </div>
+                  <t t-if="user_id.partner_id.categry_id == 'patient'">
+                    <div class="row mt-3">
+                        <div class="col-4 mb-3">
+                            <a href="/group/sessions" class="btn btn-primary customss-btn">All Group Sessions</a>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <a href="/departments" class="btn btn-primary customss-btn ">All Departments</a>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <a href="/all/doctors" class="btn btn-primary customss-btn">All Doctors</a>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </t>
+
+
+                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+
+                <!--                    <div class="row mt-3">-->
+                <!--                        <div class="col-12">-->
+                <!--                            <a href="/group/sessions" class="btn shadow-none app_card w-100 poppins400">View all-->
+                <!--                                Group Sessions-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+                <!--                <br/>-->
+                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+
+                <!--                    <div class="row mt-3">-->
+                <!--                        <div class="col-12">-->
+                <!--                            <a href="/departments" class="btn shadow-none app_card w-100 poppins400">View all-->
+                <!--                                departments-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+
+                <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
+
+                <!--                    <div class="row mt-3">-->
+                <!--                        <div class="col-12">-->
+                <!--                            <a t-attf-href="/all/doctors" class="btn shadow-none app_card w-100 poppins400">View all-->
+                <!--                                doctors-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+                <br/>
+
 
 
 

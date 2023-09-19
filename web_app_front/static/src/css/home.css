@@ -3,7 +3,7 @@
         border: none;
         border-radius: 20px;
         padding: 10px 20px;
-        font-size: 18px;
+        font-size: 17px;
         background-color: #ffffff;
         color: #333;
         cursor: pointer;
@@ -78,7 +78,7 @@
         justify-content: center;
         border-radius: 20px;
         padding: 10px 20px;
-        font-size: 18px;
+        font-size: 17px;
         background-color: #efefef;
         color: #333333;
         cursor: pointer;
@@ -142,7 +142,7 @@
 
 .doctor-initials {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
     margin-right: 5px;
 }
 
@@ -151,7 +151,7 @@
     white-space: nowrap;
    text-align:center;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     color:#007ab4;
 }
@@ -179,12 +179,12 @@
     color: #007ab4;
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 17px;
     height:40px;
 }
 
 .fa {
-    font-size: 18px;
+    font-size: 17px;
     margin-right: 5px;
 }
 
@@ -220,12 +220,12 @@
 }
 /* Styling for the doctor's name */
 .doctor-information .doctor-name {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     color:#007ab4;
 }
 .doctor-information .doctor-rating {
-    font-size: 18px;
+    font-size: 17px;
 
     margin-left: 10px;
     color:#007ab4;
@@ -293,7 +293,7 @@
   background-color: #007ab4;
   color: #fff;
   width:100%;
-  font-size:18px;
+  font-size:17px;
   text-align: center;
   text-decoration: none;
   height:35px;
@@ -314,7 +314,7 @@
         justify-content: center;
         border-radius: 20px;
         padding: 10px 20px;
-        font-size: 18px;
+        font-size: 17px;
         background-color: #efefef;
         color: #333333;
         cursor: pointer;

@@ -178,6 +178,7 @@ class AppController(http.Controller):
                 'doctor_name': booking.doctor_id.name,
                 'appointment_time':  f"{appointment_time} {am_pm}" ,
                 'appointment_end':  f"{appointment_end} {ams_pms}" ,
+                'appointment_date':booking.date,
                 'doctor_image': doctor_image_url,
                 'id': booking.id,
                 'department': booking.doctor_id.department_id.name,
@@ -197,7 +198,7 @@ class AppController(http.Controller):
             previous_booking_dict = {
                 'doctor_name': previous_booking.doctor_id.name,
                 'appointment_time':  f"{appointment_time} {am_pm}" ,
-                'appointment_end':  f"{appointment_end} {ams_pms}" ,
+                'appointment_date': previous_booking.date  ,
                 'doctor_image': doctor_image_url,
                 'department': previous_booking.doctor_id.department_id.name,
             }

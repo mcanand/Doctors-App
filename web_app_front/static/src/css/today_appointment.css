@@ -25,7 +25,7 @@
 .name-doc,
 .appointment-time,
 .age {
-    font-size: 18px;
+    font-size: 17px;
 
     display:inline-block;
     color: #007ab4;
@@ -61,7 +61,7 @@ font-weight:bold;
 
     .no-appointments-text {
         text-align: center;
-        font-size: 18px;
+        font-size: 17px;
         color: #007ab4;
     }
 
@@ -70,7 +70,7 @@ font-weight:bold;
     .name-doc,
     .appointment-time {
         text-align: center;
-        font-size:18px;
+        font-size:17px;
     }
 
 

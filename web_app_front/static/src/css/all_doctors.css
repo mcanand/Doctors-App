@@ -15,7 +15,7 @@
     max-width: 800px;
     width: 340px;
     margin: 0 auto;
-    border-radius: 18px;
+    border-radius: 17px;
     overflow: hidden;
     border: 2px solid #30abd5;
     display: flex;
@@ -27,7 +27,7 @@
     width: calc(100% - 40px);
     padding-left: 10px;
     border: none;
-    border-radius: 18px;
+    border-radius: 17px;
     outline: none;
 }
 
@@ -46,5 +46,5 @@
 }
 
 .input-box .search-icon i {
-    font-size: 18px;
+    font-size: 17px;
 }
