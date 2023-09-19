@@ -95,7 +95,7 @@ class Doctor(models.Model):
          }
         try:
             user = Users.create(user_vals)
-            user.action_reset_password()
+            Users.action_reset_password()
         except ValidationError:
             raise UserError(("The user cannot be created. Please check the user information."))
 
