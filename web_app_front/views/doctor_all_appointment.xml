@@ -12,120 +12,141 @@
                 </span>
                 <br/>
                 <br/>
-                <span class="poppins400 ml-2" style="font-size:18px;" >
+                <span class="poppins400 ml-2" style="font-size:18px;">
                     <t t-esc="doctor_name"/>
                 </span>
             </t>
 
-            <div class="container">
+            <div class="container poppins400">
                 <div class="row mt-3">
                     <div class="col-12">
-                        <div class="today-heading">
-                            <h6 style="font-size:18px;">Upcoming Appointments</h6>
+                        <div class="doctor-all-appointment-container">
+                            <div class="name-details-enter"
+                                 style="background-color: transparent; text-align: center; padding: 10px;">
+                                <div class="button-container">
+                                    <button class="rounded-button left-button active-button" id="upcoming-button">
+                                        Upcoming
+                                    </button>
+                                    <button class="rounded-button right-button" id="previous-button">Previous</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <t t-if="appointments">
-                        <t t-foreach="appointments" t-as="appointment">
-                            <div class="time-icon">
-                                <i class="fa fa-clock-o"></i>
-                                From
-                                <t t-esc="appointment.get('appointment_time')"/>
-                                to
-                                <t t-esc="appointment.get('appointment_end')"/>
-                            </div>
-                            <div class="col-24 user-container">
-                                <div class="user-box">
-
-                                    <div class="user-information">
-                                        <a t-att-href="'/prescription/add/%s' %appointment.get('patient_id')">
-
-                                            <div class="appointment-time">
-                                                <span class="name-doc">
-                                                    <t t-if="appointment.get('group_meeting')">
-                                                        <t t-esc="appointment.get('group_meeting')"/>
-                                                    </t>
-                                                    <t t-else="">
-                                                        <t t-esc="appointment.get('patient_name')"/>
-                                                    </t>
-                                                </span>
-                                                <!--                                            <span class="name-doc">-->
-                                                <!--                                                <t t-esc="appointment.get('patient_name')"/>-->
-                                                <!--                                            </span>-->
-
-                                                <span class="appointment-time">Start at
-                                                    <t t-esc="appointment.get('appointment_time')"/>
-                                                </span>
-                                                <!--                                          <span class="appointment-time"> to-->
-                                                <!--                                        <t t-esc="appointment.get('appointment_end')" />-->
-                                                <!--                                        </span>-->
-                                            </div>
-                                            <div class="name-doc">
-                                                <span class="age">
+                    <div class="upcoming">
+                        <div class="today-heading">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h6 style="font-size:18px;">Upcoming Appointments</h6>
+                            <br/>
+                        </div>
+                        <t t-if="appointments">
+                            <t t-foreach="appointments" t-as="appointment">
+                                <div class="appointment-box-details">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span class="label-time">Appointment date</span>
+                                            <div class="time-icon">
+                                                <i class="fa fa-clock-o"></i>
+                                                <span>
                                                     <t t-esc="appointment.get('date')"/>
+                                                    <t t-esc="appointment.get('appointment_time')"/>
+                                                    -
+                                                    <t t-esc="appointment.get('appointment_end')"/>
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="underline"></div>
+
+                                    <div class="row">
+                                        <a t-att-href="'/prescription/add/%s' %appointment.get('patient_id')">
+                                            <div class="col-10">
+                                                <div class="user-information">
+                                                    <span class="name-doc">
+                                                        <t t-if="appointment.get('group_meeting')">
+                                                            <t t-esc="appointment.get('group_meeting')"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-esc="appointment.get('patient_name')"/>
+                                                        </t>
+                                                    </span>
+
+                                                </div>
+                                                <div class="user-information">
+                                                    <span class="name-doc">Start at
+                                                        <t t-esc="appointment.get('appointment_time')"/>
+                                                    </span>
+
+                                                </div>
+
                                             </div>
                                         </a>
                                     </div>
-
-
                                 </div>
-
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <div class="col-24 poppins500 app_color">
+                                No appointments today.
                             </div>
                         </t>
-                    </t>
-                    <t t-else="">
-                        <div class="col-24 poppins500 app_color">
-                            No appointments today.
-                        </div>
-                    </t>
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="today-heading">
-                                <h6 style="font-size:18px;">Previous Appointments</h6>
-                            </div>
-                        </div>
                     </div>
-                    <t t-if="previous_appointments">
-                        <t t-foreach="previous_appointments" t-as="pappointment">
-                            <div class="time-icon">
-                                <i class="fa fa-clock-o"></i>
-                                From
-                                <t t-esc="pappointment.get('appointment_time')"/>
-                                to
-                                <t t-esc="pappointment.get('appointment_end')"/>
-                            </div>
-                            <div class="col-24 user-container">
-                                <div class="user-box">
-                                    <div class="user-information">
-                                        <div class="appointment-time">
-                                            <span class="name-doc">
-                                                <t t-esc="pappointment.get('patient_name')"/>
-                                            </span>
+                    <div class="previous">
+                        <div class="today-heading">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h6 style="font-size:18px;">Previous Appointments</h6>
+                            <br/>
+                        </div>
+                        <t t-if="previous_appointments">
+                            <t t-foreach="previous_appointments" t-as="pappointment">
+                                <div class="appointment-box-details">
+                                    <div class="row">
+                                        <div class="col-12">
 
-                                            <span class="appointment-time">Start at
-                                                <t t-esc="pappointment.get('appointment_time')"/>
-                                            </span>
-                                            <!--                                          <span class="appointment-time"> to-->
-                                            <!--                                        <t t-esc="appointment.get('appointment_end')" />-->
-                                            <!--                                        </span>-->
+                                                <span class="label-time">Appointment Date</span>
+                                            <div class="time-icon">
+                                                <i class="fa fa-clock-o"></i>
+                                                <span>
+                                                    <t t-esc="pappointment.get('date')"/>
+                                                    <t t-esc="pappointment.get('appointment_time')"/>
+                                                    -
+                                                    <t t-esc="pappointment.get('appointment_end')"/>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="name-doc">
-                                            <span class="age">
-                                                <t t-esc="pappointment.get('date')"/>
-                                            </span>
-                                        </div>
-
                                     </div>
+                                    <div class="underline"></div>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <div class="user-information">
+                                                <span class="name-doc">
+                                                    <t t-esc="pappointment.get('patient_name')"/>
+                                                </span>
+                                            </div>
+                                            <div class="user-information">
 
+                                                <span class="appointment-time">Start at
+                                                    <t t-esc="pappointment.get('appointment_time')"/>
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </t>
                         </t>
-                    </t>
+
+
                     <t t-else="">
                         <div class="col-24 poppins500 app_color">
                             No previous appointments .
                         </div>
                     </t>
+                    </div>
                 </div>
             </div>
 

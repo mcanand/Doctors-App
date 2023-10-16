@@ -1,0 +1,41 @@
+ .rounded-button {
+        border: none;
+        padding: 10px 40px; /* Adjust the padding to control the button's width */
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        color: white;
+        position: absolute;
+        top: 10px;
+        width: 50%;
+          height:40px;
+    }
+
+
+    .left-button {
+        background-color: #007ab4;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        left: 10px;
+         color:white/* Position the "Upcoming" button on the left */
+    }
+
+    .right-button {
+        background-color: #007ab4;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        left: 40%;
+        color:white;/* Position the "Previous" button to the right */
+    }
+
+     .button-container {
+        position: relative;
+        width: 100%;
+    }
+
+    /* Add a more specific selector for the active button */
+    .button-container .active-button {
+        background-color: #ccc !important;
+        color: #007ab4 !important;
+        z-index: 2;
+    }

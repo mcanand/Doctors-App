@@ -33,7 +33,7 @@
 }
 .name-doc{
 margin-left:2px;
-font-weight:bold;
+
 }
 
 .user-image-box {
@@ -65,16 +65,91 @@ font-weight:bold;
         color: #007ab4;
     }
 
-/* Mobile view */
-@media (max-width: 768px) {
-    .name-doc,
-    .appointment-time {
-        text-align: center;
-        font-size:17px;
+
+  .rounded-button {
+        border: none;
+        padding: 10px 40px; /* Adjust the padding to control the button's width */
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        color: white;
+        position: absolute;
+        top: 10px;
+        width: 50%;
+        height:40px;
     }
 
 
-}
+    .left-button {
+        background-color: #007ab4;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        left: 10px;
+         color:white/* Position the "Upcoming" button on the left */
+    }
+
+    .right-button {
+        background-color: #007ab4;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        left: 40%;
+        color:white;/* Position the "Previous" button to the right */
+    }
+
+     .button-container {
+        position: relative;
+        width: 100%;
+    }
+
+    /* Add a more specific selector for the active button */
+    .button-container .active-button {
+        background-color: #ccc !important;
+        color: #007ab4 !important;
+        z-index: 2;
+    }
+
+
+     .appointment-box-details {
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        padding: 10px;
+        margin-bottom: 20px;
+        position: relative;
+         border-radius: 10px;
+    }
+
+    .appointment-box-details::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background-color: #4caf50;
+
+    }
+     .underline {
+        border-bottom: 1px solid #4caf50; /* Green underline */
+        margin-bottom: 10px;
+    }
+
+     .label-time {
+        font-weight: bold;
+    }
+
+    .time-icon {
+        display: block;
+        flex-direction: column;
+        align-items: start;
+    }
+
+
+
+
+
+
+
+
 
 
 

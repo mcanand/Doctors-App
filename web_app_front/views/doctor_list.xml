@@ -12,7 +12,7 @@
                 </span>
             </t>
             <!-- =================================== -->
-            <div class="container">
+            <div class="container poppins400">
                 <div class="doctor-search-container">
                     <div class="col-md-6 d-flex align-items-center">
                         <form t-att-action="" method="POST">
@@ -64,7 +64,7 @@
 
             </div>
              <!-- The modal box -->
-                <div id="myModal" class="modal">
+                <div id="myModal" class="modal poppins400">
                     <div class="modal-content">
                         <span class="close">×</span>
                         <p>

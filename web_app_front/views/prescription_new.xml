@@ -1,0 +1,54 @@
+<odoo>
+    <template id="view_prescription">
+        <t t-call="website.layout">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <!-- Your header content here -->
+
+            <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size: 16px;" class="fa fa-angle-left"/>
+                </a>
+                <span class="poppins300 ml-2" style="font-size: 18px;">
+                    Prescriptions
+                </span>
+            </t>
+
+            <!-- =================================== -->
+            <div class="container poppins400">
+                <div class="row mt-3">
+                    <!-- Doctor Image (30% width) -->
+                    <div class="col-md-4">
+                        <div class="prescription-container">
+                            <div class="name-details-enter" style="background-color:#007ab4;">
+                                <p class="left">Case Details</p>
+                                <p class="right">Prescription</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Prescription Container (70% width) -->
+                    <div class="col-md-8">
+                        <!-- Case Details Content -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br/>
+                                <br/>
+                                <div class="case-details-box">
+                                    <p id="caseDetailsContent">
+                                        <t t-esc="prescription.case_details"/>
+                                    </p>
+                                </div>
+                                <div class="prescription-details-box" style="display:none;">
+                                    <p id="prescriptionContent">
+                                        <t t-esc="prescription.prescription"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

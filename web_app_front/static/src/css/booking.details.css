@@ -22,10 +22,11 @@
     width: 150px; /* Adjust the width as needed */
     margin-left: 10px;
     color:#007ab4;
+    font-size: 17px;
 }
 
 .value {
-    font-size: 18px;
+    font-size: 17px;
     color:#007ab4;
 }
 

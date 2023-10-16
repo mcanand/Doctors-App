@@ -12,44 +12,58 @@
                 </span>
             </t>
             <!-- =================================== -->
-            <div class="container">
+            <div class="container poppins400">
                 <div class="row mt-3">
                     <t t-if="prescriptions">
-                    <t t-foreach="prescriptions" t-as="presc">
-                     <div class="col-24 user-container">
-                            <div class="user-box">
-                                <a t-att-href="'/prescription/view/%s' %presc.id ">
-                                <div class="user-information">
-                                    <div class="appointment-time">
-                                        <span class="name-doc">
-                                            <t t-esc="presc.doctor_id.name" />
-                                        </span>
+                        <t t-foreach="prescriptions" t-as="presc">
+                            <div class="col-24 user-container">
+                                <div class="appointment-box-details">
+                                    <a t-att-href="'/prescription/view/%s' %presc.id ">
+                                        <div class="user-information">
+                                            <span class="appointment-time">
+                                                <span class="label-time">Appointment Date</span>
+                                                <br/>
+                                                <t t-esc="presc.date"/>
+                                            </span>
+                                        </div>
+                                        <div class="underline"></div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <div class="user-image-box">
+                                                    <t t-if="presc.doctor_id.image_1920">
+                                                        <img t-attf-src="data:image/png;base64,{{presc.doctor_id.image_1920}}"/>
+                                                    </t>
 
-                                        <span class="appointment-time">
-                                            <t t-esc="presc.date" />
-                                        </span>
+                                                    <t t-else="">
+                                                        <img src="/web_app_front/static/src/images/people.png"
+                                                             alt="Your Image Alt Text" width="100" height="100"/>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="user-information">
+                                                    <span class="name-doc">
+                                                        <t t-esc="presc.doctor_id.name"/>
+                                                    </span>
+                                                </div>
+                                                   <div class="user-information">
+                                                    <span class="name-doc">
+                                                        <t t-esc="presc.doctor_id.department_id.name"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    </div>
-                                       <span class="appointment-time">
-                                            <t t-esc="presc.doctor_id.department_id.name" />
-                                        </span>
+                                    </a>
                                 </div>
-<!--                                <div class="us-image-box">-->
-<!--                                    <img t-att-src="image_data_uri(presc.doctor_id.image_1920)" alt="Doctor Image" />-->
-
-<!--&lt;!&ndash;                                    <img src="/path/to/doctor/image" alt="Doctor Image" />&ndash;&gt;-->
-<!--                                </div>-->
-                                </a>
                             </div>
-
-                        </div>
+                        </t>
                     </t>
-                    </t>
-                       <t t-else="">
+                    <t t-else="">
                         <div class="col-24 no-appointments-container">
                             <p class="no-appointments-text">No Prescriptions yet.</p>
                         </div>
-                       </t>
+                    </t>
                 </div>
             </div>
         </t>

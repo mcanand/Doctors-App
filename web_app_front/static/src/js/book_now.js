@@ -7,9 +7,9 @@ odoo.define('web_app_front.book_now', function (require) {
     var _t = core._t;
 
     publicWidget.registry.book_now = publicWidget.Widget.extend({
-        selector: '.user-container',
+        selector: '.details-container',
         events: {
-            'click .user-box': '_onClickBookNow',
+            'click .detail-box': '_onClickBookNow',
         },
         _onClickBookNow: function (ev) {
             var self = this;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="portal_layout_inherit" inherit_id="portal.portal_layout">
+    <template id="portal_layout" inherit_id="portal.portal_layout">
         <xpath expr="//t[@t-call='portal.frontend_layout']" position="replace">
             <t t-call="website.layout">
                 <!-- Your header content here -->

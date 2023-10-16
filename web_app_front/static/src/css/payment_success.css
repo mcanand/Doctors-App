@@ -92,3 +92,23 @@ body { margin:0; font-family: 'Roboto';}
     flex-direction: column;
   }
 }
+
+
+   .radio-group {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+
+                    .radio-group label {
+                        margin-left: 20px;
+                    }
+                      .next {
+                        text-align: right;
+                        margin-right: 30px;
+
+                    }
+                    .myNextBox{
+                      background-color:#007ab4;
+                      color:white;
+                    }

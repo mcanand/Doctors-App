@@ -76,3 +76,43 @@
 
 
 
+/* CSS for the blue background container */
+.image-container {
+    background-color: #007ab4;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 300px; /* Minimum height to ensure the blue background covers the image */
+    margin-left: -14px;
+    margin-right: -14px;
+}
+
+/* CSS for the white background container */
+.inner-container {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+
+
+
+.name-details-enter {
+    background-color: paleturquoise;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 6px;
+    margin-left: -14px;
+    margin-right: -12px;
+}
+
+
+.left {
+    flex: 1;
+    text-align: left;
+    color: white;
+}

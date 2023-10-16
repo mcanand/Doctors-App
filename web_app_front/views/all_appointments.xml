@@ -12,34 +12,93 @@
                 </span>
             </t>
 
-            <div class="container">
+            <div class="container poppins400">
                 <div class="row mt-3">
-                <div class="col-12">
-                    <div class="today-heading">
-                        <h6 style="font-size:18px;">Upcoming Appointments</h6>
-                    </div>
-                </div>
-                <t t-if="appointments">
-                    <t t-foreach="appointments" t-as="appointment">
-                        <div class="time-icon">
-                            <i class="fa fa-clock-o"></i>
-                            From
-                            <t t-esc="appointment.get('appointment_time')"/>
-                            to
-                            <t t-esc="appointment.get('appointment_end')" />
+                    <div class="col-12">
+                        <div class="today-heading">
+                            <h6 style="font-size:18px;">Upcoming Appointments</h6>
                         </div>
-                        <div class="col-24 user-container">
-                            <div class="user-box">
+                    </div>
+                    <t t-if="appointments">
+                        <t t-foreach="appointments" t-as="appointment">
+                            <div class="time-icon">
+                                <i class="fa fa-clock-o"></i>
+                                From
+                                <t t-esc="appointment.get('appointment_time')"/>
+                                to
+                                <t t-esc="appointment.get('appointment_end')"/>
+                            </div>
+                            <div class="col-24 user-container">
+                                <div class="user-box">
 
-                                <div class="user-information">
-                                    <a t-att-href="'/bookings/%s' %appointment.get('id')">
+                                    <div class="user-information">
+                                        <a t-att-href="'/bookings/%s' %appointment.get('id')">
+                                            <div class="appointment-time">
+                                                <span class="name-doc">
+                                                    <t t-esc="appointment.get('doctor_name')"/>
+                                                </span>
+
+                                                <span class="name-doc">Date
+                                                    <t t-esc="appointment.get('appointment_date')"/>
+                                                </span>
+                                                <!--                                          <span class="appointment-time"> to-->
+                                                <!--                                        <t t-esc="appointment.get('appointment_end')" />-->
+                                                <!--                                        </span>-->
+                                            </div>
+                                            <div class="name-doc">
+                                                <span class="age">
+                                                    <t t-esc="appointment.get('department')"/>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="user-image-box">
+                                        <t t-if="appointment.get('doctor_image')">
+                                            <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <img src="/web_app_front/static/src/images/people.png"
+                                                 alt="Your Image Alt Text" width="180" height="180"/>
+                                        </t>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <div class="col-24 poppins500 app_color">
+                            No appointments today.
+                        </div>
+                    </t>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="today-heading">
+                                <h6 style="font-size:18px;">Previous Appointments</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-if="previous_appointments">
+                        <t t-foreach="previous_appointments" t-as="pappointment">
+                            <div class="time-icon">
+                                <i class="fas fa-calendar"></i>
+
+                                <t t-esc="pappointment.get('appointment_date')"/>
+                                <!--                            to-->
+                                <!--                            <t t-esc="pappointment.get('appointment_end')" />-->
+                            </div>
+                            <div class="col-24 user-container">
+                                <div class="user-box">
+                                    <div class="user-information">
                                         <div class="appointment-time">
                                             <span class="name-doc">
-                                                <t t-esc="appointment.get('doctor_name')"/>
+                                                <t t-esc="pappointment.get('doctor_name')"/>
                                             </span>
 
-                                            <span class="appointment-time">Date
-                                                <t t-esc="appointment.get('appointment_date')"/>
+                                            <span class="name-doc">Time
+                                                <t t-esc="pappointment.get('appointment_time')"/>
                                             </span>
                                             <!--                                          <span class="appointment-time"> to-->
                                             <!--                                        <t t-esc="appointment.get('appointment_end')" />-->
@@ -47,90 +106,33 @@
                                         </div>
                                         <div class="name-doc">
                                             <span class="age">
-                                                <t t-esc="appointment.get('department')"/>
+                                                <t t-esc="pappointment.get('department')"/>
                                             </span>
                                         </div>
-                                    </a>
-                                </div>
-                                <div class="user-image-box">
-                                    <t t-if="appointment.get('doctor_image')">
-                                    <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
-                                    </t>
-                                    <t t-else="">
-                                           <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
-                                    </t>
+                                    </div>
+                                    <div class="user-image-box">
+                                        <t t-if="pappointment.get('doctor_image')">
+                                            <img t-attf-src="data:image/png;base64,{{pappointment.get('doctor_image')}}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <img src="/web_app_front/static/src/images/people.png"
+                                                 alt="Your Image Alt Text" width="180" height="180"/>
+                                        </t>
 
+                                    </div>
                                 </div>
-
                             </div>
-
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <div class="col-24 poppins500 app_color">
+                            No previous appointments .
                         </div>
                     </t>
-                </t>
-                <t t-else="">
-                    <div class="col-24 poppins500 app_color">
-                        No appointments today.
-                    </div>
-                </t>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <div class="today-heading">
-                            <h6 style="font-size:18px;">Previous Appointments</h6>
-                        </div>
-                    </div>
                 </div>
-                <t t-if="previous_appointments">
-                    <t t-foreach="previous_appointments" t-as="pappointment">
-                        <div class="time-icon">
-                            <i class="fas fa-calendar"></i>
-
-                            <t t-esc="pappointment.get('appointment_date')"/>
-<!--                            to-->
-<!--                            <t t-esc="pappointment.get('appointment_end')" />-->
-                        </div>
-                        <div class="col-24 user-container">
-                            <div class="user-box">
-                                <div class="user-information">
-                                    <div class="appointment-time">
-                                        <span class="name-doc">
-                                            <t t-esc="pappointment.get('doctor_name')"/>
-                                        </span>
-
-                                        <span class="appointment-time">Time
-                                            <t t-esc="pappointment.get('appointment_time')"/>
-                                        </span>
-                                        <!--                                          <span class="appointment-time"> to-->
-                                        <!--                                        <t t-esc="appointment.get('appointment_end')" />-->
-                                        <!--                                        </span>-->
-                                    </div>
-                                    <div class="name-doc">
-                                        <span class="age">
-                                            <t t-esc="pappointment.get('department')"/>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="user-image-box">
-                                    <t t-if="pappointment.get('doctor_image')">
-                                    <img t-attf-src="data:image/png;base64,{{pappointment.get('doctor_image')}}"/>
-                                    </t>
-                                    <t t-else="">
-                                           <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
-                                    </t>
-
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-                </t>
-                <t t-else="">
-                    <div class="col-24 poppins500 app_color">
-                        No  previous appointments .
-                    </div>
-                </t>
-            </div>
             </div>
 
-    </t>
-</template>
-        </odoo>
+        </t>
+    </template>
+</odoo>
 

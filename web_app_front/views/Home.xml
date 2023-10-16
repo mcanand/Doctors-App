@@ -81,6 +81,7 @@
 
             <t t-set="group_meetings" t-value="request.env['doctor.time.slots'].sudo().search([
                ('group_meeting', '!=', False),
+                ('partner_ids', 'not in', [request.env.user.partner_id.id]),
                ('date', '=', datetime.datetime.now().strftime('%Y-%m-%d'))
             ])"/>
             <t t-set="meetings" t-value="[]"/>
@@ -126,27 +127,28 @@
                                 Today's<br/>Appointments
                             </div>
 
-                            <div class="col-3 text-end poppins500 app_color" >
-                                <a href="/today/appointment">
-                                    see all
-                                </a>
-                            </div>
+                            <!--                            <div class="col-3 text-end poppins500 app_color" >-->
+                            <!--                                <a href="/today/appointment">-->
+                            <!--                                    see all-->
+                            <!--                                </a>-->
+                            <!--                            </div>-->
 
                         </div>
                         <!--                </t>-->
                         <!--                <t t-if="user_id.partner_id.categry_id == 'patient'">-->
                         <div class="appointment-container mt-3">
                             <t t-foreach="booking_details" t-as="appointment">
-                                <div class="appointments-box">
+                                <div class="appointments-box poppins400">
 
                                     <div class="appointment-details">
                                         <div class="doctor-info">
                                             <div class="small-box">
                                                 <t t-if="appointment.get('doctor_image')">
-                                                <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                                    <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
                                                 </t>
                                                 <t t-else="">
-                                                       <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
+                                                    <img src="/web_app_front/static/src/images/people.png"
+                                                         alt="Your Image Alt Text" width="180" height="180"/>
                                                 </t>
                                             </div>
                                             <div class="name">
@@ -187,26 +189,27 @@
                             <div class="col-9 poppins500 app_color">
                                 Group<br/>Meetings
                             </div>
-                            <div class="col-3 text-end poppins500 app_color">
-                                <a href="/group/sessions">
-                                    see all
-                                </a>
-                            </div>
+                            <!--                            <div class="col-3 text-end poppins500 app_color">-->
+                            <!--                                <a href="/group/sessions">-->
+                            <!--                                    see all-->
+                            <!--                                </a>-->
+                            <!--                            </div>-->
                         </div>
-                        <div class="meeting-container mt-3">
+                        <div class="meeting-container mt-3 poppins400">
 
                             <t t-foreach="meetings" t-as="m">
                                 <t t-if="m">
                                     <div class="meeting-box">
 
-                                        <div class="meeting-details">
-                                            <div class="doctor-info">
+                                        <div class="meeting-details ">
+                                            <div class="doctor-info ">
                                                 <div class="small-box">
                                                     <t t-if="m.get('doctor_image')">
                                                         <img t-attf-src="data:image/png;base64,{{m.get('doctor_image')}}"/>
                                                     </t>
                                                     <t t-else="">
-                                                           <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
+                                                        <img src="/web_app_front/static/src/images/people.png"
+                                                             alt="Your Image Alt Text" width="180" height="180"/>
                                                     </t>
 
                                                 </div>
@@ -264,8 +267,6 @@
                 </t>
 
 
-
-
                 <t t-set="doctor_ratings"
                    t-value="request.env['doctor.rating'].search([], order='rating DESC', limit=5)"/>
                 <t t-if="doctor_ratings">
@@ -281,7 +282,7 @@
 
                         <!--                    <t t-esc="doctor_ratings"/>-->
 
-                        <div class="row">
+                        <div class="row poppins400">
                             <t t-if="doctor_ratings">
                                 <div class="col-24 doctor-container">
                                     <t t-foreach="doctor_ratings" t-as="rating">
@@ -289,30 +290,31 @@
 
 
                                             <div class="doctor-box" t-att-data-id="rating.doctor_id.id">
-                                                <div class="doctor-information">
-                                                    <div class="image-box1">
-                                                        <t t-if="rating.doctor_id.image_1920">
-                                                        <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"
-                                                             alt="Doctor Image"/>
-                                                        </t>
-                                                        <t t-else="">
-                                                               <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
-                                                        </t>
-                                                    </div>
+                                                <div class="doctor-information poppins400">
+<!--                                                    <div class="image-box1">-->
+<!--                                                        <t t-if="rating.doctor_id.image_1920">-->
+<!--                                                            <img t-attf-src="data:image/png;base64,{{rating.doctor_id.image_1920}}"-->
+<!--                                                                 alt="Doctor Image"/>-->
+<!--                                                        </t>-->
+<!--                                                        <t t-else="">-->
+<!--                                                            <img src="/web_app_front/static/src/images/people.png"-->
+<!--                                                                 alt="Your Image Alt Text" width="180" height="180"/>-->
+<!--                                                        </t>-->
+<!--                                                    </div>-->
                                                     <div class="doctor-name">
                                                         <t t-esc="rating.doctor_id.name"/>
-                                                        <br/>
+                                                          <div class="doctor-name" style="font-size:15px;">
+                                                        <span>Rating :</span>
+                                                        <t t-esc="rating.rating"/>
+
+                                                    </div>
                                                         <div class="department-name">
                                                             <t t-esc="rating.doctor_id.department_id.name"/>
                                                         </div>
                                                     </div>
                                                     <br/>
 
-                                                    <div class="doctor-rating" style="font-size:16px;">
-                                                        <span>Rating :</span>
-                                                        <t t-esc="rating.rating"/>
 
-                                                    </div>
                                                 </div>
                                             </div>
                                         </t>
@@ -328,21 +330,21 @@
                     </t>
                 </t>
                 <!-- The modal box -->
-                <div id="myModal" class="modal">
+                <div id="myModal" class="modal poppins400">
                     <div class="modal-content" style="font-size:17px;">
                         <span class="close">×</span>
                         <p>
-                            <span id="doctorImage" class="doctor-name">
+                            <span id="doctorImage" class="data-element">
                                 <img t-attf-src="data:image/png;base64,{{doctorImage}}"
                                      alt="Doctor Image"/>
                             </span>
-<!--                            <br/>-->
+                            <!--                            <br/>-->
                             <strong>
-                                <span id="doctorName"></span>
+                                <span id="doctorName" class="data-element"></span>
                             </strong>
                             <br/>
                             <strong>
-                                <span id="doctorDepartment"></span>
+                                <span id="doctorDepartment" class="data-element"></span>
                             </strong>
                             <br/>
                             <span id="doctorRating"></span>
@@ -358,7 +360,7 @@
                             <a href="#" id="readMoreLink">Read More...</a>
 
 
-                            <br/>
+                            <br/><br/>
                             <a class="btn btn-primary" id="myButton" t-attf-href="/booking/availability/{{doctorID}} ">
                                 Schedule a Meeting
                             </a>
@@ -373,25 +375,18 @@
 
                     </div>
                 </div>
-                  <t t-if="user_id.partner_id.categry_id == 'patient'">
-                    <div class="row mt-3">
-                        <div class="col-4 mb-3">
-                            <a href="/group/sessions" class="btn btn-primary customss-btn">All Group Sessions</a>
+                <t t-if="user_id.partner_id.categry_id == 'patient'">
+                    <div class="row mt-3 poppins400">
+                        <div class="col-6 mb-3 ">
+                            <a href="/group/sessions" class="customss-btn">Group Sessions</a>
                         </div>
-                        <div class="col-4 mb-3">
-                            <a href="/departments" class="btn btn-primary customss-btn ">All Departments</a>
+                        <div class="col-6 mb-3">
+                            <a href="/departments" class=" customss-btn">Departments</a>
                         </div>
-                        <div class="col-4 mb-3">
-                            <a href="/all/doctors" class="btn btn-primary customss-btn">All Doctors</a>
+                        <div class="col-12 mb-3">
+                            <a href="/all/doctors" class=" customss-btn">Doctors</a>
                         </div>
                     </div>
-
-
-
-
-
-
-
                 </t>
 
 
@@ -430,28 +425,26 @@
                 <br/>
 
 
-
-
                 <t t-if="user_id.partner_id.categry_id == 'doctor'">
                     <div class="row mt-3">
                         <div class="col-9 poppins500 app_color">
                             Today's<br/>Appointments
                         </div>
 
-                        <div class="col-3 text-end poppins500 app_color">
-                            <a href="/today/appointment/doctor">
-                                see all
-                            </a>
-                        </div>
+                        <!--                        <div class="col-3 text-end poppins500 app_color">-->
+                        <!--                            <a href="/today/appointment/doctor">-->
+                        <!--                                see all-->
+                        <!--                            </a>-->
+                        <!--                        </div>-->
 
                     </div>
-                    <div class="appointment-container mt-3">
+                    <div class="appointment-container mt-3 poppins400">
                         <t t-foreach="booking_details_doctor" t-as="dappointment">
                             <t t-if="dappointment">
                                 <div class="appointments-box">
 
                                     <div class="appointment-details">
-                                        <div class="doctor-info">
+                                        <div class="doctor-info poppins400">
                                             <div class="small-box">
                                                 <img t-attf-src="data:image/png;base64,{{dappointment.get('patient_image')}}"/>
                                             </div>
@@ -486,20 +479,20 @@
                         <div class="col-9 poppins500 app_color">
                             Group<br/>Counceling
                         </div>
-                        <div class="col-3 text-end poppins500 app_color">
-                            <a href="/today/appointment/doctor">
-                                see all
-                            </a>
-                        </div>
+                        <!--                        <div class="col-3 text-end poppins500 app_color">-->
+                        <!--                            <a href="/today/appointment/doctor">-->
+                        <!--                                see all-->
+                        <!--                            </a>-->
+                        <!--                        </div>-->
                     </div>
 
-                    <div class="appointment-container mt-3">
+                    <div class="appointment-container mt-3 poppins400">
                         <t t-foreach="booking_details_doctor_meeting" t-as="mappointment">
                             <t t-if="mappointment">
                                 <div class="appointments-box">
 
                                     <div class="appointment-details">
-                                        <div class="doctor-info">
+                                        <div class="doctor-info poppins400">
                                             <!--                                            <div class="small-box">-->
                                             <!--                                                <img t-attf-src="data:image/png;base64,{{mappointment.get('patient_image')}}"/>-->
                                             <!--                                            </div>-->

@@ -3,65 +3,71 @@
         <t t-call="website.layout">
             <!-- Your header content here -->
             <!-- ... -->
-              <t t-set="app_nav_in_content">
+            <t t-set="app_nav_in_content">
                 <a href="javascript: window.history.back()">
-                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                    <i style="font-size: 16px;" class="fa fa-angle-left"/>
                 </a>
-                <span class="poppins300 ml-2" style="font-size:18px;">
+                <span class="poppins300 ml-2" style="font-size: 18px;">
                     Today's Appointments
                 </span>
             </t>
 
-            <div class="container">
-                <div class="row mt-3">
-                     <t t-if="appointments">
-                    <t t-foreach="appointments" t-as="appointment">
-                        <div class="time-icon">
-                            <i class="fa fa-clock-o"></i> From
-                            <t t-esc="appointment.get('appointment_time')" />  to  <t t-esc="appointment.get('appointment_end')" />
-                        </div>
-                        <div class="col-24 user-container">
-                            <div class="user-box">
-                                <div class="user-information">
-                                    <div class="appointment-time">
-                                        <span class="name-doc">
-                                            <t t-esc="appointment.get('doctor_name')" />
-                                        </span>
+            <div class="container poppins400">
 
-                                        <span class="appointment-time"> Start at
-                                            <t t-esc="appointment.get('appointment_time')" />
-                                        </span>
-<!--                                          <span class="appointment-time"> to-->
-<!--                                        <t t-esc="appointment.get('appointment_end')" />-->
-<!--                                        </span>-->
-                                    </div>
-                                    <div class="name-doc">
-                                       <span class="age"> <t t-esc="appointment.get('department')"/></span>
+                    <t t-if="appointments">
+                        <t t-foreach="appointments" t-as="appointment">
+                            <div class="appointment-box-details">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a t-att-href="'/bookings/%s' %appointment.get('id')">
+                                            <span class="label-time">Appointment Time</span>
+                                            <div class="time-icon">
+                                                <span>
+                                                    <i class="fa fa-clock-o"></i>
+                                                    <t t-esc="appointment.get('appointment_time')"/>
+                                                    -
+                                                    <t t-esc="appointment.get('appointment_end')"/>
+                                                </span>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="user-image-box">
-                                    <t t-if="appointment.get('doctor_image')">
-                                      <img  t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
-                                    </t>
-                                    <t t-else="">
-                                           <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
-                                    </t>
-
+                                <div class="underline"></div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="user-image-box">
+                                            <t t-if="appointment.get('doctor_image')">
+                                                <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                            </t>
+                                            <t t-else="">
+                                                <img src="/web_app_front/static/src/images/people.png"
+                                                     alt="Your Image Alt Text" width="100" height="100"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="user-information">
+                                            <span class="name-doc">
+                                                <t t-esc="appointment.get('doctor_name')"/>
+                                            </span>
+                                        </div>
+                                        <div class="col-10">
+                                            <span class="name-doc">
+                                                <t t-esc="appointment.get('department')"/>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </t>
                     </t>
-                     </t>
-                     <t t-else="">
-                          <div class="col-24 no-appointments-container">
+                    <t t-else="">
+                        <div class="col-24 no-appointments-container">
                             <p class="no-appointments-text">No appointments today.</p>
                         </div>
-<!--                         <div class="col-24 poppins500 app_color">-->
-<!--                            No appointments today.-->
-<!--                        </div>-->
                     </t>
                 </div>
-            </div>
+
         </t>
     </template>
 </odoo>

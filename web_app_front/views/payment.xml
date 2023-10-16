@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="view_payment_page">
+            <t t-call="website.layout">
+
+                <div class="text-center">
+
+                        <img src="/web_app_front/static/src/images/payment3.jpg"
+                             alt="Link 2"
+                             width="200" height="200"/><br/><br/>
+                </div>
+                    <form>
+                        <div class="radio-group poppins500">
+                            <label for="secure_payment">
+                                <input type="radio" id="secure_payment" name="payment_option" value="secure_payment" style="width:15px;height:15px;"/>
+                                <span class="poppins500">Secure Payment</span><br/>
+                                <p style="margin-left:20px;">Our cloud-based infrastructure provides reliability, scalability, and security.</p>
+                            </label><br/>
+                        </div>
+                        <div class="radio-group poppins500">
+                            <label for="financial_reconciliation">
+                                <input type="radio" id="financial_reconciliation" name="payment_option" value="financial_reconciliation" style="width:15px;height:15px;"/>
+                                <span class="poppins500">Financial Reconciliation</span>
+                                <p style="margin-left:20px;">At our core is a powerful payment engine that makes moving easy.</p>
+                            </label>
+                        </div><br/>
+                        <div class="next poppins500">
+                            <a class="join_button"   href="#">Proceed</a>
+                        </div>
+                    </form>
+
+            </t>
+        </template>
+    </data>
+</odoo>

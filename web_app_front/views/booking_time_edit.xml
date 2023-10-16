@@ -16,22 +16,22 @@
             <form class="app_edit_booking_time" action="/booking/time/update" method="post">
                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
-                <div class="container mt-4">
-                    <div class="row">
-                        <div class="col-md-4">
+                <div class="container mt-4 poppins400">
+                    <div class="row poppins400">
+                        <div class="col-md-4  mt-2">
                             <label>Date:</label>
                             <input type="date" name="date" required="required" class="form-control"/>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4  mt-2">
                             <label>From:</label>
                             <input type="time" name="from_time" required="required" class="form-control"/>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4  mt-2">
                             <label>To:</label>
                             <input type="time" name="to_time" required="required" class="form-control"/>
                         </div>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row mt-4 ">
                         <div class="col-md-12 text-center">
                             <button type="submit" class="join_button">Save</button>
                         </div>

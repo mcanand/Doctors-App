@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cc2b0e25-7177-438e-8f66-92e9ddc2c135" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/static/src/css/all_doctors.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/apply_doctor_details.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/booking.details.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/booking_availabilty.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/department.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/doctor_account_view.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/layout.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/loading_page.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/my_account.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/precription_list.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/prescription.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/signup.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/css/today_appointment.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/add_prescription.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/all_appointments.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/all_doctors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/apply_doctor_detals.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/booking_availability.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/booking_details.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/booking_time_edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/departments.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/doctor_all_appointment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/doctor_appointment_today.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/my_account.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/prescription.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/prescription_list.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/today_appointment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Doctor_account_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/loading_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/loading_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/signup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/signup.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2WqCOWeAow6pc5LcknGEGTGRQ9c" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/ARUN/Pictures/doctors_app"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc2b0e25-7177-438e-8f66-92e9ddc2c135" name="Changes" comment="" />
+      <created>1697450691783</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1697450691783</updated>
+    </task>
+    <servers />
+  </component>
+</project>

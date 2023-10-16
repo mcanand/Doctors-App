@@ -1,0 +1,454 @@
+<odoo>
+    <template id="portal_layout_inherit" inherit_id="portal.portal_layout">
+        <xpath expr="//t[@t-call='portal.frontend_layout']" position="replace">
+            <t t-call="website.layout">
+                <!-- Your header content here -->
+                <t t-set="app_nav_in_content">
+                    <span class="poppins300" style="font-size: 18px;">
+                        My Account
+                    </span>
+                    <br/>
+                </t>
+                <!-- =================================== -->
+                <div class="container">
+                    <div class="rounded-row-container">
+                        <div class="row mt-6">
+                            <div class="col-12" style="margin-left:0px;">
+                                <div class="o_portal_my_details poppins400 f15 app_card p-2 mx-0"
+                                     style="background-color: #007ab4; color: white; width: 100%; height: 900px;  border-radius: 6%;">
+                                    <h4 class="f15" style="font-size: 18px;margin-left:10px;"><br/>Details
+                                        <a role="button" href="/my/account" class="btn btn-sm btn-link float-end f15"
+                                           style="color: white;">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </h4>
+                                    <div class="f13 mt-2" style="font-size: 18px;margin-left:10px;"
+                                         t-field="user_id.partner_id"
+                                         t-options='{"widget": "contact", "fields": [ "email", "phone", "address", "name"]}'/>
+                                    <br/>
+                                    <br/>
+
+                                    <!-- White Content Inside the First App Card -->
+                                    <div class="white-content p-3">
+                                        <div class="row mt-4">
+                                            <div class="col-6 mt-3">
+                                                <div class="centered-box">
+                                                    <div class="ml-2">
+
+                                                        <div style="margin-left:10px;margin-right:10px;">
+                                                            <t t-if="user_id.partner_id.categry_id == 'patient'">
+                                                                <a href="/today/appointment">
+                                                                    <img src="/web_app_front/static/src/images/today2.jpg"
+                                                                         alt="Link 1"
+                                                                         width="30" height="30"/>
+                                                                    <br/>
+
+                                                                    <p>Today's</p>
+                                                                </a>
+                                                            </t>
+                                                            <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                                                                <a href="/today/appointment/doctor">
+                                                                    <img src="/web_app_front/static/src/images/today2.jpg"
+                                                                         alt="Link 2"
+                                                                         width="30" height="30"/>
+                                                                    <br/>
+
+                                                                    <p>Today's</p>
+                                                                </a>
+                                                            </t>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 mt-3">
+                                                <div class="centered-box">
+                                                    <div class="ml-2">
+                                                        <t t-if="user_id.partner_id.categry_id == 'patient'">
+                                                            <a href="/all/appointment">
+                                                                <img src="/web_app_front/static/src/images/appo.jpg"
+                                                                     alt="Link 2"
+                                                                     width="30" height="30"/>
+
+                                                                <p>Appointments</p>
+                                                            </a>
+                                                        </t>
+                                                        <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                                                            <a href="/all/appointment/doctor">
+                                                                <img src="/web_app_front/static/src/images/appo.jpg"
+                                                                     alt="Link 2"
+                                                                     width="30" height="30"/>
+
+                                                                <p>Appointments</p>
+                                                            </a>
+                                                        </t>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <t t-if="user_id.partner_id.categry_id == 'patient'">
+                                                <div class="col-6 mt-3">
+                                                    <div class="centered-box" style="margin-left:10px;">
+                                                        <div class="ml-2">
+                                                            <a href="/prescription">
+                                                                <img src="/web_app_front/static/src/images/pres1.jpg"
+                                                                     alt="Link 1"
+                                                                     width="50" height="50"/>
+
+                                                                <p>Prescription</p>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <t t-if="user_id.partner_id.categry_id == 'patient'">
+                                                <div class="col-6 mt-3">
+                                                    <div class="centered-box">
+                                                        <a href="/group/sessions">
+                                                            <img src="/web_app_front/static/src/images/group1.jpg"
+                                                                 alt="Link 2"
+                                                                 width="50" height="50"/>
+
+                                                            <p>Group Sessions</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                                                <div class="col-6 mt-3">
+                                                    <div class="centered-box">
+                                                        <a href="/booking/time/edit">
+                                                            <img src="/web_app_front/static/src/images/edit2.jpg"
+                                                                 alt="Link 2"
+                                                                 width="50" height="50"/>
+
+                                                            <p>Edit Slot</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                                                <div class="col-6 mt-3">
+                                                    <div class="centered-box">
+                                                        <a href="/add/extra/slot">
+                                                            <img src="/web_app_front/static/src/images/add.jpg"
+                                                                 alt="Link 2"
+                                                                 width="30" height="30"/>
+
+                                                            <p>Add Extra Slot</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <t t-if="user_id.partner_id.categry_id == 'doctor'">
+                                                <div class="col-6 mt-3">
+                                                    <div class="centered-box">
+                                                        <a href="/create/meeting">
+                                                            <img src="/web_app_front/static/src/images/create_meeting1.jpg"
+                                                                 alt="Link 2"
+                                                                 width="30" height="30"/>
+
+                                                            <p>Create Meeting</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <div class="col-6 mt-3">
+                                                <div class="centered-box" style="margin-left:10px;">
+                                                    <a href="/my/security">
+                                                        <img src="/web_app_front/static/src/images/security1.jpg"
+                                                             alt="Link 2"
+                                                             width="30" height="30"/>
+                                                        <p>Security</p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <div class="centered-box">
+                                                    <a href="/web/session/logout">
+                                                        <img src="/web_app_front/static/src/images/logout1.jpg"
+                                                             alt="Link 1"
+                                                             width="30" height="30"/>
+
+                                                        <p>Logout</p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <div class="centered-box">
+                                                    <img src="/web_app_front/static/src/images/language.jpg"
+                                                         alt="Link 1"
+                                                         width="50" height="50"/>
+
+                                                    <!--                                                    <div id="google_translate_element"></div>-->
+
+
+                                                    <!--                                                    <script type="text/javascript">-->
+                                                    <!--                                                        function googleTranslateElementInit() {-->
+                                                    <!--                                                        new google.translate.TranslateElement({pageLanguage: 'en'},-->
+                                                    <!--                                                        'google_translate_element');-->
+                                                    <!--                                                        }-->
+                                                    <!--&lt;!&ndash;                                                        ajax.jsonRpc('/change/lang', 'call', {'lang':&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                                        google_translate_element})&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                                        .then(function (result) {&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                                        if(result){&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                                        window.location.replace(result);&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;                                                        }&ndash;&gt;-->
+                                                    <!--                                                    </script>-->
+
+                                                    <!--                                                    <script type="text/javascript"-->
+                                                    <!--                                                            src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>-->
+                                                    <div id="google_translate_element"></div>
+
+                                                    <script type="text/javascript">
+                                                        function googleTranslateElementInit() {
+                                                        new google.translate.TranslateElement({pageLanguage: 'en',
+                                                        layout: google.translate.TranslateElement.InlineLayout.SIMPLE},
+                                                        'google_translate_element');
+                                                        }
+
+                                                    </script>
+
+                                                    <script type="text/javascript"
+                                                            src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+                                                    <!--                                                    <div class="oe_language_selector">-->
+                                                    <!--                                                        <div class="oe_language_selector_dropdown">-->
+                                                    <!--                                                            <t t-call="website.language_selector"/>-->
+
+                                                    <!--                                                        </div>-->
+                                                    <!--                                                    </div>-->
+                                                </div>
+                                            </div>
+                                            <!--                                            <a href="/view/payment">payment</a>-->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Your Other Templates Go Here -->
+
+    <template id="portal_my_details_inherit" inherit_id="portal.portal_my_details">
+        <xpath expr="//t[@t-call='portal.portal_layout']" position="replace">
+            <t t-call="website.layout">
+                <!-- Your header content here -->
+                <t t-set="app_nav_in_content">
+                    <a href="javascript: window.history.back()">
+                        <i style="font-size:16px;" class="fa fa-angle-left"/>
+                    </a>
+                    <span class="poppins300 ml-2" style="font-size:18px;">
+                        My Details
+                    </span>
+                    <br/>
+                </t>
+                <!-- =================================== -->
+                <form class="app_portal_details" action="/my/account" method="post">
+                    <div class="row o_portal_details">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <t t-call="portal.portal_my_details_fields"/>
+                                <input type="hidden" name="redirect" t-att-value="redirect"/>
+                            </div>
+                            <div class="clearfix">
+                                <button type="submit" class="btn button_change_password mb32 mt32 w-100">
+                                    Confirm
+                                    <!--                                    <span class="fa fa-long-arrow-right"/>-->
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_security_inherit" inherit_id="portal.portal_my_security">
+        <xpath expr="//t[@t-call='portal.portal_layout']" position="replace">
+            <t t-call="website.layout">
+                <t t-set="app_nav_in_content">
+                    <a href="javascript: window.history.back()">
+                        <i style="font-size:16px;" class="fa fa-angle-left"/>
+                    </a>
+                    <span class="poppins300 ml-2 f15">
+                        My Security
+                    </span>
+                    <br/>
+                </t>
+                <div class="container">
+                    <div class="alert alert-danger" role="alert" t-if="get_error(errors)">
+                        <t t-esc="errors"/>
+                    </div>
+                    <section name="portal_change_password" class="poppins400">
+                        <h4 class="mt-3">Change Password</h4>
+                        <t t-set="path">password</t>
+                        <div class="alert alert-success" role="alert" t-if="success and success.get('password')">
+                            Password Updated!
+                        </div>
+                        <div class="alert alert-danger" role="alert" t-if="get_error(errors, 'password')">
+                            <t t-esc="errors['password']"/>
+                        </div>
+                        <form action="/my/security" method="post" class="mt-4">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="op" value="password"/>
+                            <div class="mb-3">
+                                <label for="current">Password:</label>
+                                <input type="password"
+                                       t-attf-class="form-control form-control-sm {{ 'is-invalid' if get_error(errors, 'password.old') else '' }}"
+                                       id="current" name="old"
+                                       autocomplete="current-password" required="required"/>
+                                <div class="invalid-feedback">
+                                    <t t-esc="get_error(errors, 'password.old')"/>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="new">New Password:</label>
+                                <input type="password"
+                                       t-attf-class="form-control form-control-sm {{ 'is-invalid' if get_error(errors, 'password.new1') else '' }}"
+                                       id="new" name="new1"
+                                       autocomplete="new-password" required="required"/>
+                                <div class="invalid-feedback">
+                                    <t t-esc="get_error(errors, 'password.new1')"/>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="new2">Verify New Password:</label>
+                                <input type="password"
+                                       t-attf-class="form-control form-control-sm {{ 'is-invalid' if get_error(errors, 'password.new2') else '' }}"
+                                       id="new2" name="new2"
+                                       autocomplete="new-password" required="required"/>
+                                <div class="invalid-feedback">
+                                    <t t-esc="get_error(errors, 'password.new2')"/>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn button_change_password mt-2">Change Password</button>
+                            </div>
+                        </form>
+                    </section>
+                    <section t-if="debug and allow_api_keys">
+                        <h3>
+                            Developer API Keys
+                            <a href="https://www.odoo.com/documentation/16.0/developer/misc/api/external_api.html#api-keys"
+                               target="_blank">
+                                <i title="Documentation" class="fa fa-fw o_button_icon fa-info-circle"></i>
+                            </a>
+                        </h3>
+                        <div>
+                            <table class="table o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Scope</th>
+                                        <th>Added On</th>
+                                        <th/>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="request.env.user.api_key_ids" t-as="key">
+                                        <tr>
+                                            <td>
+                                                <span t-field="key.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="key.scope"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="key.create_date"/>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-trash text-danger o_portal_remove_api_key" type="button"
+                                                   t-att-id="key.id"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-secondary o_portal_new_api_key">New API Key</button>
+                        </div>
+                    </section>
+                    <section name="portal_deactivate_account" groups="base.group_portal">
+                        <h3>Delete Account</h3>
+                        <t t-set="deactivate_error" t-value="get_error(errors, 'deactivate')"/>
+                        <button class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#portal_deactivate_account_modal">
+                            Delete Account
+                        </button>
+                        <div t-attf-class="modal #{'show d-block' if open_deactivate_modal else ''}"
+                             id="portal_deactivate_account_modal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title">Are you sure you want to do this?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <form action="/my/deactivate_account" method="post" class="modal-body"
+                                          id="portal_deactivate_account_form">
+                                        <div>
+                                            <div class="alert alert-danger"
+                                                 t-esc="get_error(errors, 'deactivate.other')"/>
+                                            <p class="text-muted">
+                                                Disable your account, preventing any further login.
+                                                <br/>
+                                                <b>
+                                                    <i class="fa fa-exclamation-triangle text-danger"></i>
+                                                    This action cannot be undone.
+                                                </b>
+                                            </p>
+                                            <hr/>
+                                            <p>1. Enter your password to confirm you own this account</p>
+                                            <input name="password" type="password" required="1"
+                                                   t-attf-class="form-control #{'is-invalid' if deactivate_error == 'password' else ''}"
+                                                   placeholder="Password"/>
+                                            <div t-if="deactivate_error == 'password'" class="invalid-feedback">
+                                                Wrong password.
+                                            </div>
+                                            <hr/>
+                                            <p>
+                                                2. Confirm you want to delete your account by
+                                                copying down your login (<t t-esc="env.user.login"/>).
+                                            </p>
+                                            <input name="validation" type="text" required="1"
+                                                   t-attf-class="form-control #{'is-invalid' if deactivate_error == 'validation' else ''}"/>
+                                            <div t-if="deactivate_error == 'validation'" class="invalid-feedback">
+                                                You should enter "<t t-esc="env.user.login"/>" to validate your action.
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <input type="checkbox" name="request_blacklist" id="request_blacklist"
+                                                       checked="1"/>
+                                                <label for="request_blacklist" class="ms-2 mw-100 fw-normal mt-3">
+                                                    Put my email and phone in a block list to make sure I'm never
+                                                    contacted
+                                                    again
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    </form>
+                                    <div class="modal-footer justify-content-start">
+                                        <input type="submit" class="btn btn-danger"
+                                               form="portal_deactivate_account_form"
+                                               value="Delete Account"/>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

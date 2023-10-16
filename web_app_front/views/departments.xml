@@ -12,7 +12,7 @@
                 </span>
             </t>
             <!-- =================================== -->
-            <div class="container">
+            <div class="container poppins400">
                 <div class="row mt-3">
                     <t t-foreach="departments" t-as="department">
                         <div class="col-6 pb-3 text-center">

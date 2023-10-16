@@ -6,64 +6,69 @@
 
             <t t-set="app_nav_in_content">
                 <a href="javascript: window.history.back()">
-                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                    <i style="font-size: 16px;" class="fa fa-angle-left"/>
                 </a>
-                <span class="poppins300 ml-2" style="font-size:18px;">
+                <span class="poppins300 ml-2" style="font-size: 18px;">
                     Group Sessions
                 </span>
             </t>
 
-            <div class="container">
-                <div class="row mt-3">
+            <div class="container poppins400">
+
                     <t t-if="appointments">
                         <t t-foreach="appointments" t-as="appointment">
-                            <div class="time-icon">
-                                <i class="fa fa-clock-o"></i>
-                                On
-                                <t t-esc="appointment.get('date')"/>
-                            </div>
-                            <div class="col-24 group-container">
-                                <div class="group-box">
-                                    <div class="group-information">
-                                        <div class="appointment-time">
-                                            <span class="name-doc-group">
+                            <div class="appointment-box-details">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a t-att-href="'/join/group/meetings/%s' %(appointment.get('slot_id'))">
+                                            <span class="label-time">Session Date</span>
+                                            <div class="time-icon">
+                                                <span>
+                                                    <i class="fa fa-clock-o"></i>
+                                                    <t t-esc="appointment.get('date')"/>
+                                                    <t t-esc="appointment.get('from_time')"/>
+                                                    -
+                                                    <t t-esc="appointment.get('to_time')"/>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="underline"></div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="user-image-box">
+                                            <t t-if="appointment.get('doctor_image')">
+                                                <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
+                                            </t>
+                                            <t t-else="">
+                                                <img src="/web_app_front/static/src/images/people.png"
+                                                     alt="Your Image Alt Text" width="150" height="150"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="user-information">
+                                            <span class="name-doc">
                                                 <t t-esc="appointment.get('doctor_name')"/>
                                             </span>
                                         </div>
-                                        <div class="form-group">
-                                            <span class="age-group">
+                                        <div class="user-information">
+                                            <span class="name-doc">
                                                 <t t-esc="appointment.get('department_name')"/>
                                             </span>
-
-                                            <span class="age-group">From
-                                                <t t-esc="appointment.get('from_time')"/>
-                                                to
-                                                <t t-esc="appointment.get('to_time')"/>
-                                            </span>
-                                            <span class="age-group">
-                                                Consultaion Fee :
+                                        </div>
+                                        <div class="user-information">
+                                            <span class="name-doc">
+                                                 Fee :
                                                 <t t-esc="appointment.get('amount')"/>
                                             </span>
-                                            <!--                                        </div>-->
-                                            <!--                                        <div class="form-group">-->
-
-                                            <span class="age-group">
-                                                <a class="join_button"
-                                                   t-att-href="'/join/group/meetings/%s' %(appointment.get('slot_id'))">
-                                                    Join Now
-                                                </a>
-                                            </span>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <div class="group-image-box">
-                                            <t t-if="appointment.get('doctor_image')">
-                                            <img t-attf-src="data:image/png;base64,{{appointment.get('doctor_image')}}"/>
-                                            </t>
-                                            <t t-else="">
-                                               <img src="/web_app_front/static/src/images/people.png" alt="Your Image Alt Text" width="180" height="180"/>
-                                            </t>
+                                        <div class="user-information">
+                                            <a class="join_button"
+                                               t-att-href="'/join/group/meetings/%s' %(appointment.get('slot_id'))">
+                                                Join Now
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +81,7 @@
                         </div>
                     </t>
                 </div>
-            </div>
+
         </t>
     </template>
 </odoo>

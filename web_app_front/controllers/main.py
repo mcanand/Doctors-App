@@ -2,7 +2,7 @@ from odoo import http
 from odoo.http import content_disposition, Controller, request, route
 from odoo.addons.portal.controllers.portal import CustomerPortal
 from datetime import datetime, date
-import  binascii
+
 import ast
 import base64
 
@@ -27,7 +27,7 @@ class AppController(http.Controller):
             det = {
                 'name': doctor.name,
                 'image_1920': doctor.image_1920,
-                'doctor_id' :doctor.id,
+                'doctor_id': doctor.id,
                 'department': doctor.department_id.name,
                 'rating': doctor.ratings.rating,
 
@@ -48,9 +48,9 @@ class AppController(http.Controller):
             values = {
                 'name': doctor.name,
                 'image_1920': doctor.image_1920,
-                'doctor_id':doctor.id,
-                'department':doctor.department_id.name,
-                'rating':doctor.ratings.rating,
+                'doctor_id': doctor.id,
+                'department': doctor.department_id.name,
+                'rating': doctor.ratings.rating,
             }
             doctor_list.append(values)
 
@@ -61,7 +61,7 @@ class AppController(http.Controller):
         if search_term:
             names = self._fetch_doctor_names(search_term)
         else:
-            names=self._fetch_all_doctor_data()
+            names = self._fetch_all_doctor_data()
         return names
 
     def _fetch_doctor_names(self, search_term):
@@ -69,14 +69,17 @@ class AppController(http.Controller):
             ('name', 'ilike', search_term),
         ])
 
-        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920,'doctor_id':employee.id,'department':employee.department_id.name,'rating':employee.ratings.rating,} for employee in employees]
+        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920, 'doctor_id': employee.id,
+                        'department': employee.department_id.name, 'rating': employee.ratings.rating, } for employee in
+                       employees]
         return doctor_data
 
         return doctor_data
 
     def _fetch_all_doctor_data(self):
         employees = request.env['hr.employee'].sudo().search([])  # Retrieve all employees
-        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920, 'doctor_id': employee.id,'department':employee.department_id.name,'rating':employee.ratings.rating,} for employee
+        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920, 'doctor_id': employee.id,
+                        'department': employee.department_id.name, 'rating': employee.ratings.rating, } for employee
                        in employees]
         return doctor_data
 
@@ -91,7 +94,9 @@ class AppController(http.Controller):
             ('department_id', '=', int(department_id))  # Filter by department_id
         ])
 
-        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920,'doctor_id':employee.id, 'department':employee.department_id.name,'rating':employee.ratings.rating,} for employee in employees]
+        doctor_data = [{'name': employee.name, 'image_1920': employee.image_1920, 'doctor_id': employee.id,
+                        'department': employee.department_id.name, 'rating': employee.ratings.rating, } for employee in
+                       employees]
         return doctor_data
 
     @http.route('/today/appointment', type='http', auth='public', website=True)
@@ -115,8 +120,8 @@ class AppController(http.Controller):
             ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             booking_dict = {
                 'doctor_name': booking.doctor_id.name,
-                'appointment_time': f"{appointment_time} {am_pm}" ,
-                'appointment_end': f"{appointment_end} {ams_pms}" ,
+                'appointment_time': f"{appointment_time} {am_pm}",
+                'appointment_end': f"{appointment_end} {ams_pms}",
                 'doctor_image': doctor_image_url,
                 'department': booking.doctor_id.department_id.name,
             }
@@ -176,16 +181,15 @@ class AppController(http.Controller):
 
             booking_dict = {
                 'doctor_name': booking.doctor_id.name,
-                'appointment_time':  f"{appointment_time} {am_pm}" ,
-                'appointment_end':  f"{appointment_end} {ams_pms}" ,
-                'appointment_date':booking.date,
+                'appointment_time': booking.from_time,
+                'appointment_end': f"{appointment_end} {ams_pms}",
+                'appointment_date': booking.date,
                 'doctor_image': doctor_image_url,
                 'id': booking.id,
                 'department': booking.doctor_id.department_id.name,
             }
 
             booking_details.append(booking_dict)
-
 
         for previous_booking in previous_bookings:
             doctor_image_url = previous_booking.doctor_id.image_1920 or ''
@@ -197,8 +201,8 @@ class AppController(http.Controller):
             ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             previous_booking_dict = {
                 'doctor_name': previous_booking.doctor_id.name,
-                'appointment_time':  f"{appointment_time} {am_pm}" ,
-                'appointment_date': previous_booking.date  ,
+                'appointment_time': f"{appointment_time} {am_pm}",
+                'appointment_date': previous_booking.date,
                 'doctor_image': doctor_image_url,
                 'department': previous_booking.doctor_id.department_id.name,
             }
@@ -220,15 +224,11 @@ class AppController(http.Controller):
 
         return request.render('web_app_front.booking_details', values)
 
-
-
-
     @http.route('/booking/time/edit', type='http', auth='user', website=True)
     def edit_booking_time(self, **kw):
         return http.request.render('web_app_front.edit_booking_time_template')
 
-
-    @http.route('/booking/time/update', type='http', auth='public', website=True,)
+    @http.route('/booking/time/update', type='http', auth='public', website=True, )
     def update_booking_time(self, **kw):
         doctor_id = request.env.user.employee_id.id
         doctor = request.env['hr.employee'].sudo().browse(doctor_id)
@@ -239,11 +239,11 @@ class AppController(http.Controller):
         to_time_str = to_time.replace(':', '.')
         slot = request.env['doctor.time.slots'].sudo().search([('date', '=', date)])
         if slot:
-           doctor.write({
-            'date': date,
-            'time_from': from_time_str,
-            'time_to': to_time_str,
-           })
+            doctor.write({
+                'date': date,
+                'time_from': from_time_str,
+                'time_to': to_time_str,
+            })
         else:
             return "please enter a valid date to change the slot time."
         return request.redirect('/my')
@@ -273,9 +273,9 @@ class AppController(http.Controller):
             ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             booking_dict = {
                 'patient_name': patient_name,
-                'group_meeting':booking.group_meeting,
+                'group_meeting': booking.group_meeting,
                 'patient_id': partner_ids,
-                'appointment_time': f"{appointment_time} {am_pm}" ,
+                'appointment_time': booking.from_time,
                 'appointment_end': f"{appointment_end} {ams_pms}",
                 'id': booking.id,
             }
@@ -284,8 +284,8 @@ class AppController(http.Controller):
             else:
                 booking_details.append(booking_dict)
 
-        return request.render('web_app_front.today_appointment_doctor', {'appointments': booking_details,'group_patient_appointments': group_patient_bookings})
-
+        return request.render('web_app_front.today_appointment_doctor',
+                              {'appointments': booking_details, 'group_patient_appointments': group_patient_bookings})
 
     @route('/all/appointment/doctor', type='http', auth='public', website=True)
     def all_appointments_doctor(self, **kwargs):
@@ -302,7 +302,7 @@ class AppController(http.Controller):
             ('booking_button', '=', True),
             ('date', '<', today),
         ])
-        doctor_name=doctor_id.name
+        doctor_name = doctor_id.name
         booking_details = []
         previous_booking_details = []
 
@@ -320,9 +320,9 @@ class AppController(http.Controller):
             booking_dict = {
 
                 'patient_name': patient_name,
-                'group_meeting':booking.group_meeting,
-                'appointment_time': f"{appointment_time} {am_pm}",
-                'appointment_end':  f"{appointment_end} {ams_pms}",
+                'group_meeting': booking.group_meeting,
+                'appointment_time': booking.from_time,
+                'appointment_end': f"{appointment_end} {ams_pms}",
                 'id': booking.id,
                 'date': booking.date,
                 'patient_id': partner_ids,
@@ -343,7 +343,7 @@ class AppController(http.Controller):
             ams_pms = 'AM' if 0 <= appointment_hours < 12 else 'PM'
             previous_booking_dict = {
                 'patient_name': patient_name,
-                'appointment_time': f"{appointment_time} {am_pm}",
+                'appointment_time': previous_booking.from_time,
                 'appointment_end': f"{appointment_end} {ams_pms}",
                 'date': previous_booking.date,
                 'patient_id': partner_ids,
@@ -354,7 +354,7 @@ class AppController(http.Controller):
 
         return http.request.render('web_app_front.all_appointment_doctor', {
             'appointments': booking_details,
-            'previous_appointments': previous_booking_details,'doctor_name':doctor_name,
+            'previous_appointments': previous_booking_details, 'doctor_name': doctor_name,
         })
 
     @http.route(['/doctor/information/pick'], type='json', auth='public', methods=['POST'])
@@ -383,8 +383,6 @@ class AppController(http.Controller):
                 'error': ('Doctor not found.'),
             }
 
-
-
     @http.route(['/booking/availability/<int:id>'], type='http', auth='public', website=True)
     def booking_availability(self, id, **kw):
         today = date.today()
@@ -395,12 +393,10 @@ class AppController(http.Controller):
         ])
         doctors = request.env['hr.employee'].sudo().browse(id)
 
-
         booking_details = []
-        amount= doctors.one_hour_fee
-        doctor=doctors.name
-        department =doctors.department_id.name
-
+        amount = doctors.one_hour_fee
+        doctor = doctors.name
+        department = doctors.department_id.name
 
         for slot in available_slots:
             appointment_time = slot.from_time
@@ -415,26 +411,27 @@ class AppController(http.Controller):
                 'from_time': f"{appointment_time} {am_pm}",
                 'to_time': f"{appointment_end} {ams_pms}",
                 'slot_id': slot.id,
-                'amount':(slot.amount)/2,
+                'amount': (slot.amount) / 2,
 
             }
             booking_details.append(doctor_details)
 
-        return http.request.render('web_app_front.booking_availability', {'available_slots': booking_details,'department':department,'doctor':doctor,'one_hour_fee':amount})
-
-
+        return http.request.render('web_app_front.booking_availability',
+                                   {'available_slots': booking_details, 'department': department, 'doctor': doctor,
+                                    'one_hour_fee': amount})
 
     @http.route(['/prescription/add/<string:id>'], type='http', auth='user', website=True)
-    def add_prescription(self,id, **kw):
+    def add_prescription(self, id, **kw):
         val = ast.literal_eval(id)
         partner_count = len(val)
-        if partner_count == 1 :
-         patient_details = request.env['res.partner'].sudo().browse(val)
+        if partner_count == 1:
+            patient_details = request.env['res.partner'].sudo().browse(val)
         else:
-            patient_details =None
-        current_date=date.today()
-        return http.request.render('web_app_front.add_prescription',{'patient_details' :patient_details,'partner_count': partner_count,'patient_id':id,'current_date' :current_date})
-
+            patient_details = None
+        current_date = date.today()
+        return http.request.render('web_app_front.add_prescription',
+                                   {'patient_details': patient_details, 'partner_count': partner_count,
+                                    'patient_id': id, 'current_date': current_date})
 
     @http.route('/prescription/save', type='http', auth='user', website=True, csrf=True)
     def save_prescription(self, **kw):
@@ -529,19 +526,28 @@ class AppController(http.Controller):
 
         return None
 
+    # @http.route('/set/lang', type='json', auth="public", methods=['POST'], website=True)
+    # def set_lang(self, lang, **kwargs):
+    #     if lang:
+    #        self.switch_lang()
+    #     return True
 
-
-
-    @http.route(['/book/now'], type='json', auth='public', website=True, methods=['POST'])
+    @http.route(['/book/now/<int:slot_id>'], type='http', auth='public', website=True)
     def book_now(self, slot_id, **kw):
         Slot = request.env['doctor.time.slots'].sudo()
         slot = Slot.browse(int(slot_id))
         user = request.env.user
-        if slot:
-            payment_link = slot.get_payment_link(user)
-            return payment_link
-        else:
-            return False
+        patient_id = request.env.user.partner_id.id
+        slot.write({
+            'partner_ids': [(4, patient_id, 0)],
+        })
+        slot.on_partner_ids_change()
+        slot.get_payment_link(user)
+        return http.request.render('web_app_front.view_payment_page')
+        # if slot:
+        #     payment_link = slot.get_payment_link(user)
+        # else:
+        #     return False
         # if not slot.partner_ids:
         #     patient_id = request.env.user.partner_id.id
         #     slot.write({
@@ -556,7 +562,7 @@ class AppController(http.Controller):
         countries = http.request.env['res.country'].sudo().search(
             [('code', '=', 'IN')])  # Get country with code 'IN' for India
         india_states = http.request.env['res.country.state'].sudo().search([('country_id', 'in', countries.ids)])
-        return http.request.render('web_app_front.enter_details',{'departments': departments, 'states': india_states})
+        return http.request.render('web_app_front.enter_details', {'departments': departments, 'states': india_states})
 
     @http.route('/doctor/details/save', type='http', auth='user', website=True)
     def add_doctor(self, **kw):
@@ -595,7 +601,7 @@ class AppController(http.Controller):
             ('group_meeting', '!=', False),
             ('date', '>=', today),
         ])
-        booking_details=[]
+        booking_details = []
         for slot in slots:
             appointment_time = slot.from_time
             appointment_hour = int(appointment_time.split(':')[0])
@@ -607,36 +613,30 @@ class AppController(http.Controller):
                 'doctor_name': slot.doctor_id.name,
                 'department_name': slot.doctor_id.department_id.name,
                 'date': slot.date,
-                'doctor_image':slot.doctor_id.image_1920,
-                'from_time': f"{appointment_time} {am_pm}",
+                'doctor_image': slot.doctor_id.image_1920,
+                'from_time': slot.from_time,
                 'to_time': f"{appointment_end} {ams_pms}",
                 'slot_id': slot.id,
-                'amount':(slot.amount)/2,
+                'amount': (slot.amount) / 2,
 
             }
             booking_details.append(doctor_details)
-        return http.request.render('web_app_front.group_details', {'appointments' : booking_details})
-
-
+        return http.request.render('web_app_front.group_details', {'appointments': booking_details})
 
     @http.route(['/join/group/meetings/<int:slot_id>'], type='http', auth='public', website=True)
     def join_group_meeting(self, slot_id, **kw):
         group_slot = request.env['doctor.time.slots'].sudo().browse(slot_id)
         partner_id = request.env.user.partner_id.id
         group_slot.write({'partner_ids': [(4, partner_id)]})
-
-
-        return request.redirect('/group/sessions')
-
+        return http.request.render('web_app_front.view_payment_page')
 
     @http.route('/create/meeting', type='http', auth='public', website=True)
     def create_meeting_date(self, **kw):
         return http.request.render('web_app_front.create_meeting')
 
-
     @http.route('/create/new/meeting', type='http', auth='public', website=True)
     def create_booking_time(self, **kw):
-        employee =request.env.user.employee_id
+        employee = request.env.user.employee_id
         date = kw.get('date')
         from_time = kw.get('from_time')
         to_time = kw.get('to_time')
@@ -673,21 +673,21 @@ class AppController(http.Controller):
 
             # Check for overlapping slots
         overlapping_slots = request.env['doctor.time.slots'].search([
-                ('doctor_id', '=', employee.id),
-                ('date', '=', date),
-                '|', '|',
-                ('from_time', '<', from_time),
-                ('to_time', '>', from_time),
-                ('from_time', '<', to_time),
-                ('to_time', '>', to_time),
-            ])
+            ('doctor_id', '=', employee.id),
+            ('date', '=', date),
+            '|', '|',
+            ('from_time', '<', from_time),
+            ('to_time', '>', from_time),
+            ('from_time', '<', to_time),
+            ('to_time', '>', to_time),
+        ])
 
         if overlapping_slots:
-                return "There is a booking. Please choose another time."
+            return "There is a booking. Please choose another time."
 
 
         else:
-            #Create a new slot
+            # Create a new slot
             new_slot = request.env['doctor.time.slots'].create({
 
                 'doctor_id': employee.id,
@@ -699,7 +699,6 @@ class AppController(http.Controller):
             })
 
         return request.redirect('/my')
-
 
     @http.route('/add/extra/slot', type='http', auth='public', website=True)
     def create_meeting(self, **kw):
@@ -715,13 +714,11 @@ class AppController(http.Controller):
         doctor = request.env['hr.employee'].sudo().browse(employee.id)
         date_obj = datetime.strptime(date, '%Y-%m-%d').date()
 
-
         # Check if the current day is either holiday1 or holiday2
         is_holiday = (
                 date_obj
                 .weekday() == int(doctor.holiday1) or date_obj.weekday() == int(
             doctor.holiday2))
-
 
         # If it's not a holiday, create slots
         if is_holiday:
@@ -734,7 +731,7 @@ class AppController(http.Controller):
         ], limit=1)
 
         if existing_slot:
-                return "This time slot is already created. Please choose another time."
+            return "This time slot is already created. Please choose another time."
 
         overlapping_slots = request.env['doctor.time.slots'].search([
             ('doctor_id', '=', employee.id),
@@ -762,8 +759,6 @@ class AppController(http.Controller):
             })
 
         return request.redirect('/my')
-
-
 
     @http.route(['/rate/doctor'], type='json', auth="public", methods=['POST'])
     def submit_rating(self, rating, id, review, **kw):
@@ -793,6 +788,10 @@ class AppController(http.Controller):
             })
 
         return {'success': True, 'message': 'Rating submitted successfully.'}
+
+    @http.route('/view/payment', type='http', auth='public', website=True)
+    def view_payment(self, **kw):
+        return http.request.render('web_app_front.view_payment_page')
 
 
 class CustomerPortalInherit(CustomerPortal):
