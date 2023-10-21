@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PrintButton" owl="1">
+        <div class="control-button" t-on-click="ClickToPrint()">
+                <i class="fa fa-print" role="img" aria-label="print" title="print"/>
+                Print
+        </div>
+    </t>
+</templates>

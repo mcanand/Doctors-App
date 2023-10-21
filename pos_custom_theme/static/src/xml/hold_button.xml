@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="HoldButton" owl="1">
+        <div class="control-button" t-on-click="env.pos.add_new_order()">
+            <i class="fa fa-hand-stop-o" role="img" aria-label="FastPay" title="FastPay"/>
+            Hold
+        </div>
+    </t>
+</templates>

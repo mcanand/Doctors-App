@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="RecallButton" owl="1">
+         <div class="control-button" t-on-click="showScreen('TicketScreen')">
+             <i class="fa fa-rotate-right" role="img" aria-label="recall" title="recall"/>
+             Recall
+         </div>
+    </t>
+</templates>

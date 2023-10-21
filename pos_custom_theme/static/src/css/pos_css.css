@@ -1,0 +1,109 @@
+.pos .subpads .control-button {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+
+    background: #e2e2e2;
+    border: 1px solid ##bfbfbf;
+    display: inline-block;
+    line-height: 38px;
+    padding: 10px !important;
+    text-align: center;
+    /*border-radius: 0px !important;*/
+    font-size: 18px;
+    margin-left: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all linear 150ms;
+}
+.pos .subpads .control-button:hover{
+    background-color: #eee;
+}
+.pos .numpad{
+    width:380px !important;
+}
+.pos .numpad button{
+    width:6.7vw !important;
+    height: 6vw !important;
+    transition: none !important;
+}
+.pos .subpads .control-buttons{
+    margin-bottom: 0px !important;
+    padding:10px !important;
+    margin-top: -4.7vw;
+}
+.pos .rightpane{
+    width:675px !important;
+}
+.pos .leftpane{
+    max-width: 675px !important;
+}
+.pos .actionpadnew{
+    padding:6px;
+    display: -webkit-flex;
+    display: flex;
+    background-color: #f0eeee;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-bottom: -6px;
+}
+
+.pos .actionpadnew button {
+    flex-grow: 1;
+    width: 26%;
+    background: #e2e2e2;
+    border: 1px solid #bfbfbf;
+    display: inline-block;
+    /* line-height: 38px; */
+    padding: 10px !important;
+    text-align: center;
+    border-radius: 0px;
+    font-size: 18px;
+    margin-left: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all linear 150ms;
+}
+.pos .actionpadnew button:hover{
+    background-color:#eee;
+}
+.pos .total_section {
+    /* padding: 6px; */
+    /* display: -webkit-flex; */
+    position: absolute;
+    display: flex;
+    padding: 0px;
+    background-color: #f0eeee;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    /* margin-bottom: -6px; */
+    bottom: 0;
+    width: 100%;
+}
+.pos .total_section button{
+    flex-grow: 1;
+    width: 26%;
+    background: #e2e2e2;
+    border: 1px solid #bfbfbf;
+    display: inline-block;
+    /* line-height: 38px; */
+    padding: 10px !important;
+    text-align: center;
+    border-radius: 0px;
+    font-size: 18px;
+    /*margin-left: 6px;*/
+    /*margin-bottom: 6px;*/
+    cursor: pointer;
+    overflow: hidden;
+    transition: all linear 150ms;
+}
+
+.pos .orderlines{
+    height:88%;
+    overflow-y:scroll;
+}
+.pos .order{
+    max-width:100% !important;
+    height:97%;
+}

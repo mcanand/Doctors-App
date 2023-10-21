@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+     <t t-inherit="point_of_sale.ActionpadWidget" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('actionpad')]" position="replace">
+            <div class="actionpad ">
+                <button class="button set-customer" t-att-class="{'decentered': isLongName}"
+                        t-on-click="trigger('click-customer')">
+                    <t t-if="!env.isMobile"><i class="fa fa-user" role="img" aria-label="Customer" title="Customer" /></t>
+                    <t t-if="client">
+                        <t t-esc="client.name"/>
+                    </t>
+                    <t t-else="">
+                        Customer
+                    </t>
+                </button>
+                <button class="button pay" t-on-click="trigger(props.actionToTrigger or 'click-pay')">
+                    <div class="pay-circle" t-att-class="{ 'highlight': props.isActionButtonHighlighted }">
+                        <i class="fa fa-chevron-right" role="img" aria-label="Pay" title="Pay"/>
+                    </div>
+                    <t t-esc="props.actionName"/>
+                </button>
+                <button t-if="env.isMobile" class="button back-button" t-on-click="trigger('switchpane')">
+                    <i class="fa fa-angle-double-left"/>
+                    Back
+                </button>
+            </div>
+        </xpath>
+     </t>
+    <t t-name="ActionPadNew" owl="1">
+        <div class="actionpadnew">
+            <button class="button order-number" width="50">
+                Order No<br/>
+                <t t-esc="env.pos.get_order().name"/>
+            </button>
+             <button class="button order-date" width="50">
+                 Invoice Date<br/>
+                <t t-esc="env.pos.get_order().creation_date.toLocaleDateString()"/>
+            </button>
+
+            <button class="button set-customer" t-att-class="{'decentered': isLongName}"
+                        t-on-click="trigger('click-customer')">
+                    <t t-if="!env.isMobile">
+                        <i class="fa fa-user" role="img" aria-label="Customer" title="Customer" /> -
+                    </t>
+                    <t t-if="env.pos.get_client()">
+                         <t t-esc="env.pos.get_client().name"/>
+                    </t>
+                    <t t-else="">
+                        Customer
+                    </t>
+            </button>
+            <br/>
+            <button class="button add-description" t-on-click="ClickAddLineDescription()">
+                <i class="fa fa-pencil"/>
+            </button>
+            <button class="button product-info" t-on-click="ClickShowProductInfo()">
+                <i class="fa fa-info-circle"/>
+            </button>
+            <button class="button orders-show" t-on-click="ClickShowOrders()">
+                <i class="fa fa-folder"/>
+            </button>
+        </div>
+    </t>
+</templates>
