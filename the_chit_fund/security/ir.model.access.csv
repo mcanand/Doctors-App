@@ -8,3 +8,4 @@ access_chit_partner_month_due,chit.partner.month.due,model_chit_partner_month_du
 access_update_winner,update.winner,model_update_winner,,1,1,1,1
 access_pay_due,pay.due,model_pay_due,,1,1,1,1
 access_payment_daily,payment.daily,model_payment_daily,,1,1,1,1
+access_chit_enquiry,chit.enquiry,model_chit_enquiry,,1,1,1,1

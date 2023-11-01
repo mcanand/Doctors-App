@@ -5,7 +5,7 @@
     'website': '',
     'category': '',
     'author': 'ANAND MC',
-    'summary': 'Doctor Website',
+    'summary': 'Chit Website',
     'depends': ['the_chit_fund', 'portal', 'website', ],
     'data': [
         'views/home.xml',

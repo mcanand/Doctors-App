@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <!-- Chit Fund Enquiry Form View -->
+        <record id="view_chit_fund_enquiry_form" model="ir.ui.view">
+            <field name="name">chit.fund.enquiry.form</field>
+            <field name="model">chit.enquiry</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="chit_fund_id"/>
+                            <field name="message" widget="text" options="{'style': 'height: 100px;'}"/>
+                        </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+               <record id="view_chit_fund_enquiry_tree" model="ir.ui.view">
+            <field name="name">chit.fund.enquiry.tree</field>
+            <field name="model">chit.enquiry</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="chit_fund_id"/>
+                    <field name="confirm"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Chit Fund Enquiry Action -->
+        <record id="action_chit_fund_enquiry" model="ir.actions.act_window">
+            <field name="name">Chit Fund Enquiries</field>
+            <field name="res_model">chit.enquiry</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+         <menuitem id="chit_fund_menu_item" name="Chit Fund" sequence="1">
+         <menuitem id="chit_fund_enquiry" name="Enquiries" action="action_chit_fund_enquiry" sequence="1"/>
+         </menuitem>
+
+    </data>
+</odoo>

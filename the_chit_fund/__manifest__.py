@@ -20,6 +20,7 @@
         'views/chit_partner_month_due.xml',
         'views/res_partner.xml',
         'views/res_company.xml',
+        'views/chit_enquiry.xml',
     ],
     'assets': {
         'web.assets_backend': [
