@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="record_rule_internal_user_copany" model="ir.rule">
+        <field name="name">Internal User Chit Fund Record Rule</field>
+        <field name="model_id" ref="model_chit_fund"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="contact_visible_only_company_and_user" model="ir.rule">
+        <field name="name">User can only see his / her contacts</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">['|',('user_ids','in',user.id),('company_id','in',company_ids)]</field>
+    </record>
+</odoo>

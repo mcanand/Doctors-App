@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="chit_month_partner_form" model="ir.ui.view">
+        <field name="name">chit.month.partner.form</field>
+        <field name="model">chit.month.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="chit_partner_id"/>
+                            <field name="month"/>
+                        </group>
+                        <group>
+                            <field name="payable"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="chit_month_partner_tree" model="ir.ui.view">
+        <field name="name">chit.month.partner.tree</field>
+        <field name="model">chit.month.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Chit Month Members" delete="0" limit="150">
+                <field name="chit_partner_id"/>
+                <field name="month"/>
+                <field name="payable"/>
+                <field name="has_payment_due" invisible="1"/>
+                <field name="state" widget="badge" decoration-danger="state == 'unpaid'" decoration-success="state == 'paid'" decoration-info="state == 'later'"/>
+                <field name="total_payment_due" attrs="{'invisible': [('has_payment_due','=',False)]}"/>
+                <button type="object" name="action_mark_paid" icon="fa-check" class="btn-success" string="Paid" attrs="{'invisible': [('state','in',['paid','later'])]}"/>
+                <button type="object" name="action_mark_not_paid" icon="fa-times" class="btn" string="Not Paid" attrs="{'invisible': [('state','=','unpaid')]}"/>
+                <button type="object" name="action_mark_pay_later" icon="fa-arrow-right" class="btn btn-secondary" string="Pay Later" attrs="{'invisible': [('state','in',['later','paid'])]}"/>
+                <button type="object" name="action_pay_due" class="btn btn-warning" string="Payment Dues" attrs="{'invisible': [('has_payment_due','=',False)]}"/>
+
+
+            </tree>
+        </field>
+    </record>
+</odoo>

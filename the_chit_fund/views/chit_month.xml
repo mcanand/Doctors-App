@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="chit_month_form" model="ir.ui.view">
+        <field name="name">chit.month.form</field>
+        <field name="model">chit.month</field>
+        <field name="arch" type="xml">
+            <form string="Current Month Details" name="Current Month Details" duplicate="0">
+                <header>
+                    <button name="action_update_winner" string="Update Winner" states="live" type="object" class="oe_highlight"
+                            data-hotkey="c"/>
+                    <button name="action_close_this_month" string="Close this Month" type="object" class="oe_highlight"
+                            data-hotkey="c" attrs="{'invisible': [('state','!=','live')]}"/>
+                    <button name="action_make_live" states="draft" string="Go" type="object" class="oe_highlight"
+                            data-hotkey="c"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,live,done"/>
+                </header>
+                <sheet>
+                    <h1> <field name="name"/></h1>
+                    <group>
+                        <group>
+                            <field name="month"/>
+                            <field name="total_amount"/>
+                            <field name="payable"/>
+                            <field name="total_deduction"/>
+                            <field name="chit_commission_amount"/>
+                            <field name="starting_bid_amount"/>
+                            <field name="bid_amount"/>
+                        </group>
+                        <group>
+                            <field name="won_amount"/>
+                            <field name="chit_partner_id" widget="selection" String="Won Member"/>
+<!--                            <field name="chit_fund_id"/>-->
+                            <field name="chit_partner_ids" invisible="1"/>
+                            <field name="balance_amount"/>
+                            <field name="draw_type" widget="badge"
+                                           decoration-info="draw_type == 'lucky'"
+                                           decoration-success="draw_type == 'bid'"/>
+                            <field name="lucky_draw_till" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Member Details">
+                            <field name="chit_month_partner_ids" widget="one2many" readonly="True"/>
+                        </page>
+                        <page string="Members Bids" attrs="{'invisible': [('draw_type', '=', 'lucky')]}">
+                            <field name="chit_month_bid_ids" widget="one2many"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="chit_month_tree" model="ir.ui.view">
+        <field name="name">chit.month.tree</field>
+        <field name="model">chit.month</field>
+        <field name="arch" type="xml">
+            <tree string="Chit Fund By Month"  duplicate="0">
+                <field name="name"/>
+                <field name="chit_partner_id" string="Won Member"/>
+                <field name="month"/>
+                <field name="draw_type" widget="badge"
+                                           decoration-info="draw_type == 'lucky'"
+                                           decoration-success="draw_type == 'bid'"/>
+                <field name="payable"/>
+                <field name="won_amount"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

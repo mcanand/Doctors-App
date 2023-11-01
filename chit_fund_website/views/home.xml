@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="website_my_homepage" inherit_id="website.homepage">
+        <xpath expr="//div" position="after">
+            <!--            <main>-->
+
+            <div id="wrap" class="oe_structure oe_empty" data-oe-model="ir.ui.view" data-oe-id="492"
+                 data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/div[1]">
+                <section class="s_carousel_wrapper" data-vxml="001" data-snippet="s_carousel" data-name="Carousel">
+                    <div class="s_carousel s_carousel_default carousel slide" data-bs-interval="10000"
+                         id="myCarousel1698227862733" style="background-image: none;">
+
+                        <ol class="carousel-indicators o_we_no_overlay">
+                            <li data-bs-slide-to="0" class="active" data-bs-target="#myCarousel1698227862733"></li>
+                            <li data-bs-slide-to="1" data-bs-target="#myCarousel1698227862733"></li>
+                            <li data-bs-slide-to="2" data-bs-target="#myCarousel1698227862733"></li>
+                        </ol>
+
+                        <div class="carousel-inner">
+                            <!--    <div class="carousel-item pt152 pb152 oe_img_bg o_bg_img_center o_colored_level active"-->
+                            <!--         style="background-image: url('/web/image/website.s_carousel_default_image_1');"-->
+                            <!--         data-name="Slide">-->
+                            <div class="carousel-item pt152 pb152 oe_img_bg o_bg_img_center o_colored_level active"
+                                 style="background-image: url('/chit_fund_website/static/src/image/slide7.jpg');"
+                                 data-name="Slide">
+                                <!-- ... Content ... -->
+
+
+                                <div class="container oe_unremovable">
+                                    <div class="row content">
+                                        <div class="carousel-content col-lg-6 o_colored_level">
+                                            <h2>
+                                                <font style="font-size: 62px;" class="o_default_snippet_text">Charting
+                                                    Your Journey to Financial Freedom
+                                                </font>
+                                            </h2>
+                                            <p class="lead o_default_snippet_text">
+                                                Discover How Our Chit Fund Solutions Empower You to Achieve Financial
+                                                Independence with Ease.
+                                            </p>
+                                            <p>
+                                                <a href="/contactus"
+                                                   class="btn btn-primary mb-2 o_default_snippet_text">
+                                                    Contact Us to Start Your Financial Freedom Adventure
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!--                        <div class="carousel-inner">-->
+
+                            <!--                            <div class="carousel-item pt152 pb152 oe_img_bg o_bg_img_center o_colored_level active"-->
+                            <!--                                 style="background-image: url(&#34;/web/image/website.s_carousel_default_image_1&#34;);"-->
+                            <!--                                 data-name="Slide">-->
+                            <!--                                <div class="container oe_unremovable">-->
+                            <!--                                    <div class="row content">-->
+                            <!--                                        <div class="carousel-content col-lg-6 o_colored_level">-->
+                            <!--                                            <h2>-->
+                            <!--                                                <font style="font-size: 62px;" class="o_default_snippet_text">Your Path-->
+                            <!--                                                    to Financial Freedom-->
+                            <!--                                                </font>-->
+                            <!--                                            </h2>-->
+                            <!--                                            <p class="lead o_default_snippet_text">-->
+
+                            <!--                                                How Our Chit Fund Solutions Empower You.-->
+                            <!--                                                Achieving Your Financial Goals with Ease-->
+                            <!--                                            </p>-->
+                            <!--                                            <p>-->
+                            <!--                                                <a href="/contactus"-->
+                            <!--                                                   class="btn btn-primary mb-2 o_default_snippet_text">Contact us-->
+                            <!--                                                </a>-->
+                            <!--                                            </p>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                              style="background-image: url('/web/image/website.s_carousel_default_image_2');"-->
+                            <div class="carousel-item pt96 pb96 oe_img_bg o_bg_img_center o_colored_level"
+                                 style="background-image: url('/chit_fund_website/static/src/image/slide6.jpg');"
+
+                                 data-name="Slide">
+                                <div class="container oe_unremovable">
+                                    <div class="row content">
+                                        <div class="carousel-content col-lg-8 offset-lg-2 bg-black-50 text-center pt48 pb40 o_colored_level">
+                                            <h2 style="font-size: 62px;" class="o_default_snippet_text">Unlock Your
+                                                Financial Potential
+                                            </h2>
+                                            <div class="s_hr pt8 pb24" data-snippet="s_hr" data-name="Separator">
+                                                <hr class="w-25 mx-auto"
+                                                    style="border-top-width: 1px; border-top-style: solid;"/>
+                                            </div>
+                                            <p class="lead o_default_snippet_text">Maximizing Returns and Smart
+                                                Strategies for Chit Fund Success. Our Commitment to Help You Grow Your
+                                                Wealth.
+                                            </p>
+                                            <p>
+                                                <a href="/" class="btn btn-primary mb-2 o_default_snippet_text">
+                                                    Start Your Wealth Journey
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--                            <div class="carousel-item pt96 pb96 oe_img_bg o_bg_img_center o_colored_level"-->
+                            <!--                                 style="background-image: url(&#34;/web/image/website.s_carousel_default_image_2&#34;);"-->
+                            <!--                                 data-name="Slide">-->
+                            <!--                                <div class="container oe_unremovable">-->
+                            <!--                                    <div class="row content">-->
+                            <!--                                        <div class="carousel-content col-lg-8 offset-lg-2 bg-black-50 text-center pt48 pb40 o_colored_level">-->
+                            <!--                                            <h2 style="font-size: 62px;" class="o_default_snippet_text">Clever-->
+                            <!--                                                Slogan-->
+                            <!--                                            </h2>-->
+                            <!--                                            <div class="s_hr pt8 pb24" data-snippet="s_hr" data-name="Separator">-->
+                            <!--                                                <hr class="w-25 mx-auto"-->
+                            <!--                                                    style="border-top-width: 1px; border-top-style: solid;"/>-->
+                            <!--                                            </div>-->
+                            <!--                                            <p class="lead o_default_snippet_text">Maximizing Returns"-->
+                            <!--                                                <br/>-->
+                            <!--                                                Smart Strategies for Chit Fund Success.-->
+                            <!--                                                Our Commitment to Help You Grow Your Wealth-->
+                            <!--                                            </p>-->
+                            <!--                                            <p>-->
+                            <!--                                                <a href="/" class="btn btn-primary mb-2 o_default_snippet_text">-->
+                            <!--                                                    Start your journey-->
+                            <!--                                                </a>-->
+                            <!--                                            </p>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                            <!--                            <div class="carousel-item pt128 pb128 oe_img_bg o_bg_img_center o_colored_level"-->
+                            <!--                                 style="background-image: url(&#34;/web/image/website.s_carousel_default_image_3&#34;);"-->
+                            <!--                                 data-name="Slide">-->
+                            <!--                                <div class="container oe_unremovable">-->
+                            <!--                                    <div class="row content">-->
+                            <!--                                        <div class="carousel-content col-lg-6 offset-lg-6 o_colored_level">-->
+                            <!--                                            <h2>-->
+                            <!--                                                <font style="font-size: 62px; background-color: rgb(255, 255, 255);"-->
+                            <!--                                                      class="o_default_snippet_text">Customer-Centric Approach-->
+                            <!--                                                </font>-->
+                            <!--                                            </h2>-->
+                            <!--                                            <h4>-->
+                            <!--                                                <font style="background-color: rgb(255, 255, 255);"-->
+                            <!--                                                      class="o_default_snippet_text">Putting You First in Everything We-->
+                            <!--                                                    Do,-->
+                            <!--                                                    Our Dedication to Your Financial Well-Being-->
+                            <!--                                                </font>-->
+                            <!--                                            </h4>-->
+                            <!--                                            <p>-->
+                            <!--                                                <br/>-->
+                            <!--                                            </p>-->
+                            <!--                                            <p class="o_default_snippet_text">Become Part of the Modern Chit Fund-->
+                            <!--                                                Ecosystem.-->
+                            <!--                                                Your Journey Towards Financial Freedom Starts Here-->
+                            <!--                                            </p>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                        </div>-->
+                            <!--                               style="background-image: url('/web/image/website.s_carousel_default_image_3');"-->
+                            <div class="carousel-item pt128 pb128 oe_img_bg o_bg_img_center o_colored_level"
+                                 style="background-image: url('/chit_fund_website/static/src/image/slide2.jpg');"
+                                 data-name="Slide">
+                                <div class="container oe_unremovable">
+                                    <div class="row content">
+                                        <div class="carousel-content col-lg-6 offset-lg-6 o_colored_level">
+                                            <h2>
+                                                <font style="font-size: 62px; background-color: rgb(255, 255, 255);"
+                                                      class="o_default_snippet_text">A Customer-Centric Approach
+                                                </font>
+                                            </h2>
+                                            <h4>
+                                                <font style="background-color: rgb(255, 255, 255);"
+                                                      class="o_default_snippet_text">Our Commitment to Your Financial
+                                                    Well-Being
+                                                </font>
+                                            </h4>
+                                            <p>
+                                                <br/>
+                                            </p>
+                                            <p class="o_default_snippet_text">At the heart of our service is you, our
+                                                valued customer. We put your
+                                                financial well-being at the forefront of everything we do. With a
+                                                dedication to excellence and a
+                                                relentless focus on your needs, we're here to help you achieve your
+                                                financial goals. Join us in the
+                                                modern chit fund ecosystem and embark on your journey towards financial
+                                                freedom.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a class="carousel-control-prev o_not_editable o_we_no_overlay" data-bs-slide="prev"
+                           role="img" aria-label="Previous" title="Previous" href="#myCarousel1698227862733">
+                            <span class="carousel-control-prev-icon"></span>
+                            <span class="visually-hidden o_default_snippet_text">Previous</span>
+                        </a>
+                        <a class="carousel-control-next o_not_editable o_we_no_overlay" data-bs-slide="next"
+                           role="img" aria-label="Next" title="Next" href="#myCarousel1698227862733">
+                            <span class="carousel-control-next-icon"></span>
+                            <span class="visually-hidden o_default_snippet_text">Next</span>
+                        </a>
+                    </div>
+                </section>
+                <section class="s_website_form pt16 pb16 o_colored_level" data-vcss="001"
+                         data-snippet="s_website_form" data-name="Form" style="background-image: none;">
+                    <div class="container">
+                        <br/>
+                        <h3>Enquiry</h3>
+                        <br/>
+                        <form action="/d" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <!--                            <form action="/enquiry" method="post" enctype="multipart/form-data"-->
+                            <!--                                  class="o_mark_required" data-mark="*" data-pre-fill="true"-->
+                            <!--                                  data-success-mode="redirect" data-success-page="/contactus-thank-you"-->
+                            <!--                                  data-model_name="mail.mail">-->
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                                <!--                                    <div class="s_website_form_field mb-3 col-12    s_website_form_dnone"-->
+                                <!--                                         data-name="Field">-->
+                                <!--                                        <div class="row s_col_no_resize s_col_no_bgcolor">-->
+                                <!--                                            <label class="col-form-label col-sm-auto s_website_form_label "-->
+                                <!--                                                   style="width: 200px">-->
+                                <!--                                                <span class="s_website_form_label_content"></span>-->
+                                <!--                                            </label>-->
+                                <!--                                            <div class="col-sm">-->
+                                <!--                                                <input type="hidden" class="form-control s_website_form_input"-->
+                                <!--                                                       name="email_to" value="info@yourcompany.example.com"/>-->
+                                <!--                                                <div class="s_website_form_field_description small form-text text-muted">-->
+                                <!--                                                    Separate email addresses with a comma.-->
+                                <!--                                                </div>-->
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+
+                                <div class="s_website_form_field mb-3 col-12 s_website_form_custom s_website_form_required  "
+                                     data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label "
+                                               style="width: 200px" for="omulmedrzsc">
+                                            <span class="s_website_form_label_content">Your Name</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="text" class="form-control s_website_form_input" name="name"
+                                                   required="1" id="name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="s_website_form_field mb-3 col-12 s_website_form_custom   "
+                                     data-type="tel" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label "
+                                               style="width: 200px" for="o0uargtol083e">
+                                            <span class="s_website_form_label_content">Phone Number</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="number" class="form-control s_website_form_input" name="phone"
+                                                   id="phone"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="s_website_form_field mb-3 col-12  s_website_form_model_required  "
+                                     data-type="email" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label "
+                                               style="width: 200px" for="oom043p0eko">
+                                            <span class="s_website_form_label_content">Your Email</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="email" class="form-control s_website_form_input"
+                                                   name="email_from" required="true"
+                                                   id="email_from"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                                    <div style="width: 200px;" class="s_website_form_label"></div>
+                                    <button type="submit" id="submit-button1" class="btn btn-primary">Submit</button>
+                                    <!--                                        <button type="submit"-->
+                                    <!--                                                class="btn btn-primary btn-lg s_website_form_send o_default_snippet_text">-->
+                                    <!--                                            Submit-->
+                                    <!--                                        </button>-->
+                                    <span id="s_website_form_result"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+
+                <section class="s_comparisons pt32 pb32 o_colored_level" data-snippet="s_comparisons"
+                         data-name="Comparisons" style="background-image: none;">
+                    <div class="container">
+                        <div class="row">
+                            <h3>New Chits</h3>
+                            <t t-foreach="chit_items" t-as="chit">
+                                <div class="col-lg-4 s_col_no_bgcolor text-center pt32 pb16" data-name="Box">
+                                    <div class="card bg-200">
+                                        <h4 class="card-header o_default_snippet_text">
+                                            <t t-esc="chit.get('name')"/>
+                                        </h4>
+                                        <div class="card-body text-center">
+                                            <h2 class="card-title">
+                                                <!--                                                    <span class="s_comparisons_currency o_default_snippet_text">$</span>-->
+                                                <span class="s_comparisons_price">
+                                                    <b class="o_default_snippet_text">
+                                                        <t t-esc="chit.get('amount')"/>
+                                                    </b>
+                                                </span>
+                                                <!--                                                    <span class="s_comparisons_decimal o_default_snippet_text">.00-->
+                                                <!--                                                    </span>-->
+                                            </h2>
+                                            <!--                                                <small class="o_default_snippet_text">/ month</small>-->
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item o_default_snippet_text">1st month installment
+                                                - Rs.
+                                                <t t-esc="chit.get('amount_payable')"/>
+                                            </li>
+                                            <li class="list-group-item o_default_snippet_text">Next month
+                                                installment - Rs.
+                                                <t t-esc="chit.get('amount_payable')"/>
+                                            </li>
+                                            <li class="list-group-item o_default_snippet_text">Start date
+                                                <t t-esc="chit.get('start_date')"/>
+                                            </li>
+                                            <li class="list-group-item o_default_snippet_text">Total months -
+                                                <t t-esc="chit.get('span')"/>
+                                            </li>
+                                        </ul>
+                                        <div class="view-container">
+                                            <div class="card-footer">
+                                                <a href="#"
+                                                   class="btn btn-primary mb-2 o_default_snippet_text"
+                                                   id="open-modal-button">
+                                                    Enquiry
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="myModal" class="modal">
+                                            <div class="modal-content">
+                                                <span class="close">X</span>
+                                                <form action="/submit/data" method="POST">
+                                                    <input type="hidden" name="csrf_token"
+                                                           t-att-value="request.csrf_token()"/>
+                                                    <div class="form-container">
+                                                        <label for="name">Name:</label>
+                                                        <input type="text" id="name" name="name"/>
+
+                                                        <label for="phone">Phone:</label>
+                                                        <input type="text" id="phone" name="phone"/>
+
+                                                        <label for="email">Email:</label>
+                                                        <input type="text" id="email" name="email"/>
+                                                        <label class="checkbox-label">Are you ready to join?
+                                                            <input type="checkbox" id="click" name="click"/>
+                                                        </label>
+
+
+                                                        <!--                                                            <label for="click">Confirm:</label>-->
+                                                        <!--                                                            <input type="checkbox" id="click" name="click"-->
+                                                        <!--                                                                   style="margin-bottom:2px;"/>-->
+
+                                                        <button type="submit" id="submit-button">Submit</button>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div id="confirmationModal" class="modal">
+                                            <div class="modal-content">
+                                                <div class="form-container">
+                                                    <span class="close">X</span>
+                                                    <p>Are You ready to join this chit?</p>
+                                                    <button id="confirm-button">Yes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            // Get the checkbox and both modals
+                                            const checkBox = document.getElementById("click");
+                                            const modal = document.getElementById("myModal");
+                                            const confirmationModal = document.getElementById("confirmationModal");
+
+                                            // When the checkbox is clicked, show the confirmation modal
+                                            checkBox.addEventListener("change", function () {
+                                            if (checkBox.checked) {
+                                            confirmationModal.style.display = "block";
+                                            } else {
+                                            confirmationModal.style.display = "none";
+                                            }
+                                            });
+
+                                            // Close modals when the "X" is clicked
+                                            const closeButtons = document.querySelectorAll(".close");
+                                            closeButtons.forEach(function (button) {
+                                            button.addEventListener("click", function () {
+                                            modal.style.display = "none";
+                                            confirmationModal.style.display = "none";
+                                            });
+                                            });
+
+                                            // Handle the OK button in the confirmation modal
+                                            const confirmButton = document.getElementById("confirm-button");
+                                            confirmButton.addEventListener("click", function () {
+                                            // Close the confirmation modal
+                                            confirmationModal.style.display = "none";
+
+                                            // You can perform additional actions here after confirmation
+                                            });
+
+                                            // You may also handle submitting the form when the "Submit" button is
+                                            clicked
+                                            const submitButton = document.getElementById("submit-button");
+                                            submitButton.addEventListener("click", function () {
+                                            // Handle form submission
+                                            });
+                                        </script>
+
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_numbers o_cc o_cc2 pt24 pb24 o_colored_level" data-snippet="s_numbers"
+                         data-name="Numbers" style="background-image: none;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3 text-center pt24 pb24 o_colored_level">
+                                <span class="s_number display-4 o_default_snippet_text">
+                                    <t t-esc="new_chits"></t>
+                                </span>
+                                <h6 class="o_default_snippet_text">New Chits</h6>
+                            </div>
+                            <div class="col-lg-3 text-center pt24 pb24 o_colored_level">
+                                <span class="s_number display-4 o_default_snippet_text">
+                                    <t t-esc="waiting_chits"></t>
+                                </span>
+                                <h6 class="o_default_snippet_text">Waiting Chits</h6>
+                            </div>
+                            <div class="col-lg-3 text-center pt24 pb24 o_colored_level">
+                                <span class="s_number display-4 o_default_snippet_text">
+                                    <t t-esc="active_chits"></t>
+                                </span>
+                                <h6 class="o_default_snippet_text">Active Chits</h6>
+                            </div>
+                            <div class="col-lg-3 text-center pt24 pb24 o_colored_level">
+                                <span class="s_number display-4 o_default_snippet_text">
+                                    <t t-esc="all_chits"></t>
+                                </span>
+                                <h6 class="o_default_snippet_text">All Chits</h6>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+            <!--            </main>-->
+
+        </xpath>
+    </template>
+</odoo>

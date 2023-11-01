@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="chit_fund_details_template">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <br/>
+                        <h5>Chit Fund Details</h5>
+                        <br/>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>Name:</strong>
+                            </div>
+                            <div class="col-8">
+                                <t t-esc="chit_fund.name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>Amount:</strong>
+                            </div>
+                            <div class="col-8">
+                                <t t-esc="chit_fund.amount"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>Months:</strong>
+                            </div>
+                            <div class="col-8">
+                                <t t-esc="chit_fund.span"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>Start Date:</strong>
+                            </div>
+                            <div class="col-8">
+                                <t t-esc="chit_fund.start_date"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>End Date:</strong>
+                            </div>
+                            <div class="col-8">
+                                <t t-esc="chit_fund.end_date"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>Lucky Draw:</strong>
+                            </div>
+                            <div class="col-8">
+                                <t t-esc="chit_fund.lucky_draw_till"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="check-container">
+                            <div class="col-10 text-center">
+                                <button class="btn btn-primary mx-auto" id="open-modal-button">Enquiry</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">X</span>
+                        <form action="/submit/data" method="POST">
+                            <input type="hidden" name="csrf_token"
+                                   t-att-value="request.csrf_token()"/>
+                            <div class="form-container">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name"/>
+
+                                <label for="phone">Phone:</label>
+                                <input type="text" id="phone" name="phone"/>
+
+                                <label for="email">Email:</label>
+                                <input type="text" id="email" name="email"/>
+                                <label class="checkbox-label text-center">Are you ready to join?
+                                    <input type="checkbox" id="click" name="click"/>
+                                </label>
+
+
+                                <!--                                                            <label for="click">Confirm:</label>-->
+                                <!--                                                            <input type="checkbox" id="click" name="click"-->
+                                <!--                                                                   style="margin-bottom:2px;"/>-->
+
+                                <button type="submit" id="submit-button" class="abc text-center">Submit</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="confirmationModal" class="modal">
+                    <div class="modal-content">
+                        <div class="form-container">
+                            <span class="close">X</span>
+                            <p>Are You ready to join this chit?</p>
+                            <button id="confirm-button">Yes</button>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    // Get the checkbox and both modals
+                    const checkBox = document.getElementById("click");
+                    const modal = document.getElementById("myModal");
+                    const confirmationModal = document.getElementById("confirmationModal");
+
+                    // When the checkbox is clicked, show the confirmation modal
+                    checkBox.addEventListener("change", function () {
+                    if (checkBox.checked) {
+                    confirmationModal.style.display = "block";
+                    } else {
+                    confirmationModal.style.display = "none";
+                    }
+                    });
+
+                    // Close modals when the "X" is clicked
+                    const closeButtons = document.querySelectorAll(".close");
+                    closeButtons.forEach(function (button) {
+                    button.addEventListener("click", function () {
+                    modal.style.display = "none";
+                    confirmationModal.style.display = "none";
+                    });
+                    });
+
+                    // Handle the OK button in the confirmation modal
+                    const confirmButton = document.getElementById("confirm-button");
+                    confirmButton.addEventListener("click", function () {
+                    // Close the confirmation modal
+                    confirmationModal.style.display = "none";
+
+                    // You can perform additional actions here after confirmation
+                    });
+
+                    // You may also handle submitting the form when the "Submit" button is
+                    clicked
+                    const submitButton = document.getElementById("submit-button");
+                    submitButton.addEventListener("click", function () {
+                    // Handle form submission
+                    });
+                </script>
+            </div>
+
+        </t>
+    </template>
+</odoo>

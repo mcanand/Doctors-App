@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="update_winner_wizard_form" model="ir.ui.view">
+        <field name="name">update.winner.form</field>
+        <field name="model">update.winner</field>
+        <field name="arch" type="xml">
+            <form string="Lucky Draw">
+                <group>
+                    <group>
+                        <field name="chit_partner_ids" widget="many2many_tags"
+                               string="Members with Same Bid"/>
+                        <field name="chit_partner_id" string="Winner" widget="selection"/>
+                    </group>
+                    <group>
+                        <button name="action_pick_one" type="object"
+                                string="Pick Random" class="oe_highlight"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_done" string="Done" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

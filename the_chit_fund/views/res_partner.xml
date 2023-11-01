@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_partner_form_chit_fund" model="ir.ui.view">
+        <field name="name">view.res.partner.chit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_partner_chit_fund" type="object"
+                        class="oe_stat_button" icon="fa-list">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Chit Funds
+                        </span>
+                    </div>
+                </button>
+                 <button name="action_partner_my_chit" type="object"
+                        class="oe_stat_button" icon="fa-list">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">My Chits
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+            <field name="company_id" position="after">
+                <field name="company_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+</odoo>

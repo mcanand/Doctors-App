@@ -1,0 +1,133 @@
+
+.carousel-item{
+ padding: 15px;
+ cursor: -webkit-grabbing;
+
+  & img{
+    border-radius: 30px;
+    height: 500px;
+
+    box-shadow: 0px 5px 5px rgba(0,0,0,.21);
+  transition: .25s linear;
+  }
+
+  &:hover{
+    & img{
+      transform: translatey(-1%);
+    }
+  }
+}
+
+
+
+.carousel-indicators li{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #000 \9;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    margin: 2px;
+    position: relative;
+    top: 30px;
+  &.active{
+    background: #fff;
+
+  }
+}
+
+
+@media only screen and (max-width: 650px)
+{
+  .carousel-item img{
+    height: auto;
+  }
+}
+.carousel-control-prev{
+  left: -50px;
+  margin: 0 -25px;
+}
+.carousel-control-next{
+  right: -50px;
+  margin: 0 -25px;
+}
+
+/* Modal container */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Close button */
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Form container within the modal */
+.form-container {
+    padding: 10px;
+}
+
+/* Form labels and input fields */
+.form-container label {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+/* Form input fields */
+.form-container input[type="text"],
+.form-container input[type="checkbox"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+
+/* Submit button */
+.form-container #submit-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Change the submit button style when hovered */
+.form-container #submit-button:hover {
+    background-color: #0056b3;
+}
+
+.form-container label.checkbox-label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Style the checkbox */
+.form-container input[type="checkbox"] {
+    margin-left: 5px;
+}

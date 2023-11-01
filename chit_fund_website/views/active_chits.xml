@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="active_chit_fund_details_template">
+        <t t-call="website.layout">
+
+            <div class="container">
+                <br/>
+                <h5>Chit Fund Details</h5>
+                <br/>
+                <p>Name:
+                    <t t-esc="chit_fund.name"/>
+                    <br/>
+                    Amount:
+                    <t t-esc="chit_fund.amount"/>
+                    <br/>
+                    Months:
+                    <t t-esc="chit_fund.span"/>
+                    <br/>
+                    Start Date:
+                    <t t-esc="chit_fund.start_date"/>
+                    <br/>
+                    End Date:
+                    <t t-esc="chit_fund.end_date"/>
+                    <br/>
+                    Lucky Draw:
+                    <t t-esc="chit_fund.lucky_draw_till"/>
+                    <br/>
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Amount to Pay</th>
+                            <th>Draw Type</th>
+                            <th>Winner</th>
+                            <th>Winning Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="monthly_amounts" t-as="month">
+                            <tr>
+                                <td>
+                                    <t t-esc="month.get('month')"/>
+                                </td>
+                                <td>Rs
+                                    <t t-esc="month.get('payable')"/>
+                                </td>
+                                <td>
+                                    <t t-esc="month.get('draw_type')"/>
+                                </td>
+                                <td>
+                                    <t t-esc="month.get('winner')"/>
+                                </td>
+                                <td>
+                                    <t t-esc="month.get('won_amount')"/>
+                                </td>
+                                <td>
+                                    <t t-if="not month.get('paid')">
+                                        <button>Pay</button>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            </div>
+        </t>
+    </template>
+</odoo>

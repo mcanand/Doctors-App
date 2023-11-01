@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="chit_partner_month_due_form" model="ir.ui.view">
+        <field name="name">chit.partner.month.due.form</field>
+        <field name="model">chit.partner.month.due</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="chit_partner_id"/>
+                            <field name="chit_month_id"/>
+                        </group>
+                        <group>
+                            <field name="chit_month_partner_id"/>
+                            <field name="due_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="chit_partner_month_due_tree" model="ir.ui.view">
+        <field name="name">chit.partner.month.due.tree</field>
+        <field name="model">chit.partner.month.due</field>
+        <field name="arch" type="xml">
+            <tree string="Partner Dues" delete="0" limit="150">
+                <field name="chit_partner_id"/>
+                <field name="chit_month_id"/>
+                <field name="paid_on"/>
+                <field name="paid_month"/>
+                <field name="due_amount"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'paid'"/>
+                <button type="object" name="action_mark_paid" icon="fa-check"
+                        class="btn btn-success" string="Paid"
+                        attrs="{'invisible': [('state','=','paid')]}"/>
+                <button type="object" name="action_mark_not_paid" icon="fa-times"
+                        class="btn" string="Not Paid"
+                        attrs="{'invisible': [('state','=','pending')]}"/>
+
+            </tree>
+        </field>
+    </record>
+</odoo>

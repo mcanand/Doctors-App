@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_chit_fund,chit.fund,model_chit_fund,,1,1,1,1
+access_chit_month,chit.month,model_chit_month,,1,1,1,1
+access_chit_partner,chit.partner,model_chit_partner,,1,1,1,1
+access_chit_month_partner,chit.month.partner,model_chit_month_partner,,1,1,1,1
+access_chit_month_bid,chit.month.bid,model_chit_month_bid,,1,1,1,1
+access_chit_partner_month_due,chit.partner.month.due,model_chit_partner_month_due,,1,1,1,1
+access_update_winner,update.winner,model_update_winner,,1,1,1,1
+access_pay_due,pay.due,model_pay_due,,1,1,1,1
+access_payment_daily,payment.daily,model_payment_daily,,1,1,1,1

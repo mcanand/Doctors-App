@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_attachment_selection_form" model="ir.ui.view">
+        <field name="name">contact.attachment.selection.form</field>
+        <field name="model">contact.attachment.selection</field>
+        <field name="arch" type="xml">
+            <form>
+                 <group>
+                    <field name="name" required="1"/>
+                   </group>
+                <group>
+                    <field name="certificates" widget="many2many_binary"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

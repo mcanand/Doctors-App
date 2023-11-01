@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="chit_month_bid_form" model="ir.ui.view">
+        <field name="name">chit.month.bid.form</field>
+        <field name="model">chit.month.bid</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+<!--                            <field name="chit_partner_id" widget="selection"   required="True"/>-->
+                            <field name="chit_partner_id" widget="selection" required="True"/>
+
+<!--                            <field name="chit_month_id"/>-->
+                        </group>
+                        <group>
+                            <field name="bid_amount"/>
+                            <field name="chit_partner_ids" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="chit_month_bid_trees" model="ir.ui.view">
+        <field name="name">chit.month.bid.tree</field>
+        <field name="model">chit.month.bid</field>
+        <field name="arch" type="xml">
+            <tree string="Chit Month Bids" duplicate="0">
+                <field name="chit_partner_id"/>
+<!--                <field name="chit_month_id"/>-->
+                <field name="bid_amount"/>
+                <field name="chit_partner_ids" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

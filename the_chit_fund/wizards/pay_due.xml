@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="pay_due_wizard_form" model="ir.ui.view">
+        <field name="name">pay.due</field>
+        <field name="model">pay.due</field>
+        <field name="arch" type="xml">
+            <form string="Lucky Draw">
+                        <field name="chit_partner_month_due_ids" widget="many2many" readonly="True"/>
+
+                <footer>
+                    <button name="action_done" string="Done" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

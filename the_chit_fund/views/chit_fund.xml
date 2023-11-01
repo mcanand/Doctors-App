@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="chit_fund_tree" model="ir.ui.view">
+        <field name="name">chit.fund.tree</field>
+        <field name="model">chit.fund</field>
+        <field name="arch" type="xml">
+            <tree string="State" duplicate="0">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="amount"/>
+                <field name="span"/>
+                <field name="state" widget="badge"
+                       decoration-primary="state=='in_progress'"
+                       decoration-success="state=='done'"
+                       decoration-danger="state=='close'"/>
+                <field name="draw_type" widget="badge"
+                       decoration-info="draw_type == 'lucky'"
+                       decoration-success="draw_type=='bid'"/>
+                <field name="current_month"/>
+                <field name="start_date" optional="hide"/>
+                <field name="current_month_date"/>
+                <field name="end_date" optional="hide"/>
+                <field name="count" optional="hide"/>
+                <field name="chit_commission" optional="hide"/>
+                <field name="other_deduction" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="chit_fund_graph" model="ir.ui.view">
+        <field name="name">chit.fund.graph</field>
+        <field name="model">chit.fund</field>
+        <field name="arch" type="xml">
+            <graph string="Chit Analysis" sample="1">
+                <field name="state"/>
+                <field name="start_date"/>
+                <field name="amount"/>
+                <field name="current_month"/>
+            </graph>
+        </field>
+    </record>
+    <record id="chit_fund_calendar" model="ir.ui.view">
+        <field name="name">chit.fund.calendar</field>
+        <field name="model">chit.fund</field>
+        <field name="arch" type="xml">
+            <calendar string="Chit Fund" create="0" mode="month"
+                      date_start="current_month_date" delete="0"
+                      hide_time="false" event_open_popup="false">
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="current_month"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="chit_fund_kanban" model="ir.ui.view">
+        <field name="name">chit.fund.kanban</field>
+        <field name="model">chit.fund</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile " sample="1" default_order="id desc"
+                    default_group_by="state" quick_create="0"
+                    group_expand="1">
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="state"/>
+                <field name="span"/>
+                <field name="members_count"/>
+                <field name="current_month"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click mt-2 bg-secondary shadow-sm">
+                            <div class="row p-2">
+                                <div class="col-9">
+                                    <h2>
+                                        <field name="name"/>
+                                    </h2>
+                                </div>
+                                <div class="col-3 align-self-center">
+                                    <span class="btn float-end">
+                                        <field name="state"
+                                               widget="label_selection"
+                                               options="{'classes': {'draft': 'warning','in_progress':'info', 'done': 'success','close':'danger'}}"
+                                               readonly="1"/>
+                                    </span>
+                                </div>
+                                <div class="col-6 align-self-center">
+                                    <h5>
+                                        <field name="amount"
+                                               widget="monetary"/>
+                                    </h5>
+                                </div>
+                                <div class="col-6">
+                                    <button name="action_members" type="object"
+                                            class="">
+                                        <i class="fa fa-users"/>
+                                        Members-
+                                        <field name="members_count"/>
+                                    </button>
+                                </div>
+                                <div class="col-6 mt-1 align-self-center">
+                                    <field name="span"/>
+                                    Months
+                                </div>
+                                <div class="col-6 mt-1">
+                                    <button name="action_current_month"
+                                            type="object"
+                                            class="btn btn-primary w-100">
+                                        <i class="fa fa-calendar"/>
+                                        month-
+                                        <field name="current_month"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="chit_fund_form" model="ir.ui.view">
+        <field name="name">chit.fund.form</field>
+        <field name="model">chit.fund</field>
+        <field name="arch" type="xml">
+            <form string="Chit Fund" duplicate="0">
+                <header>
+                    <button name="action_start" string="Start" type="object"
+                            states="draft" class="oe_highlight"
+                            data-hotkey="s"/>
+                    <button name="action_close" string="Cancel" type="object"
+                            class="oe_highlight"
+                            data-hotkey="c"
+                            attrs="{'invisible': ['|',('current_month','>',1),('state','=','close')]}"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,in_progress,done,close"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_all_months" type="object"
+                                class="oe_stat_button" icon="fa-list">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">All Month Details
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_members" type="object"
+                                class="oe_stat_button" icon="fa-users">
+                            <div class="o_stat_info">
+                                <field name="members_count"
+                                       class="o_stat_value"/>
+                                <span class="o_stat_text">Members</span>
+                            </div>
+                        </button>
+                        <button name="action_current_month" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <field name="current_month" readonly="True"
+                                       class="o_stat_value"/>
+                                <span class="o_stat_text">Current month
+                                    Details
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="type" widget="radio"
+                           options="{'horizontal': true}"/>
+                    <h1>
+                        <field name="name" placeholder="Chit Name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="span"/>
+                            <field name="amount" widget='monetary'/>
+                            <field name="amount_words" string=""/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="balance_amount"/>
+                        </group>
+                        <group>
+                            <field name="count"/>
+                            <field name="current_month"/>
+                            <field name="amount_payable" widget='monetary'/>
+                            <field name="amount_payable_words" string=""/>
+                            <field name="company_id"/>
+                            <field name="currency_id"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Other Info" autofocus="autofocus">
+                            <p>
+                                <em>Fill up the below fields if necessary</em>
+                            </p>
+
+                            <group>
+                                <group>
+                                    <field name="draw_type" widget="badge"
+                                           decoration-info="draw_type == 'lucky'"
+                                           decoration-success="draw_type == 'bid'"/>
+                                    <field name="lucky_draw_till"/>
+                                </group>
+                                <group>
+                                    <field name="chit_commission"/>
+                                    <field name="other_deduction"/>
+                                </group>
+                            </group>
+                            <p class="text-info">
+                                <em>If "lucky draw till" field is 0 then the
+                                    draw type will be bidding provide a
+                                    number that is grater than 0 to go with
+                                    lucky draw (the field says how many months
+                                    of lucky draw you need)
+                                </em>
+                            </p>
+                            <p class="text-info">
+                                <em>"Draw type" wil be calculated automatically
+                                    as per "lucky draw till" if it is
+                                    less than "current month" then draw type is
+                                    bidding and if it is greater than then it
+                                    will automatically changes to lucky draw
+                                </em>
+                            </p>
+                        </page>
+                        <page string="Chit Partners"
+                              name="chit_partners">
+                            <field name="chit_partner_ids" widget="one2many"/>
+                        </page>
+                        <page string="Chit Months Record">
+                            <field name="chit_month_ids" widget="one2many"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_chit_fund" model="ir.actions.act_window">
+        <field name="name">Chit Fund</field>
+        <field name="res_model">chit.fund</field>
+        <field name="view_mode">kanban,graph,tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create new Chit fund
+            </p>
+        </field>
+    </record>
+    <record id="action_res_company_form_in" model="ir.actions.act_window">
+            <field name="name">Companies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.company</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'edit':'1'}</field>
+    </record>
+    <menuitem id="chit_fund_menu_item" name="Chit Fund" sequence="1">
+        <menuitem id="chit_fund_menu" name="My Chits" action="action_chit_fund" sequence="1"/>
+        <menuitem id="res_company_menu" name="My Company" action="action_res_company_form_in"/>
+        <menuitem id="res_partner_menu" name="Members" action="base.action_partner_form"/>
+    </menuitem>
+</odoo>
