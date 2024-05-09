@@ -3,7 +3,7 @@
         <t t-call="website.layout">
              <t t-set="app_nav_in_content">
                 <a href="javascript: window.history.back()">
-                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                    <i style="font-size:30px;" class="fa fa-angle-left"/>
                 </a>
              </t>
             <div class="text-center">
@@ -13,11 +13,11 @@
                 <span style="color:#007ab4;font-size: 38px;">R-<span>me</span><br/>Counseling</span>
             </div><br/>
 
-                <div class="col-12 col-md-6 text-center">
+                <div class="col-12 col-md-6 text-center text-white">
                     <div class="add_button">
                         <i class="fa fa-user-md"></i>
                         <a t-attf-href="/enter/details" class="signup-link" style="color: white;">
-                            <span class="text-left">Doctor...</span>
+                            <span class="text-left text-white poppins400">I am Doctor</span>
                         </a>
                     </div>
                 </div><br/>
@@ -25,7 +25,7 @@
                     <div class="add_button">
                         <i class="fa fa-user"></i>
                         <a href="/web/signup?signup_enabled=True" class="signup-link" style="color: white;">
-                            <span class="text-left">Patient...</span>
+                            <span class="text-left text-white poppins400">I am Patient</span>
                         </a>
                     </div>
 

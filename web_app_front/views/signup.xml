@@ -3,6 +3,11 @@
         <xpath expr="//t[@t-call='web.login_layout']" position="replace">
             <t t-call="website.layout">
                 <!-- =================================== -->
+                <t t-set="app_nav_in_content">
+                <a href="javascript: window.history.back()">
+                    <i style="font-size:30px;" class="fa fa-angle-left"/>
+                </a>
+             </t>
                 <form class="oe_signup_form" role="form" method="post" t-if="not message">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                      <div class="text-center">

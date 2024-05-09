@@ -564,7 +564,7 @@ class AppController(http.Controller):
         india_states = http.request.env['res.country.state'].sudo().search([('country_id', 'in', countries.ids)])
         return http.request.render('web_app_front.enter_details', {'departments': departments, 'states': india_states})
 
-    @http.route('/doctor/details/save', type='http', auth='user', website=True)
+    @http.route('/doctor/details/save', type='http', auth='public', website=True)
     def add_doctor(self, **kw):
         # file = kw.get('image_1920').filename()
         request.env['doctor.details'].sudo().create({
@@ -574,7 +574,6 @@ class AppController(http.Controller):
             'mobile': kw.get('mobile'),
             'email': kw.get('email'),
             'experience': kw.get('experience'),
-
             'state_id': kw.get('state_id'),
             # 'profile_pic':base64.b64encode(file),
             'time_from': kw.get('time_from'),

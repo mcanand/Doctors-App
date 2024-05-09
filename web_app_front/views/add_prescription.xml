@@ -4,7 +4,7 @@
             <!-- Your header content here -->
             <t t-set="app_nav_in_content">
                 <a href="javascript: window.history.back()">
-                    <i style="font-size:16px;" class="fa fa-angle-left"/>
+                    <i style="font-size:30px;" class="fa fa-angle-left"/>
                 </a>
                 <span class="poppins300 ml-2">
                     Prescriptions

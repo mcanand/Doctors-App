@@ -17,7 +17,7 @@
                       onsubmit="this.action = '/web/login' + location.hash">
 
                     <h1 style="text-align:center; font-size:50px;">Login</h1>
-                    <p class="mb-5 text-center poppins400" style="font-size:20px;" >Dont have an account? <a href="/loading/page">sign up</a></p>
+                    <p class="mb-5 text-center poppins400" style="font-size:20px;" >Dont have an account? <a href="/loading/page"><el>sign up</el></a></p>
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <t t-if="request.env.user.has_group('base.group_user')">
                         <div class="mb-3" t-if="databases and len(databases) &gt; 1">

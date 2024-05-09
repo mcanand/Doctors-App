@@ -1,5 +1,4 @@
 .field-login label{
-
     font-size:17px;
     color:#007ab4;
 }
@@ -8,15 +7,15 @@
     font-size:17px;
      color:#007ab4;
 }
-.form-control,.form-select{
-    border-radius:0px !important;
+div .form-control,.form-select{
+    border-radius:20px !important;
     background-color: white;
-      border: 1px solid #007ab4 !important;
-    font-size:14px;
+    border: 1px solid #007ab4 !important;
+    font-size:16px;
 
 }
 .form-control:focus{
-    border-radius:0px !important;
+    border-radius:20px !important;
     background-color: white !important;
       border: 1px solid #007ab4 !important;
     box-shadow:none !important;
@@ -28,8 +27,8 @@
 }
 .button_login{
     width: 50% !important;
-    padding:10px;
-    border-radius:10px;
+    padding:10px !important;
+    border-radius:20px !important;
     font-size:17px;
     color:white !important;
     background-color: #007ab4 !important;
